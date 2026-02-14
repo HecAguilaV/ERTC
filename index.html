@@ -416,14 +416,14 @@
                 </button>
                 <div class="main-title">Vista: <span id="viewName">Matriz de Sinergias</span></div>
                 <div class="actions">
-                    <a class="btn" id="openTab" href="#" target="_blank"
-                        data-title="Abrir esta vista en una pestaña nueva"><span
-                            style="font-size:15px; line-height:1; vertical-align:middle; margin-right:6px;">↗</span>
-                        Abrir</a>
+                    <button class="btn" id="goBack" onclick="closeViewer()" style="display: none;"
+                        data-title="Cerrar vista y volver al inicio">
+                        <span style="font-size:16px; line-height:1; vertical-align:middle; margin-right:6px;">←</span>
+                        Volver al ERTC
+                    </button>
                     <button class="btn" id="reload" data-title="Recargar solo la visualización actual"><span
                             style="font-size:20px; line-height:1; vertical-align:middle; margin-right:6px;">⟳</span>
                         Recargar</button>
-
                 </div>
             </div>
 
@@ -433,119 +433,7 @@
 
     </div>
 
-    <script>
-        const pages = [
-            {
-                key: "matriz",
-                title: "Matriz de Sinergias",
-                desc: "Quién potencia a quién. Lectura relacional.",
-                icon: "🧩",
-                file: "Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html"
-            },
-            {
-                key: "valor",
-                title: "Mapa de Valor",
-                desc: "Beneficios legítimos por participante.",
-                icon: "💠",
-                file: "Mapa_de_Valor_Beneficios_por_Participante_RobertoSalas.html"
-            },
-            {
-                key: "cadena",
-                title: "Cadena de Valor",
-                desc: "Flujo completo del proyecto.",
-                icon: "🔗",
-                file: "Cadena_de_Valor_Proyecto_Bomberos_RobertoSalas.html"
-            },
-            {
-                key: "qw",
-                title: "Quick Wins Cruzados",
-                desc: "Victorias compartidas en corto plazo.",
-                icon: "⚡",
-                file: "Quick_Wins_Cruzados_Victorias_Compartidas_RobertoSalas.html"
-            },
-            {
-                key: "market",
-                title: "Marketplace de Expertise",
-                desc: "Capacidades vs necesidades.",
-                icon: "🧠",
-                file: "Marketplace_Expertise_Capacidades_y_Necesidades_RobertoSalas.html"
-            }
-        ];
-
-        const nav = document.getElementById("nav");
-        const viewer = document.getElementById("viewer");
-        const viewName = document.getElementById("viewName");
-        const openTab = document.getElementById("openTab");
-        const reloadBtn = document.getElementById("reload");
-        const menuToggle = document.getElementById("menuToggle");
-        const closeSidebar = document.getElementById("closeSidebar");
-        const sidebar = document.getElementById("sidebar");
-
-        const homeSection = document.getElementById("home-ertc");
-        const mainHeader = document.querySelector(".main-header");
-
-        function explore() {
-            if (window.innerWidth <= 900) {
-                // En móvil, abrimos el drawer
-                sidebar.classList.add("active");
-            } else {
-                // En desktop, el menú ya es visible. 
-                // Podríamos hacer un efecto visual, pero por ahora solo el usuario
-                // ya tiene la atención en la izquierda.
-            }
-        }
-
-        function activate(key) {
-            // Hide Home, Show Viewer
-            homeSection.style.display = "none";
-            mainHeader.style.display = "flex";
-            viewer.style.display = "block";
-
-            document.querySelectorAll(".nav-item")
-                .forEach(i => i.classList.toggle("active", i.dataset.key === key));
-            const p = pages.find(p => p.key === key);
-
-            // Only reload if src changes to avoid flickering if clicking same item
-            if (viewer.contentWindow.location.pathname.indexOf(p.file) === -1) {
-                viewer.src = p.file;
-            }
-
-            viewName.textContent = p.title;
-            openTab.href = p.file;
-            sidebar.classList.remove("active");
-        }
-
-        pages.forEach((p, i) => {
-            const el = document.createElement("div");
-            el.className = "nav-item" + (i === 0 ? " active" : "");
-            el.dataset.key = p.key;
-            el.innerHTML = `
-    <div class="nav-icon">${p.icon}</div>
-    <div>
-      <h3>${p.title}</h3>
-      <p>${p.desc}</p>
-    </div>`;
-            el.onclick = () => activate(p.key);
-            nav.appendChild(el);
-        });
-
-        reloadBtn.onclick = () => viewer.contentWindow?.location?.reload?.();
-
-        menuToggle.onclick = () => {
-            if (window.innerWidth <= 900) {
-                // Mobile behavior: Toggle drawer
-                sidebar.classList.add("active");
-            } else {
-                // Desktop behavior: Toggle collapse
-                document.querySelector(".app").classList.toggle("sidebar-collapsed");
-            }
-        };
-
-        closeSidebar.onclick = () => sidebar.classList.remove("active");
-
-        // Estado inicial explícito
-        // activate("matriz"); // Comentado para mostrar Home por defecto
-    </script>
+    <script src="app.js"></script>
 
 </body>
 
