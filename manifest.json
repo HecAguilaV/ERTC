@@ -1,0 +1,52 @@
+{
+  "title": "ERTC — Estructura Relacional del Trabajo Colectivo",
+  "description": "Visualización relacional del trabajo colectivo en el contexto de la Comisión de Digitalización de Bomberos (CCHIA)",
+  "last_updated": "2026-02-14",
+  "matrices": [
+    {
+      "id": "sinergias",
+      "icon": "🧩",
+      "title": "Matriz de Sinergias",
+      "subtitle": "Quién potencia a quién. Lectura relacional.",
+      "author": "Roberto Salas",
+      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html",
+      "order": 1
+    },
+    {
+      "id": "mapa-valor",
+      "icon": "💠",
+      "title": "Mapa de Valor",
+      "subtitle": "Beneficios legítimos por participante.",
+      "author": "Roberto Salas",
+      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Mapa_de_Valor_Beneficios_por_Participante_RobertoSalas.html",
+      "order": 2
+    },
+    {
+      "id": "cadena-valor",
+      "icon": "🔗",
+      "title": "Cadena de Valor",
+      "subtitle": "Flujo completo del proyecto.",
+      "author": "Roberto Salas",
+      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Cadena_de_Valor_Proyecto_Bomberos_RobertoSalas.html",
+      "order": 3
+    },
+    {
+      "id": "quick-wins",
+      "icon": "⚡",
+      "title": "Quick Wins Cruzados",
+      "subtitle": "Victorias compartidas en corto plazo.",
+      "author": "Roberto Salas",
+      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Quick_Wins_Cruzados_Victorias_Compartidas_RobertoSalas.html",
+      "order": 4
+    },
+    {
+      "id": "marketplace",
+      "icon": "🧠",
+      "title": "Marketplace de Expertise",
+      "subtitle": "Capacidades vs necesidades.",
+      "author": "Roberto Salas",
+      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Marketplace_Expertise_Capacidades_y_Necesidades_RobertoSalas.html",
+      "order": 5
+    }
+  ]
+}
