@@ -249,6 +249,62 @@
             border: 0;
         }
 
+        /* ===== HOME ===== */
+        .ertc-home {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            background: radial-gradient(circle at top right, #1a3158 0%, #0a1628 60%);
+        }
+
+        .home-content {
+            max-width: 600px;
+            animation: fadeIn 0.5s ease-out;
+            text-align: center;
+        }
+
+        .home-content h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 32px;
+            line-height: 1.2;
+            margin: 16px 0 24px;
+            background: linear-gradient(135deg, #e8edf5 0%, #d4a843 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .home-content p {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #94a3b8;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+
+        .btn-primary {
+            display: none;
+            /* Oculto en desktop */
+            margin-top: 10px;
+            background: #d4a843;
+            color: #0a1628;
+            border: none;
+            padding: 12px 24px;
+            font-size: 14px;
+            font-weight: 600;
+            border-radius: 99px;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'DM Sans', sans-serif;
+        }
+
+        .btn-primary:hover {
+            background: #e5b648;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(212, 168, 67, 0.3);
+        }
+
         /* ===== RESPONSIVE ===== */
         /* ===== RESPONSIVE ===== */
         .mobile-menu-toggle {
@@ -286,6 +342,11 @@
             #closeSidebar {
                 display: block !important;
             }
+
+            .btn-primary {
+                display: inline-block;
+                /* Visible solo en móvil */
+            }
         }
     </style>
 </head>
@@ -318,7 +379,38 @@
 
         <!-- MAIN -->
         <main class="main">
-            <div class="main-header">
+            <div id="home-ertc" class="ertc-home">
+                <div class="home-content">
+                    <div class="badge">CCHIA • BOMBEROS IA</div>
+                    <h2>ERTC — Estructura Relacional del Trabajo Colectivo</h2>
+
+                    <p>
+                        ERTC es una visualización relacional que cruza aportes, iniciativas y
+                        capacidades del trabajo colectivo, haciendo visibles sinergias,
+                        dependencias y puntos de conexión que no siempre se perciben al analizar
+                        los elementos de forma aislada.
+                    </p>
+
+                    <p>
+                        Nace a partir de las matrices desarrolladas por Roberto Salas en el
+                        contexto del trabajo de la Comisión de Digitalización de Bomberos (CCHIA),
+                        como un ejercicio de lectura y síntesis de los aportes compartidos por el
+                        grupo.
+                    </p>
+
+                    <p>
+                        Su objetivo es facilitar una comprensión común del sistema antes de pasar
+                        a decisiones de ejecución, permitiendo observar cómo los aportes se
+                        potencian entre sí y dónde se generan oportunidades, duplicidades o vacíos.
+                    </p>
+
+                    <button class="btn-primary" onclick="explore()">
+                        Explorar Menú
+                    </button>
+                </div>
+            </div>
+
+            <div class="main-header" style="display:none;">
                 <button class="btn mobile-menu-toggle" id="menuToggle" style="margin-right:10px;">
                     <span style="font-size:20px; line-height:1;">☰</span>
                 </button>
@@ -335,7 +427,7 @@
                 </div>
             </div>
 
-            <iframe id="viewer" src="Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html">
+            <iframe id="viewer" src="" style="display:none;">
             </iframe>
         </main>
 
@@ -389,11 +481,35 @@
         const closeSidebar = document.getElementById("closeSidebar");
         const sidebar = document.getElementById("sidebar");
 
+        const homeSection = document.getElementById("home-ertc");
+        const mainHeader = document.querySelector(".main-header");
+
+        function explore() {
+            if (window.innerWidth <= 900) {
+                // En móvil, abrimos el drawer
+                sidebar.classList.add("active");
+            } else {
+                // En desktop, el menú ya es visible. 
+                // Podríamos hacer un efecto visual, pero por ahora solo el usuario
+                // ya tiene la atención en la izquierda.
+            }
+        }
+
         function activate(key) {
+            // Hide Home, Show Viewer
+            homeSection.style.display = "none";
+            mainHeader.style.display = "flex";
+            viewer.style.display = "block";
+
             document.querySelectorAll(".nav-item")
                 .forEach(i => i.classList.toggle("active", i.dataset.key === key));
             const p = pages.find(p => p.key === key);
-            viewer.src = p.file;
+
+            // Only reload if src changes to avoid flickering if clicking same item
+            if (viewer.contentWindow.location.pathname.indexOf(p.file) === -1) {
+                viewer.src = p.file;
+            }
+
             viewName.textContent = p.title;
             openTab.href = p.file;
             sidebar.classList.remove("active");
@@ -428,7 +544,7 @@
         closeSidebar.onclick = () => sidebar.classList.remove("active");
 
         // Estado inicial explícito
-        activate("matriz");
+        // activate("matriz"); // Comentado para mostrar Home por defecto
     </script>
 
 </body>
