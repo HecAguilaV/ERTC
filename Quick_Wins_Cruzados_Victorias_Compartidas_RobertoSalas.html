@@ -1,792 +1,980 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Quick Wins Cruzados — Victorias Compartidas | Roberto Salas Letelier</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0a1628;
-    --navy-light: #132240;
-    --navy-mid: #1a3158;
-    --accent-gold: #d4a843;
-    --accent-teal: #2dd4bf;
-    --text-primary: #e8edf5;
-    --text-secondary: #94a3b8;
-    --qw1: #f87171;
-    --qw2: #fb923c;
-    --qw3: #fbbf24;
-    --qw4: #34d399;
-    --qw5: #38bdf8;
-  }
-
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-
-  .bg-pattern {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(ellipse at 20% 20%, rgba(248, 113, 113, 0.03) 0%, transparent 40%),
-      radial-gradient(ellipse at 80% 40%, rgba(52, 211, 153, 0.04) 0%, transparent 40%),
-      radial-gradient(ellipse at 40% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-  }
-
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 24px 16px 40px;
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 28px;
-    animation: fadeInDown 0.8s ease;
-  }
-
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes growWidth {
-    from { width: 0; }
-  }
-
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent-teal);
-    border: 1px solid rgba(45, 212, 191, 0.3);
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
-
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 5vw, 34px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--qw1) 0%, var(--qw4) 60%, var(--qw5) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
-
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-secondary);
-    max-width: 540px;
-    margin: 0 auto 12px;
-    line-height: 1.6;
-  }
-
-  .author {
-    font-size: 12px;
-    color: var(--accent-gold);
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
-
-  .key-message {
-    background: linear-gradient(135deg, rgba(52, 211, 153, 0.07) 0%, rgba(56, 189, 248, 0.05) 100%);
-    border: 1px solid rgba(52, 211, 153, 0.18);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 24px;
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    animation: fadeIn 1s ease 0.3s both;
-  }
-  .key-message strong { color: var(--accent-teal); font-weight: 600; }
-
-  .instructions {
-    background: var(--navy-light);
-    border: 1px solid rgba(45, 212, 191, 0.15);
-    border-radius: 12px;
-    padding: 12px 18px;
-    margin-bottom: 28px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-    animation: fadeIn 1s ease 0.5s both;
-  }
-  .instructions span { color: var(--accent-teal); font-weight: 500; }
-
-  /* Quick Win Cards */
-  .qw-list {
-    display: flex;
-    flex-direction: column;
-    gap: 14px;
-    margin-bottom: 32px;
-  }
-
-  .qw-card {
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 16px;
-    overflow: hidden;
-    transition: all 0.3s ease;
-    animation: slideUp 0.5s ease both;
-  }
-
-  .qw-card:nth-child(1) { animation-delay: 0.15s; }
-  .qw-card:nth-child(2) { animation-delay: 0.25s; }
-  .qw-card:nth-child(3) { animation-delay: 0.35s; }
-  .qw-card:nth-child(4) { animation-delay: 0.45s; }
-  .qw-card:nth-child(5) { animation-delay: 0.55s; }
-
-  .qw-card.active {
-    box-shadow: 0 6px 32px rgba(0,0,0,0.3);
-  }
-
-  /* Card header */
-  .qw-header {
-    display: flex;
-    align-items: center;
-    padding: 16px 18px;
-    cursor: pointer;
-    gap: 12px;
-    transition: background 0.2s ease;
-  }
-
-  .qw-header:hover {
-    background: rgba(255,255,255,0.02);
-  }
-
-  .qw-number {
-    width: 36px;
-    height: 36px;
-    border-radius: 10px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-weight: 700;
-    font-size: 15px;
-    flex-shrink: 0;
-  }
-
-  .qw-card[data-qw="1"] .qw-number { background: rgba(248, 113, 113, 0.15); color: var(--qw1); }
-  .qw-card[data-qw="2"] .qw-number { background: rgba(251, 146, 60, 0.15); color: var(--qw2); }
-  .qw-card[data-qw="3"] .qw-number { background: rgba(251, 191, 36, 0.15); color: var(--qw3); }
-  .qw-card[data-qw="4"] .qw-number { background: rgba(52, 211, 153, 0.15); color: var(--qw4); }
-  .qw-card[data-qw="5"] .qw-number { background: rgba(56, 189, 248, 0.15); color: var(--qw5); }
-
-  .qw-title-area { flex: 1; min-width: 0; }
-
-  .qw-title {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--text-primary);
-    line-height: 1.3;
-  }
-
-  .qw-horizon {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 3px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
-
-  .qw-horizon-tag {
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    padding: 2px 8px;
-    border-radius: 6px;
-  }
-
-  .qw-card[data-qw="1"] .qw-horizon-tag { background: rgba(248, 113, 113, 0.12); color: var(--qw1); }
-  .qw-card[data-qw="2"] .qw-horizon-tag { background: rgba(251, 146, 60, 0.12); color: var(--qw2); }
-  .qw-card[data-qw="3"] .qw-horizon-tag { background: rgba(251, 191, 36, 0.12); color: var(--qw3); }
-  .qw-card[data-qw="4"] .qw-horizon-tag { background: rgba(52, 211, 153, 0.12); color: var(--qw4); }
-  .qw-card[data-qw="5"] .qw-horizon-tag { background: rgba(56, 189, 248, 0.12); color: var(--qw5); }
-
-  /* Team dots in header */
-  .qw-team-mini {
-    display: flex;
-    gap: 3px;
-    flex-shrink: 0;
-  }
-
-  .qw-team-dot {
-    width: 22px;
-    height: 22px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    background: rgba(255,255,255,0.06);
-  }
-
-  .qw-expand {
-    color: var(--text-secondary);
-    font-size: 12px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-    margin-left: 4px;
-  }
-
-  .qw-card.active .qw-expand {
-    transform: rotate(180deg);
-  }
-
-  /* Expanded content */
-  .qw-body {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-  }
-
-  .qw-card.active .qw-body {
-    max-height: 1500px;
-  }
-
-  .qw-body-inner {
-    padding: 0 18px 20px;
-  }
-
-  /* Description */
-  .qw-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    margin-bottom: 16px;
-    padding-bottom: 14px;
-    border-bottom: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .qw-desc strong {
-    color: var(--text-primary);
-    font-weight: 500;
-  }
-
-  /* Team participation */
-  .qw-section-label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-    color: var(--accent-gold);
-    margin-bottom: 10px;
-  }
-
-  .qw-participants {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-bottom: 18px;
-  }
-
-  .qw-participant {
-    display: flex;
-    gap: 10px;
-    align-items: flex-start;
-    padding: 10px 12px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.04);
-  }
-
-  .qw-p-icon {
-    font-size: 18px;
-    flex-shrink: 0;
-    width: 28px;
-    text-align: center;
-    margin-top: 1px;
-  }
-
-  .qw-p-content { flex: 1; }
-
-  .qw-p-name {
-    font-weight: 700;
-    font-size: 13px;
-    color: var(--text-primary);
-    margin-bottom: 3px;
-  }
-
-  .qw-p-role {
-    font-size: 11px;
-    color: var(--text-secondary);
-    line-height: 1.5;
-  }
-
-  .qw-p-gains {
-    font-size: 12px;
-    color: var(--accent-teal);
-    font-weight: 500;
-    margin-top: 5px;
-    padding-left: 8px;
-    border-left: 2px solid rgba(45, 212, 191, 0.3);
-    line-height: 1.4;
-  }
-
-  /* Result in 3 months */
-  .qw-result-box {
-    border-radius: 12px;
-    padding: 14px 16px;
-    margin-top: 4px;
-  }
-
-  .qw-card[data-qw="1"] .qw-result-box { background: rgba(248, 113, 113, 0.06); border: 1px solid rgba(248, 113, 113, 0.15); }
-  .qw-card[data-qw="2"] .qw-result-box { background: rgba(251, 146, 60, 0.06); border: 1px solid rgba(251, 146, 60, 0.15); }
-  .qw-card[data-qw="3"] .qw-result-box { background: rgba(251, 191, 36, 0.06); border: 1px solid rgba(251, 191, 36, 0.15); }
-  .qw-card[data-qw="4"] .qw-result-box { background: rgba(52, 211, 153, 0.06); border: 1px solid rgba(52, 211, 153, 0.15); }
-  .qw-card[data-qw="5"] .qw-result-box { background: rgba(56, 189, 248, 0.06); border: 1px solid rgba(56, 189, 248, 0.15); }
-
-  .qw-result-label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-
-  .qw-card[data-qw="1"] .qw-result-label { color: var(--qw1); }
-  .qw-card[data-qw="2"] .qw-result-label { color: var(--qw2); }
-  .qw-card[data-qw="3"] .qw-result-label { color: var(--qw3); }
-  .qw-card[data-qw="4"] .qw-result-label { color: var(--qw4); }
-  .qw-card[data-qw="5"] .qw-result-label { color: var(--qw5); }
-
-  .qw-result-text {
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-primary);
-    line-height: 1.5;
-  }
-
-  .qw-result-sub {
-    font-size: 12px;
-    color: var(--text-secondary);
-    margin-top: 6px;
-    line-height: 1.5;
-  }
-
-  /* Viability bar */
-  .qw-viability {
-    display: flex;
-    gap: 12px;
-    margin-top: 14px;
-    flex-wrap: wrap;
-  }
-
-  .qw-via-item {
-    flex: 1;
-    min-width: 100px;
-  }
-
-  .qw-via-label {
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: var(--text-secondary);
-    margin-bottom: 4px;
-  }
-
-  .qw-via-bar {
-    height: 6px;
-    background: rgba(255,255,255,0.06);
-    border-radius: 3px;
-    overflow: hidden;
-  }
-
-  .qw-via-fill {
-    height: 100%;
-    border-radius: 3px;
-    background: var(--accent-teal);
-    animation: growWidth 1s ease both;
-  }
-
-  .qw-via-fill.high { width: 90%; background: var(--accent-teal); }
-  .qw-via-fill.med-high { width: 75%; background: rgba(45, 212, 191, 0.7); }
-  .qw-via-fill.med { width: 60%; background: var(--accent-gold); }
-
-  /* Bottom summary */
-  .summary-section {
-    background: var(--navy-light);
-    border: 1px solid rgba(212, 168, 67, 0.15);
-    border-radius: 14px;
-    padding: 20px 22px;
-    margin-bottom: 24px;
-    animation: fadeIn 1s ease 0.8s both;
-  }
-
-  .summary-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: var(--accent-gold);
-    margin-bottom: 14px;
-  }
-
-  .summary-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    gap: 10px;
-    margin-bottom: 14px;
-  }
-
-  .summary-stat {
-    text-align: center;
-    padding: 10px 6px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-  }
-
-  .summary-num {
-    font-size: 26px;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-    color: var(--accent-teal);
-  }
-
-  .summary-label {
-    font-size: 10px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 0.8px;
-    margin-top: 2px;
-    line-height: 1.4;
-  }
-
-  .summary-message {
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-    line-height: 1.6;
-    margin-top: 10px;
-  }
-
-  .summary-message em {
-    font-style: normal;
-    color: var(--accent-teal);
-    font-weight: 500;
-  }
-
-  .note {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-top: 24px;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.04);
-  }
-
-  footer {
-    text-align: center;
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
-
-  .footer-author {
-    font-size: 13px;
-    color: var(--accent-gold);
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
-
-  .footer-org {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-  }
-
-  .footer-date {
-    font-size: 10px;
-    color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-  }
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Quick Wins Cruzados — Victorias Compartidas | Roberto Salas Letelier</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-light: #132240;
+      --navy-mid: #1a3158;
+      --accent-gold: #d4a843;
+      --accent-teal: #2dd4bf;
+      --text-primary: #e8edf5;
+      --text-secondary: #94a3b8;
+      --qw1: #f87171;
+      --qw2: #fb923c;
+      --qw3: #fbbf24;
+      --qw4: #34d399;
+      --qw5: #38bdf8;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 20% 20%, rgba(248, 113, 113, 0.03) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 40%, rgba(52, 211, 153, 0.04) 0%, transparent 40%),
+        radial-gradient(ellipse at 40% 80%, rgba(56, 189, 248, 0.03) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s ease;
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes growWidth {
+      from {
+        width: 0;
+      }
+    }
+
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
+
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--qw1) 0%, var(--qw4) 60%, var(--qw5) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto 12px;
+      line-height: 1.6;
+    }
+
+    .author {
+      font-size: 12px;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
+
+    .key-message {
+      background: linear-gradient(135deg, rgba(52, 211, 153, 0.07) 0%, rgba(56, 189, 248, 0.05) 100%);
+      border: 1px solid rgba(52, 211, 153, 0.18);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 24px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      animation: fadeIn 1s ease 0.3s both;
+    }
+
+    .key-message strong {
+      color: var(--accent-teal);
+      font-weight: 600;
+    }
+
+    .instructions {
+      background: var(--navy-light);
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      animation: fadeIn 1s ease 0.5s both;
+    }
+
+    .instructions span {
+      color: var(--accent-teal);
+      font-weight: 500;
+    }
+
+    /* Quick Win Cards */
+    .qw-list {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      margin-bottom: 32px;
+    }
+
+    .qw-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      animation: slideUp 0.5s ease both;
+    }
+
+    .qw-card:nth-child(1) {
+      animation-delay: 0.15s;
+    }
+
+    .qw-card:nth-child(2) {
+      animation-delay: 0.25s;
+    }
+
+    .qw-card:nth-child(3) {
+      animation-delay: 0.35s;
+    }
+
+    .qw-card:nth-child(4) {
+      animation-delay: 0.45s;
+    }
+
+    .qw-card:nth-child(5) {
+      animation-delay: 0.55s;
+    }
+
+    .qw-card.active {
+      box-shadow: 0 6px 32px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Card header */
+    .qw-header {
+      display: flex;
+      align-items: center;
+      padding: 16px 18px;
+      cursor: pointer;
+      gap: 12px;
+      transition: background 0.2s ease;
+    }
+
+    .qw-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
+
+    .qw-number {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 15px;
+      flex-shrink: 0;
+    }
+
+    .qw-card[data-qw="1"] .qw-number {
+      background: rgba(248, 113, 113, 0.15);
+      color: var(--qw1);
+    }
+
+    .qw-card[data-qw="2"] .qw-number {
+      background: rgba(251, 146, 60, 0.15);
+      color: var(--qw2);
+    }
+
+    .qw-card[data-qw="3"] .qw-number {
+      background: rgba(251, 191, 36, 0.15);
+      color: var(--qw3);
+    }
+
+    .qw-card[data-qw="4"] .qw-number {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--qw4);
+    }
+
+    .qw-card[data-qw="5"] .qw-number {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--qw5);
+    }
+
+    .qw-title-area {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .qw-title {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
+
+    .qw-horizon {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 3px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .qw-horizon-tag {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 6px;
+    }
+
+    .qw-card[data-qw="1"] .qw-horizon-tag {
+      background: rgba(248, 113, 113, 0.12);
+      color: var(--qw1);
+    }
+
+    .qw-card[data-qw="2"] .qw-horizon-tag {
+      background: rgba(251, 146, 60, 0.12);
+      color: var(--qw2);
+    }
+
+    .qw-card[data-qw="3"] .qw-horizon-tag {
+      background: rgba(251, 191, 36, 0.12);
+      color: var(--qw3);
+    }
+
+    .qw-card[data-qw="4"] .qw-horizon-tag {
+      background: rgba(52, 211, 153, 0.12);
+      color: var(--qw4);
+    }
+
+    .qw-card[data-qw="5"] .qw-horizon-tag {
+      background: rgba(56, 189, 248, 0.12);
+      color: var(--qw5);
+    }
+
+    /* Team dots in header */
+    .qw-team-mini {
+      display: flex;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .qw-team-dot {
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .qw-expand {
+      color: var(--text-secondary);
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 4px;
+    }
+
+    .qw-card.active .qw-expand {
+      transform: rotate(180deg);
+    }
+
+    /* Expanded content */
+    .qw-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .qw-card.active .qw-body {
+      max-height: 1500px;
+    }
+
+    .qw-body-inner {
+      padding: 0 18px 20px;
+    }
+
+    /* Description */
+    .qw-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 16px;
+      padding-bottom: 14px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .qw-desc strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    /* Team participation */
+    .qw-section-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      color: var(--accent-gold);
+      margin-bottom: 10px;
+    }
+
+    .qw-participants {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
+
+    .qw-participant {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      padding: 10px 12px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    .qw-p-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+      width: 28px;
+      text-align: center;
+      margin-top: 1px;
+    }
+
+    .qw-p-content {
+      flex: 1;
+    }
+
+    .qw-p-name {
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--text-primary);
+      margin-bottom: 3px;
+    }
+
+    .qw-p-role {
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .qw-p-gains {
+      font-size: 12px;
+      color: var(--accent-teal);
+      font-weight: 500;
+      margin-top: 5px;
+      padding-left: 8px;
+      border-left: 2px solid rgba(45, 212, 191, 0.3);
+      line-height: 1.4;
+    }
+
+    /* Result in 3 months */
+    .qw-result-box {
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin-top: 4px;
+    }
+
+    .qw-card[data-qw="1"] .qw-result-box {
+      background: rgba(248, 113, 113, 0.06);
+      border: 1px solid rgba(248, 113, 113, 0.15);
+    }
+
+    .qw-card[data-qw="2"] .qw-result-box {
+      background: rgba(251, 146, 60, 0.06);
+      border: 1px solid rgba(251, 146, 60, 0.15);
+    }
+
+    .qw-card[data-qw="3"] .qw-result-box {
+      background: rgba(251, 191, 36, 0.06);
+      border: 1px solid rgba(251, 191, 36, 0.15);
+    }
+
+    .qw-card[data-qw="4"] .qw-result-box {
+      background: rgba(52, 211, 153, 0.06);
+      border: 1px solid rgba(52, 211, 153, 0.15);
+    }
+
+    .qw-card[data-qw="5"] .qw-result-box {
+      background: rgba(56, 189, 248, 0.06);
+      border: 1px solid rgba(56, 189, 248, 0.15);
+    }
+
+    .qw-result-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .qw-card[data-qw="1"] .qw-result-label {
+      color: var(--qw1);
+    }
+
+    .qw-card[data-qw="2"] .qw-result-label {
+      color: var(--qw2);
+    }
+
+    .qw-card[data-qw="3"] .qw-result-label {
+      color: var(--qw3);
+    }
+
+    .qw-card[data-qw="4"] .qw-result-label {
+      color: var(--qw4);
+    }
+
+    .qw-card[data-qw="5"] .qw-result-label {
+      color: var(--qw5);
+    }
+
+    .qw-result-text {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    .qw-result-sub {
+      font-size: 12px;
+      color: var(--text-secondary);
+      margin-top: 6px;
+      line-height: 1.5;
+    }
+
+    /* Viability bar */
+    .qw-viability {
+      display: flex;
+      gap: 12px;
+      margin-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .qw-via-item {
+      flex: 1;
+      min-width: 100px;
+    }
+
+    .qw-via-label {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--text-secondary);
+      margin-bottom: 4px;
+    }
+
+    .qw-via-bar {
+      height: 6px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 3px;
+      overflow: hidden;
+    }
+
+    .qw-via-fill {
+      height: 100%;
+      border-radius: 3px;
+      background: var(--accent-teal);
+      animation: growWidth 1s ease both;
+    }
+
+    .qw-via-fill.high {
+      width: 90%;
+      background: var(--accent-teal);
+    }
+
+    .qw-via-fill.med-high {
+      width: 75%;
+      background: rgba(45, 212, 191, 0.7);
+    }
+
+    .qw-via-fill.med {
+      width: 60%;
+      background: var(--accent-gold);
+    }
+
+    /* Bottom summary */
+    .summary-section {
+      background: var(--navy-light);
+      border: 1px solid rgba(212, 168, 67, 0.15);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+      animation: fadeIn 1s ease 0.8s both;
+    }
+
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--accent-gold);
+      margin-bottom: 14px;
+    }
+
+    .summary-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+      gap: 10px;
+      margin-bottom: 14px;
+    }
+
+    .summary-stat {
+      text-align: center;
+      padding: 10px 6px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+
+    .summary-num {
+      font-size: 26px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+      color: var(--accent-teal);
+    }
+
+    .summary-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      margin-top: 2px;
+      line-height: 1.4;
+    }
+
+    .summary-message {
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.6;
+      margin-top: 10px;
+    }
+
+    .summary-message em {
+      font-style: normal;
+      color: var(--accent-teal);
+      font-weight: 500;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-org {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .footer-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.2);
+      margin-top: 8px;
+    }
+
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: rgba(10, 22, 40, 0.8);
+      color: #e8edf5;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-back:hover {
+      background: rgba(10, 22, 40, 0.95);
+      border-color: rgba(45, 212, 191, 0.3);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 680px) {
+      .btn-back {
+        top: 10px;
+        left: 10px;
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="bg-pattern"></div>
+  <a href="index.html" class="btn-back">← Volver al ERTC</a>
 
-<div class="container">
+  <div class="bg-pattern"></div>
 
-  <header>
-    <div class="badge">Comisión Bomberos-IA</div>
-    <h1>Quick Wins Cruzados</h1>
-    <p class="subtitle">5 victorias concretas que podemos lograr en los próximos 3 meses. Ninguna es de una sola persona — todas generan resultados compartidos.</p>
-    <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
-  </header>
+  <div class="container">
 
-  <div class="key-message">
-    La pregunta no es "¿qué debería hacer cada uno?", sino <strong>¿qué resultado concreto puede mostrar el equipo en 3 meses?</strong> Estos 5 quick wins son las victorias tempranas que generan confianza, momentum y credibilidad.
-  </div>
+    <header>
+      <div class="badge">Comisión Bomberos-IA</div>
+      <h1>Quick Wins Cruzados</h1>
+      <p class="subtitle">5 victorias concretas que podemos lograr en los próximos 3 meses. Ninguna es de una sola
+        persona — todas generan resultados compartidos.</p>
+      <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
+    </header>
 
-  <div class="instructions">
-    <span>Toca cada quick win</span> para ver quiénes participan, qué gana cada uno y qué podemos mostrar en 3 meses
-  </div>
+    <div class="key-message">
+      La pregunta no es "¿qué debería hacer cada uno?", sino <strong>¿qué resultado concreto puede mostrar el equipo en
+        3 meses?</strong> Estos 5 quick wins son las victorias tempranas que generan confianza, momentum y credibilidad.
+    </div>
 
-  <div class="qw-list" id="qwList"></div>
+    <div class="instructions">
+      <span>Toca cada quick win</span> para ver quiénes participan, qué gana cada uno y qué podemos mostrar en 3 meses
+    </div>
 
-  <div class="summary-section">
-    <div class="summary-title">El impacto colectivo en 3 meses</div>
-    <div class="summary-grid">
-      <div class="summary-stat">
-        <div class="summary-num">5</div>
-        <div class="summary-label">Victorias tempranas</div>
+    <div class="qw-list" id="qwList"></div>
+
+    <div class="summary-section">
+      <div class="summary-title">El impacto colectivo en 3 meses</div>
+      <div class="summary-grid">
+        <div class="summary-stat">
+          <div class="summary-num">5</div>
+          <div class="summary-label">Victorias tempranas</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-num">7/7</div>
+          <div class="summary-label">Miembros activos</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-num">3</div>
+          <div class="summary-label">Productos tangibles</div>
+        </div>
+        <div class="summary-stat">
+          <div class="summary-num">1</div>
+          <div class="summary-label">Propuesta a JNCB</div>
+        </div>
       </div>
-      <div class="summary-stat">
-        <div class="summary-num">7/7</div>
-        <div class="summary-label">Miembros activos</div>
-      </div>
-      <div class="summary-stat">
-        <div class="summary-num">3</div>
-        <div class="summary-label">Productos tangibles</div>
-      </div>
-      <div class="summary-stat">
-        <div class="summary-num">1</div>
-        <div class="summary-label">Propuesta a JNCB</div>
+      <div class="summary-message">
+        En 3 meses esta comisión puede tener <em>apps funcionando, un diagnóstico profesional, un marco de gobernanza y
+          una propuesta formal ante Bomberos de Chile</em>. Todo con trabajo voluntario coordinado.
       </div>
     </div>
-    <div class="summary-message">
-      En 3 meses esta comisión puede tener <em>apps funcionando, un diagnóstico profesional, un marco de gobernanza y una propuesta formal ante Bomberos de Chile</em>. Todo con trabajo voluntario coordinado.
+
+    <div class="note">
+      <strong>Nota:</strong> Este mapa incluye a los 7 miembros del núcleo productivo que han realizado aportes
+      sustantivos documentados, con el objetivo de facilitar la lectura y comprensión de las victorias compartidas. Las
+      contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
     </div>
+
+    <footer>
+      <div class="footer-author">Roberto Salas Letelier</div>
+      <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
+      <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+          rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
+    </footer>
+
   </div>
 
-  <div class="note">
-    <strong>Nota:</strong> Este mapa incluye a los 7 miembros del núcleo productivo que han realizado aportes sustantivos documentados, con el objetivo de facilitar la lectura y comprensión de las victorias compartidas. Las contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
-  </div>
-
-  <footer>
-    <div class="footer-author">Roberto Salas Letelier</div>
-    <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
-    <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
-  </footer>
-
-</div>
-
-<script>
-const quickWins = [
-  {
-    num: 1,
-    title: 'Apps y Curso IA en Operación',
-    horizon: 'Ya en marcha — pruebas con usuarios próxima semana',
-    emoji: '🚀',
-    desc: 'Eduardo ya tiene <strong>2 aplicaciones funcionales en quintacbo.cl, una 3ª en desarrollo y un curso "Fundamentos del Fuego" creado con IA en 1 día</strong>. La próxima semana comienzan las pruebas con usuarios reales. Este quick win consiste en validar estos prototipos, documentar resultados y preparar su presentación como evidencia ante JNCB.',
-    participants: [
+  <script>
+    const quickWins = [
       {
-        icon: '🚀', name: 'Eduardo Escalante',
-        role: 'Lidera el desarrollo y las pruebas con usuarios. Ejecuta iteraciones basadas en feedback.',
-        gains: 'Sus apps pasan de proyecto personal a herramienta validada institucionalmente por CCHIA.'
+        num: 1,
+        title: 'Apps y Curso IA en Operación',
+        horizon: 'Ya en marcha — pruebas con usuarios próxima semana',
+        emoji: '🚀',
+        desc: 'Eduardo ya tiene <strong>2 aplicaciones funcionales en quintacbo.cl, una 3ª en desarrollo y un curso "Fundamentos del Fuego" creado con IA en 1 día</strong>. La próxima semana comienzan las pruebas con usuarios reales. Este quick win consiste en validar estos prototipos, documentar resultados y preparar su presentación como evidencia ante JNCB.',
+        participants: [
+          {
+            icon: '🚀', name: 'Eduardo Escalante',
+            role: 'Lidera el desarrollo y las pruebas con usuarios. Ejecuta iteraciones basadas en feedback.',
+            gains: 'Sus apps pasan de proyecto personal a herramienta validada institucionalmente por CCHIA.'
+          },
+          {
+            icon: '🧠', name: 'Alexis Brantes',
+            role: 'Valida la experiencia de usuario desde la perspectiva de su AIM Framework. Identifica si las apps responden a pain points reales.',
+            gains: 'Su framework se aplica en evaluación de producto real — no en teoría.'
+          },
+          {
+            icon: '📊', name: 'Hans Edelsberg',
+            role: 'Evalúa qué datos generan las apps y si son estructurados y reutilizables para futuras integraciones.',
+            gains: 'Primer diagnóstico de datos reales del proyecto: cómo se ven los datos de Bomberos en la práctica.'
+          },
+          {
+            icon: '🏛️', name: 'Ricardo Ardiles',
+            role: 'Presenta las apps como evidencia ante JNCB de que la comisión produce resultados.',
+            gains: 'Puede mostrar algo tangible a la institución — no solo planes.'
+          }
+        ],
+        result: 'Apps probadas con usuarios reales + feedback documentado + curso validado',
+        resultSub: 'Primera evidencia concreta del proyecto. Ricardo puede decir a JNCB: "ya tenemos herramientas funcionando."',
+        viability: { tecnica: 'high', institucional: 'high', deseabilidad: 'high' }
       },
       {
-        icon: '🧠', name: 'Alexis Brantes',
-        role: 'Valida la experiencia de usuario desde la perspectiva de su AIM Framework. Identifica si las apps responden a pain points reales.',
-        gains: 'Su framework se aplica en evaluación de producto real — no en teoría.'
+        num: 2,
+        title: 'Diagnóstico Humano con AIM Framework',
+        horizon: '0-3 meses — requiere entrevistas con voluntarios',
+        emoji: '🧠',
+        desc: 'Alexis aplica su <strong>AIM Framework en entrevistas con voluntarios de CB Santiago</strong> (contacto propio) para mapear pain points emocionales, resistencias culturales y necesidades reales. Este diagnóstico es el fundamento para que todas las propuestas técnicas respondan a lo que los bomberos realmente necesitan y adoptarían.',
+        participants: [
+          {
+            icon: '🧠', name: 'Alexis Brantes',
+            role: 'Lidera el diseño y ejecución del diagnóstico. Aplica AIM Framework. Conduce entrevistas.',
+            gains: 'Su framework publicado se valida empíricamente en un caso de impacto nacional.'
+          },
+          {
+            icon: '🏛️', name: 'Ricardo Ardiles',
+            role: 'Facilita acceso a voluntarios adicionales más allá de CB Santiago. Legitima el diagnóstico ante JNCB.',
+            gains: 'Obtiene comprensión profunda de qué necesitan realmente sus bomberos.'
+          },
+          {
+            icon: '⚙️', name: 'Carlos González',
+            role: 'Recibe los resultados para ajustar sus 9 propuestas técnicas según necesidades validadas.',
+            gains: 'Sus propuestas pasan de análisis técnico a soluciones orientadas a usuario.'
+          },
+          {
+            icon: '🌐', name: 'Roberto Salas',
+            role: 'Integra la capa humana del diagnóstico con el mapeo institucional para el diagnóstico en dos capas.',
+            gains: 'El diagnóstico ecosistémico se completa con la dimensión que solo Alexis puede aportar.'
+          }
+        ],
+        result: 'Informe de diagnóstico humano con pain points, resistencias y criterios de adopción',
+        resultSub: 'Primer documento con autoría documentada de Alexis. Base para priorizar qué construir primero y por qué.',
+        viability: { tecnica: 'high', institucional: 'high', deseabilidad: 'high' }
       },
       {
-        icon: '📊', name: 'Hans Edelsberg',
-        role: 'Evalúa qué datos generan las apps y si son estructurados y reutilizables para futuras integraciones.',
-        gains: 'Primer diagnóstico de datos reales del proyecto: cómo se ven los datos de Bomberos en la práctica.'
+        num: 3,
+        title: 'Diagnóstico de Datos e Infraestructura',
+        horizon: '1-3 meses — requiere acceso a sistemas JNCB',
+        emoji: '📊',
+        desc: 'Hans evalúa el <strong>estado real de los datos en Bomberos</strong>: ¿existen datos estructurados? ¿están limpios? ¿son accesibles vía API? Responde la pregunta fundacional: ¿podemos hacer IA real o primero necesitamos digitalizar? El resultado determina si las propuestas técnicas son viables hoy o requieren trabajo previo.',
+        participants: [
+          {
+            icon: '📊', name: 'Hans Edelsberg',
+            role: 'Lidera el diagnóstico técnico. Evalúa madurez de datos, sistemas existentes y brechas de infraestructura.',
+            gains: 'Caso real de data engineering en institución nacional — con complejidad genuina.'
+          },
+          {
+            icon: '🏛️', name: 'Ricardo Ardiles',
+            role: 'Gestiona acceso a los sistemas y datos de JNCB. Abre la puerta institucional necesaria.',
+            gains: 'Obtiene claridad técnica sobre el estado real de modernización de Bomberos.'
+          },
+          {
+            icon: '⚙️', name: 'Carlos González',
+            role: 'Cruza el diagnóstico de datos con sus propuestas técnicas para ajustar viabilidad.',
+            gains: 'Sus 9 propuestas se recalifican con información real, no supuestos.'
+          },
+          {
+            icon: '⚖️', name: 'Eric Tureo',
+            role: 'Evalúa implicaciones de gobernanza de los datos encontrados: protección, ética, cumplimiento regulatorio.',
+            gains: 'Caso concreto para aplicar su marco de gobernanza de IA sobre datos reales.'
+          }
+        ],
+        result: 'Informe de madurez de datos + mapa de infraestructura + propuesta de APIs',
+        resultSub: 'Respuesta clara a la pregunta de Hans: "¿hay datos para hacer IA o hay que digitalizar primero?" Documento con autoría documentada.',
+        viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
       },
       {
-        icon: '🏛️', name: 'Ricardo Ardiles',
-        role: 'Presenta las apps como evidencia ante JNCB de que la comisión produce resultados.',
-        gains: 'Puede mostrar algo tangible a la institución — no solo planes.'
+        num: 4,
+        title: 'Marco de Gobernanza y Protección de PI',
+        horizon: '1-3 meses — diseño + validación con coalición',
+        emoji: '⚖️',
+        desc: 'Eric y Roberto diseñan el <strong>marco ético, modelo de PI y proceso de participación comercial</strong> que resuelve las preocupaciones planteadas por Alexis, Eric y Hans sobre el Acuerdo de Responsabilidad. Este marco habilita la colaboración sostenible: sin él, los profesionales más capaces pierden incentivo para seguir aportando.',
+        participants: [
+          {
+            icon: '⚖️', name: 'Eric Tureo',
+            role: 'Diseña las 4 dimensiones de gobernanza: alcance, propiedad, sostenibilidad, ética de IA.',
+            gains: 'Su marco teórico se convierte en política operativa real de un proyecto nacional.'
+          },
+          {
+            icon: '🌐', name: 'Roberto Salas',
+            role: 'Diseña modelo de PI (autores retienen + licencia a CCHIA), separación pro-bono/comercial, y proceso de atribución.',
+            gains: 'El Sistema Operativo Ecosistémico se aplica en gobernanza real, no solo en concepto.'
+          },
+          {
+            icon: '🧠', name: 'Alexis Brantes',
+            role: 'Valida que el marco resuelve sus 5 preocupaciones (PI, reconocimiento, tiempo, exclusión comercial, responsabilidad).',
+            gains: 'Protección formal de su separación pro-bono / producto comercial.'
+          },
+          {
+            icon: '📊', name: 'Hans Edelsberg',
+            role: 'Valida que el marco responde a su crítica original del Acuerdo ("amarra bastante, no me gustó").',
+            gains: 'Transparencia y condiciones claras para seguir aportando con confianza.'
+          },
+          {
+            icon: '🏛️', name: 'Ricardo Ardiles',
+            role: 'Valida viabilidad institucional del marco y lo presenta como ajuste al Acuerdo ante el Directorio.',
+            gains: 'Acuerdo mejorado que retiene a los mejores profesionales de su equipo.'
+          }
+        ],
+        result: 'Propuesta de gobernanza + modelo de PI + proceso pro-bono/comercial documentado',
+        resultSub: 'Resuelve las preocupaciones institucionales que podrían frenar el proyecto. Modelo replicable para otras comisiones de CCHIA.',
+        viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
+      },
+      {
+        num: 5,
+        title: 'Propuesta Integral a JNCB',
+        horizon: '2-3 meses — síntesis de los 4 quick wins anteriores',
+        emoji: '📋',
+        desc: 'Todos los quick wins anteriores convergen en una <strong>propuesta integral de modernización digital</strong> presentable ante JNCB: diagnóstico humano + diagnóstico de datos + prototipos funcionando + marco de gobernanza. La propuesta demuestra que CCHIA genera valor real como articuladora del ecosistema IA para Bomberos.',
+        participants: [
+          {
+            icon: '🏛️', name: 'Ricardo Ardiles',
+            role: 'Presenta la propuesta ante JNCB y Presidente Nacional de Bomberos. Legitima el trabajo del equipo.',
+            gains: 'Documento profesional que respalda su liderazgo del proyecto ante la institución.'
+          },
+          {
+            icon: '🌐', name: 'Roberto Salas',
+            role: 'Integra los componentes en arquitectura de vinculación ecosistémica. Redacta documento y presentación ejecutiva.',
+            gains: 'Caso de demostración documentado del valor de la facilitación ecosistémica.'
+          },
+          {
+            icon: '⚙️', name: 'Carlos González',
+            role: 'Aporta la priorización técnica con las 9 propuestas recalibradas por los diagnósticos.',
+            gains: 'Sus propuestas se convierten en roadmap oficial del proyecto.'
+          },
+          {
+            icon: '🚀', name: 'Eduardo Escalante',
+            role: 'Aporta la evidencia tangible: apps funcionando + resultados de pruebas + curso en operación.',
+            gains: 'Sus prototipos se incluyen como evidencia central de la propuesta nacional.'
+          },
+          {
+            icon: '🧠', name: 'Alexis Brantes',
+            role: 'Aporta el diagnóstico humano como fundamento de las recomendaciones.',
+            gains: 'Su AIM Framework referenciado en documento oficial presentado a JNCB.'
+          },
+          {
+            icon: '📊', name: 'Hans Edelsberg',
+            role: 'Aporta el diagnóstico de datos como base de la propuesta de infraestructura.',
+            gains: 'Su diagnóstico de madurez de datos fundamenta las decisiones de inversión.'
+          },
+          {
+            icon: '⚖️', name: 'Eric Tureo',
+            role: 'Aporta el marco de gobernanza como garantía de adopción responsable.',
+            gains: 'Su marco ético integrado en propuesta oficial a nivel nacional.'
+          }
+        ],
+        result: 'Propuesta integral presentable: documento + presentación ejecutiva + evidencia de prototipos',
+        resultSub: 'El equipo completo con co-autoría documentada. CCHIA demuestra su valor como articuladora. Bomberos de Chile recibe una propuesta profesional sin costo.',
+        viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
       }
-    ],
-    result: 'Apps probadas con usuarios reales + feedback documentado + curso validado',
-    resultSub: 'Primera evidencia concreta del proyecto. Ricardo puede decir a JNCB: "ya tenemos herramientas funcionando."',
-    viability: { tecnica: 'high', institucional: 'high', deseabilidad: 'high' }
-  },
-  {
-    num: 2,
-    title: 'Diagnóstico Humano con AIM Framework',
-    horizon: '0-3 meses — requiere entrevistas con voluntarios',
-    emoji: '🧠',
-    desc: 'Alexis aplica su <strong>AIM Framework en entrevistas con voluntarios de CB Santiago</strong> (contacto propio) para mapear pain points emocionales, resistencias culturales y necesidades reales. Este diagnóstico es el fundamento para que todas las propuestas técnicas respondan a lo que los bomberos realmente necesitan y adoptarían.',
-    participants: [
-      {
-        icon: '🧠', name: 'Alexis Brantes',
-        role: 'Lidera el diseño y ejecución del diagnóstico. Aplica AIM Framework. Conduce entrevistas.',
-        gains: 'Su framework publicado se valida empíricamente en un caso de impacto nacional.'
-      },
-      {
-        icon: '🏛️', name: 'Ricardo Ardiles',
-        role: 'Facilita acceso a voluntarios adicionales más allá de CB Santiago. Legitima el diagnóstico ante JNCB.',
-        gains: 'Obtiene comprensión profunda de qué necesitan realmente sus bomberos.'
-      },
-      {
-        icon: '⚙️', name: 'Carlos González',
-        role: 'Recibe los resultados para ajustar sus 9 propuestas técnicas según necesidades validadas.',
-        gains: 'Sus propuestas pasan de análisis técnico a soluciones orientadas a usuario.'
-      },
-      {
-        icon: '🌐', name: 'Roberto Salas',
-        role: 'Integra la capa humana del diagnóstico con el mapeo institucional para el diagnóstico en dos capas.',
-        gains: 'El diagnóstico ecosistémico se completa con la dimensión que solo Alexis puede aportar.'
-      }
-    ],
-    result: 'Informe de diagnóstico humano con pain points, resistencias y criterios de adopción',
-    resultSub: 'Primer documento con autoría documentada de Alexis. Base para priorizar qué construir primero y por qué.',
-    viability: { tecnica: 'high', institucional: 'high', deseabilidad: 'high' }
-  },
-  {
-    num: 3,
-    title: 'Diagnóstico de Datos e Infraestructura',
-    horizon: '1-3 meses — requiere acceso a sistemas JNCB',
-    emoji: '📊',
-    desc: 'Hans evalúa el <strong>estado real de los datos en Bomberos</strong>: ¿existen datos estructurados? ¿están limpios? ¿son accesibles vía API? Responde la pregunta fundacional: ¿podemos hacer IA real o primero necesitamos digitalizar? El resultado determina si las propuestas técnicas son viables hoy o requieren trabajo previo.',
-    participants: [
-      {
-        icon: '📊', name: 'Hans Edelsberg',
-        role: 'Lidera el diagnóstico técnico. Evalúa madurez de datos, sistemas existentes y brechas de infraestructura.',
-        gains: 'Caso real de data engineering en institución nacional — con complejidad genuina.'
-      },
-      {
-        icon: '🏛️', name: 'Ricardo Ardiles',
-        role: 'Gestiona acceso a los sistemas y datos de JNCB. Abre la puerta institucional necesaria.',
-        gains: 'Obtiene claridad técnica sobre el estado real de modernización de Bomberos.'
-      },
-      {
-        icon: '⚙️', name: 'Carlos González',
-        role: 'Cruza el diagnóstico de datos con sus propuestas técnicas para ajustar viabilidad.',
-        gains: 'Sus 9 propuestas se recalifican con información real, no supuestos.'
-      },
-      {
-        icon: '⚖️', name: 'Eric Tureo',
-        role: 'Evalúa implicaciones de gobernanza de los datos encontrados: protección, ética, cumplimiento regulatorio.',
-        gains: 'Caso concreto para aplicar su marco de gobernanza de IA sobre datos reales.'
-      }
-    ],
-    result: 'Informe de madurez de datos + mapa de infraestructura + propuesta de APIs',
-    resultSub: 'Respuesta clara a la pregunta de Hans: "¿hay datos para hacer IA o hay que digitalizar primero?" Documento con autoría documentada.',
-    viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
-  },
-  {
-    num: 4,
-    title: 'Marco de Gobernanza y Protección de PI',
-    horizon: '1-3 meses — diseño + validación con coalición',
-    emoji: '⚖️',
-    desc: 'Eric y Roberto diseñan el <strong>marco ético, modelo de PI y proceso de participación comercial</strong> que resuelve las preocupaciones planteadas por Alexis, Eric y Hans sobre el Acuerdo de Responsabilidad. Este marco habilita la colaboración sostenible: sin él, los profesionales más capaces pierden incentivo para seguir aportando.',
-    participants: [
-      {
-        icon: '⚖️', name: 'Eric Tureo',
-        role: 'Diseña las 4 dimensiones de gobernanza: alcance, propiedad, sostenibilidad, ética de IA.',
-        gains: 'Su marco teórico se convierte en política operativa real de un proyecto nacional.'
-      },
-      {
-        icon: '🌐', name: 'Roberto Salas',
-        role: 'Diseña modelo de PI (autores retienen + licencia a CCHIA), separación pro-bono/comercial, y proceso de atribución.',
-        gains: 'El Sistema Operativo Ecosistémico se aplica en gobernanza real, no solo en concepto.'
-      },
-      {
-        icon: '🧠', name: 'Alexis Brantes',
-        role: 'Valida que el marco resuelve sus 5 preocupaciones (PI, reconocimiento, tiempo, exclusión comercial, responsabilidad).',
-        gains: 'Protección formal de su separación pro-bono / producto comercial.'
-      },
-      {
-        icon: '📊', name: 'Hans Edelsberg',
-        role: 'Valida que el marco responde a su crítica original del Acuerdo ("amarra bastante, no me gustó").',
-        gains: 'Transparencia y condiciones claras para seguir aportando con confianza.'
-      },
-      {
-        icon: '🏛️', name: 'Ricardo Ardiles',
-        role: 'Valida viabilidad institucional del marco y lo presenta como ajuste al Acuerdo ante el Directorio.',
-        gains: 'Acuerdo mejorado que retiene a los mejores profesionales de su equipo.'
-      }
-    ],
-    result: 'Propuesta de gobernanza + modelo de PI + proceso pro-bono/comercial documentado',
-    resultSub: 'Resuelve las preocupaciones institucionales que podrían frenar el proyecto. Modelo replicable para otras comisiones de CCHIA.',
-    viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
-  },
-  {
-    num: 5,
-    title: 'Propuesta Integral a JNCB',
-    horizon: '2-3 meses — síntesis de los 4 quick wins anteriores',
-    emoji: '📋',
-    desc: 'Todos los quick wins anteriores convergen en una <strong>propuesta integral de modernización digital</strong> presentable ante JNCB: diagnóstico humano + diagnóstico de datos + prototipos funcionando + marco de gobernanza. La propuesta demuestra que CCHIA genera valor real como articuladora del ecosistema IA para Bomberos.',
-    participants: [
-      {
-        icon: '🏛️', name: 'Ricardo Ardiles',
-        role: 'Presenta la propuesta ante JNCB y Presidente Nacional de Bomberos. Legitima el trabajo del equipo.',
-        gains: 'Documento profesional que respalda su liderazgo del proyecto ante la institución.'
-      },
-      {
-        icon: '🌐', name: 'Roberto Salas',
-        role: 'Integra los componentes en arquitectura de vinculación ecosistémica. Redacta documento y presentación ejecutiva.',
-        gains: 'Caso de demostración documentado del valor de la facilitación ecosistémica.'
-      },
-      {
-        icon: '⚙️', name: 'Carlos González',
-        role: 'Aporta la priorización técnica con las 9 propuestas recalibradas por los diagnósticos.',
-        gains: 'Sus propuestas se convierten en roadmap oficial del proyecto.'
-      },
-      {
-        icon: '🚀', name: 'Eduardo Escalante',
-        role: 'Aporta la evidencia tangible: apps funcionando + resultados de pruebas + curso en operación.',
-        gains: 'Sus prototipos se incluyen como evidencia central de la propuesta nacional.'
-      },
-      {
-        icon: '🧠', name: 'Alexis Brantes',
-        role: 'Aporta el diagnóstico humano como fundamento de las recomendaciones.',
-        gains: 'Su AIM Framework referenciado en documento oficial presentado a JNCB.'
-      },
-      {
-        icon: '📊', name: 'Hans Edelsberg',
-        role: 'Aporta el diagnóstico de datos como base de la propuesta de infraestructura.',
-        gains: 'Su diagnóstico de madurez de datos fundamenta las decisiones de inversión.'
-      },
-      {
-        icon: '⚖️', name: 'Eric Tureo',
-        role: 'Aporta el marco de gobernanza como garantía de adopción responsable.',
-        gains: 'Su marco ético integrado en propuesta oficial a nivel nacional.'
-      }
-    ],
-    result: 'Propuesta integral presentable: documento + presentación ejecutiva + evidencia de prototipos',
-    resultSub: 'El equipo completo con co-autoría documentada. CCHIA demuestra su valor como articuladora. Bomberos de Chile recibe una propuesta profesional sin costo.',
-    viability: { tecnica: 'high', institucional: 'med-high', deseabilidad: 'high' }
-  }
-];
+    ];
 
-function buildQWList() {
-  const list = document.getElementById('qwList');
+    function buildQWList() {
+      const list = document.getElementById('qwList');
 
-  quickWins.forEach(qw => {
-    const card = document.createElement('div');
-    card.className = 'qw-card';
-    card.dataset.qw = qw.num;
+      quickWins.forEach(qw => {
+        const card = document.createElement('div');
+        card.className = 'qw-card';
+        card.dataset.qw = qw.num;
 
-    // Team dots
-    const teamDots = qw.participants.map(p => `<div class="qw-team-dot">${p.icon}</div>`).join('');
+        // Team dots
+        const teamDots = qw.participants.map(p => `<div class="qw-team-dot">${p.icon}</div>`).join('');
 
-    // Participants HTML
-    const participantsHTML = qw.participants.map(p => `
+        // Participants HTML
+        const participantsHTML = qw.participants.map(p => `
       <div class="qw-participant">
         <div class="qw-p-icon">${p.icon}</div>
         <div class="qw-p-content">
@@ -797,8 +985,8 @@ function buildQWList() {
       </div>
     `).join('');
 
-    // Viability bars
-    const viaHTML = `
+        // Viability bars
+        const viaHTML = `
       <div class="qw-viability">
         <div class="qw-via-item">
           <div class="qw-via-label">Viabilidad técnica</div>
@@ -815,7 +1003,7 @@ function buildQWList() {
       </div>
     `;
 
-    card.innerHTML = `
+        card.innerHTML = `
       <div class="qw-header" onclick="toggleQW(${qw.num})">
         <div class="qw-number">${qw.emoji}</div>
         <div class="qw-title-area">
@@ -845,26 +1033,27 @@ function buildQWList() {
       </div>
     `;
 
-    list.appendChild(card);
-  });
-}
+        list.appendChild(card);
+      });
+    }
 
-function toggleQW(num) {
-  const card = document.querySelector(`.qw-card[data-qw="${num}"]`);
-  const wasActive = card.classList.contains('active');
+    function toggleQW(num) {
+      const card = document.querySelector(`.qw-card[data-qw="${num}"]`);
+      const wasActive = card.classList.contains('active');
 
-  document.querySelectorAll('.qw-card.active').forEach(c => c.classList.remove('active'));
+      document.querySelectorAll('.qw-card.active').forEach(c => c.classList.remove('active'));
 
-  if (!wasActive) {
-    card.classList.add('active');
-    setTimeout(() => {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  }
-}
+      if (!wasActive) {
+        card.classList.add('active');
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
 
-buildQWList();
-</script>
+    buildQWList();
+  </script>
 
 </body>
+
 </html>

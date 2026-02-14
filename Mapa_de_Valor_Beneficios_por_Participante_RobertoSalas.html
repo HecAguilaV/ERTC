@@ -1,799 +1,1006 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Mapa de Valor — Beneficios por Participante | Roberto Salas Letelier</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0a1628;
-    --navy-light: #132240;
-    --navy-mid: #1a3158;
-    --accent-gold: #d4a843;
-    --accent-teal: #2dd4bf;
-    --accent-amber: #f59e0b;
-    --accent-rose: #fb7185;
-    --accent-violet: #a78bfa;
-    --accent-sky: #38bdf8;
-    --accent-emerald: #34d399;
-    --text-primary: #e8edf5;
-    --text-secondary: #94a3b8;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa de Valor — Beneficios por Participante | Roberto Salas Letelier</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-light: #132240;
+      --navy-mid: #1a3158;
+      --accent-gold: #d4a843;
+      --accent-teal: #2dd4bf;
+      --accent-amber: #f59e0b;
+      --accent-rose: #fb7185;
+      --accent-violet: #a78bfa;
+      --accent-sky: #38bdf8;
+      --accent-emerald: #34d399;
+      --text-primary: #e8edf5;
+      --text-secondary: #94a3b8;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  .bg-pattern {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(ellipse at 15% 30%, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 70%, rgba(45, 212, 191, 0.04) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(167, 139, 250, 0.02) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-  }
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 15% 30%, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 85% 70%, rgba(45, 212, 191, 0.04) 0%, transparent 50%),
+        radial-gradient(ellipse at 50% 50%, rgba(167, 139, 250, 0.02) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 960px;
-    margin: 0 auto;
-    padding: 24px 16px 40px;
-  }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
 
-  header {
-    text-align: center;
-    margin-bottom: 28px;
-    animation: fadeInDown 0.8s ease;
-  }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s ease;
+    }
 
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
 
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent-gold);
-    border: 1px solid rgba(212, 168, 67, 0.3);
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 5vw, 34px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-amber) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-secondary);
-    max-width: 540px;
-    margin: 0 auto 12px;
-    line-height: 1.6;
-  }
+      to {
+        opacity: 1;
+      }
+    }
 
-  .author {
-    font-size: 12px;
-    color: var(--accent-gold);
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
 
-  .key-message {
-    background: linear-gradient(135deg, rgba(212, 168, 67, 0.08) 0%, rgba(245, 158, 11, 0.05) 100%);
-    border: 1px solid rgba(212, 168, 67, 0.2);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 28px;
-    text-align: center;
-    font-size: 15px;
-    font-weight: 500;
-    color: var(--accent-gold);
-    line-height: 1.6;
-    animation: fadeIn 1s ease 0.3s both;
-  }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  .key-message em {
-    font-style: normal;
-    color: var(--text-primary);
-  }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-gold);
+      border: 1px solid rgba(212, 168, 67, 0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
 
-  .instructions {
-    background: var(--navy-light);
-    border: 1px solid rgba(45, 212, 191, 0.15);
-    border-radius: 12px;
-    padding: 12px 18px;
-    margin-bottom: 24px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-    animation: fadeIn 1s ease 0.5s both;
-  }
-  .instructions span { color: var(--accent-teal); font-weight: 500; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-amber) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-  /* Benefit categories legend */
-  .benefits-legend {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    justify-content: center;
-    margin-bottom: 24px;
-    animation: fadeIn 1s ease 0.6s both;
-  }
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 540px;
+      margin: 0 auto 12px;
+      line-height: 1.6;
+    }
 
-  .benefit-tag {
-    font-size: 10px;
-    letter-spacing: 0.8px;
-    text-transform: uppercase;
-    padding: 4px 12px;
-    border-radius: 16px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    border: 1px solid transparent;
-  }
+    .author {
+      font-size: 12px;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
 
-  .benefit-tag:hover, .benefit-tag.active {
-    transform: scale(1.05);
-  }
+    .key-message {
+      background: linear-gradient(135deg, rgba(212, 168, 67, 0.08) 0%, rgba(245, 158, 11, 0.05) 100%);
+      border: 1px solid rgba(212, 168, 67, 0.2);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      text-align: center;
+      font-size: 15px;
+      font-weight: 500;
+      color: var(--accent-gold);
+      line-height: 1.6;
+      animation: fadeIn 1s ease 0.3s both;
+    }
 
-  .benefit-tag[data-cat="visibilidad"] { background: rgba(251, 113, 133, 0.15); color: var(--accent-rose); border-color: rgba(251, 113, 133, 0.2); }
-  .benefit-tag[data-cat="campo"] { background: rgba(45, 212, 191, 0.15); color: var(--accent-teal); border-color: rgba(45, 212, 191, 0.2); }
-  .benefit-tag[data-cat="autoria"] { background: rgba(212, 168, 67, 0.15); color: var(--accent-gold); border-color: rgba(212, 168, 67, 0.2); }
-  .benefit-tag[data-cat="red"] { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); border-color: rgba(167, 139, 250, 0.2); }
-  .benefit-tag[data-cat="caso"] { background: rgba(56, 189, 248, 0.15); color: var(--accent-sky); border-color: rgba(56, 189, 248, 0.2); }
-  .benefit-tag[data-cat="validacion"] { background: rgba(52, 211, 153, 0.15); color: var(--accent-emerald); border-color: rgba(52, 211, 153, 0.2); }
+    .key-message em {
+      font-style: normal;
+      color: var(--text-primary);
+    }
 
-  /* Member cards */
-  .members-grid {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    margin-bottom: 24px;
-  }
+    .instructions {
+      background: var(--navy-light);
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 24px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      animation: fadeIn 1s ease 0.5s both;
+    }
 
-  .member-card {
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    overflow: hidden;
-    animation: slideUp 0.5s ease both;
-    transition: all 0.3s ease;
-  }
+    .instructions span {
+      color: var(--accent-teal);
+      font-weight: 500;
+    }
 
-  .member-card:nth-child(1) { animation-delay: 0.1s; }
-  .member-card:nth-child(2) { animation-delay: 0.15s; }
-  .member-card:nth-child(3) { animation-delay: 0.2s; }
-  .member-card:nth-child(4) { animation-delay: 0.25s; }
-  .member-card:nth-child(5) { animation-delay: 0.3s; }
-  .member-card:nth-child(6) { animation-delay: 0.35s; }
-  .member-card:nth-child(7) { animation-delay: 0.4s; }
+    /* Benefit categories legend */
+    .benefits-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 24px;
+      animation: fadeIn 1s ease 0.6s both;
+    }
 
-  .member-header {
-    display: flex;
-    align-items: center;
-    padding: 14px 18px;
-    cursor: pointer;
-    gap: 12px;
-    transition: background 0.2s ease;
-  }
+    .benefit-tag {
+      font-size: 10px;
+      letter-spacing: 0.8px;
+      text-transform: uppercase;
+      padding: 4px 12px;
+      border-radius: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: 1px solid transparent;
+    }
 
-  .member-header:hover {
-    background: rgba(255,255,255,0.02);
-  }
+    .benefit-tag:hover,
+    .benefit-tag.active {
+      transform: scale(1.05);
+    }
 
-  .member-icon {
-    font-size: 22px;
-    width: 40px;
-    height: 40px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(255,255,255,0.04);
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
+    .benefit-tag[data-cat="visibilidad"] {
+      background: rgba(251, 113, 133, 0.15);
+      color: var(--accent-rose);
+      border-color: rgba(251, 113, 133, 0.2);
+    }
 
-  .member-info { flex: 1; min-width: 0; }
+    .benefit-tag[data-cat="campo"] {
+      background: rgba(45, 212, 191, 0.15);
+      color: var(--accent-teal);
+      border-color: rgba(45, 212, 191, 0.2);
+    }
 
-  .member-name {
-    font-weight: 700;
-    font-size: 15px;
-    color: var(--text-primary);
-    line-height: 1.3;
-  }
+    .benefit-tag[data-cat="autoria"] {
+      background: rgba(212, 168, 67, 0.15);
+      color: var(--accent-gold);
+      border-color: rgba(212, 168, 67, 0.2);
+    }
 
-  .member-role {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
+    .benefit-tag[data-cat="red"] {
+      background: rgba(167, 139, 250, 0.15);
+      color: var(--accent-violet);
+      border-color: rgba(167, 139, 250, 0.2);
+    }
 
-  .member-benefit-dots {
-    display: flex;
-    gap: 4px;
-    flex-shrink: 0;
-  }
+    .benefit-tag[data-cat="caso"] {
+      background: rgba(56, 189, 248, 0.15);
+      color: var(--accent-sky);
+      border-color: rgba(56, 189, 248, 0.2);
+    }
 
-  .mini-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    transition: transform 0.2s ease;
-  }
+    .benefit-tag[data-cat="validacion"] {
+      background: rgba(52, 211, 153, 0.15);
+      color: var(--accent-emerald);
+      border-color: rgba(52, 211, 153, 0.2);
+    }
 
-  .mini-dot.filled { opacity: 1; }
-  .mini-dot.empty { opacity: 0.2; }
+    /* Member cards */
+    .members-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-bottom: 24px;
+    }
 
-  .mini-dot[data-cat="visibilidad"] { background: var(--accent-rose); }
-  .mini-dot[data-cat="campo"] { background: var(--accent-teal); }
-  .mini-dot[data-cat="autoria"] { background: var(--accent-gold); }
-  .mini-dot[data-cat="red"] { background: var(--accent-violet); }
-  .mini-dot[data-cat="caso"] { background: var(--accent-sky); }
-  .mini-dot[data-cat="validacion"] { background: var(--accent-emerald); }
+    .member-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      overflow: hidden;
+      animation: slideUp 0.5s ease both;
+      transition: all 0.3s ease;
+    }
 
-  .expand-icon {
-    color: var(--text-secondary);
-    font-size: 14px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-    width: 20px;
-    text-align: center;
-  }
+    .member-card:nth-child(1) {
+      animation-delay: 0.1s;
+    }
 
-  .member-card.expanded .expand-icon {
-    transform: rotate(180deg);
-  }
+    .member-card:nth-child(2) {
+      animation-delay: 0.15s;
+    }
 
-  .member-benefits {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease, padding 0.3s ease;
-  }
+    .member-card:nth-child(3) {
+      animation-delay: 0.2s;
+    }
 
-  .member-card.expanded .member-benefits {
-    max-height: 1200px;
-    padding: 0 18px 18px;
-  }
+    .member-card:nth-child(4) {
+      animation-delay: 0.25s;
+    }
 
-  .benefit-item {
-    display: flex;
-    gap: 12px;
-    padding: 12px 0;
-    border-top: 1px solid rgba(255,255,255,0.04);
-    align-items: flex-start;
-  }
+    .member-card:nth-child(5) {
+      animation-delay: 0.3s;
+    }
 
-  .benefit-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-top: 5px;
-    flex-shrink: 0;
-  }
+    .member-card:nth-child(6) {
+      animation-delay: 0.35s;
+    }
 
-  .benefit-indicator[data-cat="visibilidad"] { background: var(--accent-rose); }
-  .benefit-indicator[data-cat="campo"] { background: var(--accent-teal); }
-  .benefit-indicator[data-cat="autoria"] { background: var(--accent-gold); }
-  .benefit-indicator[data-cat="red"] { background: var(--accent-violet); }
-  .benefit-indicator[data-cat="caso"] { background: var(--accent-sky); }
-  .benefit-indicator[data-cat="validacion"] { background: var(--accent-emerald); }
+    .member-card:nth-child(7) {
+      animation-delay: 0.4s;
+    }
 
-  .benefit-content { flex: 1; }
+    .member-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 18px;
+      cursor: pointer;
+      gap: 12px;
+      transition: background 0.2s ease;
+    }
 
-  .benefit-label {
-    font-size: 11px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 4px;
-  }
+    .member-header:hover {
+      background: rgba(255, 255, 255, 0.02);
+    }
 
-  .benefit-label[data-cat="visibilidad"] { color: var(--accent-rose); }
-  .benefit-label[data-cat="campo"] { color: var(--accent-teal); }
-  .benefit-label[data-cat="autoria"] { color: var(--accent-gold); }
-  .benefit-label[data-cat="red"] { color: var(--accent-violet); }
-  .benefit-label[data-cat="caso"] { color: var(--accent-sky); }
-  .benefit-label[data-cat="validacion"] { color: var(--accent-emerald); }
+    .member-icon {
+      font-size: 22px;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(255, 255, 255, 0.04);
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
 
-  .benefit-desc {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-  }
+    .member-info {
+      flex: 1;
+      min-width: 0;
+    }
 
-  .benefit-desc strong {
-    color: var(--text-primary);
-    font-weight: 500;
-  }
+    .member-name {
+      font-weight: 700;
+      font-size: 15px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
 
-  .benefit-concrete {
-    margin-top: 6px;
-    font-size: 12px;
-    color: var(--accent-teal);
-    font-weight: 500;
-    padding-left: 10px;
-    border-left: 2px solid rgba(45, 212, 191, 0.3);
-  }
+    .member-role {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
 
-  /* Summary bar */
-  .summary-bar {
-    background: var(--navy-light);
-    border: 1px solid rgba(212, 168, 67, 0.15);
-    border-radius: 14px;
-    padding: 18px 22px;
-    margin-bottom: 24px;
-    animation: fadeIn 1s ease 0.8s both;
-  }
+    .member-benefit-dots {
+      display: flex;
+      gap: 4px;
+      flex-shrink: 0;
+    }
 
-  .summary-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    color: var(--accent-gold);
-    margin-bottom: 14px;
-  }
+    .mini-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      transition: transform 0.2s ease;
+    }
 
-  .summary-stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
-    gap: 12px;
-  }
+    .mini-dot.filled {
+      opacity: 1;
+    }
 
-  .stat-item {
-    text-align: center;
-    padding: 10px 8px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-  }
+    .mini-dot.empty {
+      opacity: 0.2;
+    }
 
-  .stat-number {
-    font-size: 28px;
-    font-weight: 700;
-    font-family: 'Playfair Display', serif;
-  }
+    .mini-dot[data-cat="visibilidad"] {
+      background: var(--accent-rose);
+    }
 
-  .stat-number.rose { color: var(--accent-rose); }
-  .stat-number.teal { color: var(--accent-teal); }
-  .stat-number.gold { color: var(--accent-gold); }
-  .stat-number.violet { color: var(--accent-violet); }
-  .stat-number.sky { color: var(--accent-sky); }
-  .stat-number.emerald { color: var(--accent-emerald); }
+    .mini-dot[data-cat="campo"] {
+      background: var(--accent-teal);
+    }
 
-  .stat-label {
-    font-size: 10px;
-    color: var(--text-secondary);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-top: 4px;
-  }
+    .mini-dot[data-cat="autoria"] {
+      background: var(--accent-gold);
+    }
 
-  .note {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-top: 24px;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.04);
-  }
+    .mini-dot[data-cat="red"] {
+      background: var(--accent-violet);
+    }
 
-  footer {
-    text-align: center;
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
+    .mini-dot[data-cat="caso"] {
+      background: var(--accent-sky);
+    }
 
-  .footer-author {
-    font-size: 13px;
-    color: var(--accent-gold);
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
+    .mini-dot[data-cat="validacion"] {
+      background: var(--accent-emerald);
+    }
 
-  .footer-org {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-  }
+    .expand-icon {
+      color: var(--text-secondary);
+      font-size: 14px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      width: 20px;
+      text-align: center;
+    }
 
-  .footer-date {
-    font-size: 10px;
-    color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-  }
-</style>
+    .member-card.expanded .expand-icon {
+      transform: rotate(180deg);
+    }
+
+    .member-benefits {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+    }
+
+    .member-card.expanded .member-benefits {
+      max-height: 1200px;
+      padding: 0 18px 18px;
+    }
+
+    .benefit-item {
+      display: flex;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.04);
+      align-items: flex-start;
+    }
+
+    .benefit-indicator {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .benefit-indicator[data-cat="visibilidad"] {
+      background: var(--accent-rose);
+    }
+
+    .benefit-indicator[data-cat="campo"] {
+      background: var(--accent-teal);
+    }
+
+    .benefit-indicator[data-cat="autoria"] {
+      background: var(--accent-gold);
+    }
+
+    .benefit-indicator[data-cat="red"] {
+      background: var(--accent-violet);
+    }
+
+    .benefit-indicator[data-cat="caso"] {
+      background: var(--accent-sky);
+    }
+
+    .benefit-indicator[data-cat="validacion"] {
+      background: var(--accent-emerald);
+    }
+
+    .benefit-content {
+      flex: 1;
+    }
+
+    .benefit-label {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .benefit-label[data-cat="visibilidad"] {
+      color: var(--accent-rose);
+    }
+
+    .benefit-label[data-cat="campo"] {
+      color: var(--accent-teal);
+    }
+
+    .benefit-label[data-cat="autoria"] {
+      color: var(--accent-gold);
+    }
+
+    .benefit-label[data-cat="red"] {
+      color: var(--accent-violet);
+    }
+
+    .benefit-label[data-cat="caso"] {
+      color: var(--accent-sky);
+    }
+
+    .benefit-label[data-cat="validacion"] {
+      color: var(--accent-emerald);
+    }
+
+    .benefit-desc {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    .benefit-desc strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .benefit-concrete {
+      margin-top: 6px;
+      font-size: 12px;
+      color: var(--accent-teal);
+      font-weight: 500;
+      padding-left: 10px;
+      border-left: 2px solid rgba(45, 212, 191, 0.3);
+    }
+
+    /* Summary bar */
+    .summary-bar {
+      background: var(--navy-light);
+      border: 1px solid rgba(212, 168, 67, 0.15);
+      border-radius: 14px;
+      padding: 18px 22px;
+      margin-bottom: 24px;
+      animation: fadeIn 1s ease 0.8s both;
+    }
+
+    .summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      color: var(--accent-gold);
+      margin-bottom: 14px;
+    }
+
+    .summary-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+    }
+
+    .stat-item {
+      text-align: center;
+      padding: 10px 8px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+    }
+
+    .stat-number {
+      font-size: 28px;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .stat-number.rose {
+      color: var(--accent-rose);
+    }
+
+    .stat-number.teal {
+      color: var(--accent-teal);
+    }
+
+    .stat-number.gold {
+      color: var(--accent-gold);
+    }
+
+    .stat-number.violet {
+      color: var(--accent-violet);
+    }
+
+    .stat-number.sky {
+      color: var(--accent-sky);
+    }
+
+    .stat-number.emerald {
+      color: var(--accent-emerald);
+    }
+
+    .stat-label {
+      font-size: 10px;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-top: 4px;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-org {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .footer-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.2);
+      margin-top: 8px;
+    }
+
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: rgba(10, 22, 40, 0.8);
+      color: #e8edf5;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-back:hover {
+      background: rgba(10, 22, 40, 0.95);
+      border-color: rgba(45, 212, 191, 0.3);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 680px) {
+      .btn-back {
+        top: 10px;
+        left: 10px;
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="bg-pattern"></div>
+  <a href="index.html" class="btn-back">← Volver al ERTC</a>
 
-<div class="container">
+  <div class="bg-pattern"></div>
 
-  <header>
-    <div class="badge">Comisión Bomberos-IA</div>
-    <h1>Mapa de Valor</h1>
-    <p class="subtitle">Qué gana cada miembro al participar en este proyecto. Esto no es solo voluntariado — es inversión profesional con retorno concreto.</p>
-    <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
-  </header>
+  <div class="container">
 
-  <div class="key-message">
-    Participar en esta comisión genera <em>6 tipos de valor profesional</em> que van más allá del aporte voluntario. Cada miembro recibe tanto como entrega.
-  </div>
+    <header>
+      <div class="badge">Comisión Bomberos-IA</div>
+      <h1>Mapa de Valor</h1>
+      <p class="subtitle">Qué gana cada miembro al participar en este proyecto. Esto no es solo voluntariado — es
+        inversión profesional con retorno concreto.</p>
+      <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
+    </header>
 
-  <div class="instructions">
-    <span>Toca cada nombre</span> para ver los beneficios concretos que obtiene de este proyecto
-  </div>
+    <div class="key-message">
+      Participar en esta comisión genera <em>6 tipos de valor profesional</em> que van más allá del aporte voluntario.
+      Cada miembro recibe tanto como entrega.
+    </div>
 
-  <div class="benefits-legend" id="benefitsLegend">
-    <div class="benefit-tag" data-cat="visibilidad">🎯 Visibilidad profesional</div>
-    <div class="benefit-tag" data-cat="campo">🔬 Campo de pruebas</div>
-    <div class="benefit-tag" data-cat="autoria">📝 Co-autoría documentada</div>
-    <div class="benefit-tag" data-cat="red">🤝 Red especializada</div>
-    <div class="benefit-tag" data-cat="caso">📊 Caso de estudio</div>
-    <div class="benefit-tag" data-cat="validacion">✅ Validación de expertise</div>
-  </div>
+    <div class="instructions">
+      <span>Toca cada nombre</span> para ver los beneficios concretos que obtiene de este proyecto
+    </div>
 
-  <div class="members-grid" id="membersGrid"></div>
+    <div class="benefits-legend" id="benefitsLegend">
+      <div class="benefit-tag" data-cat="visibilidad">🎯 Visibilidad profesional</div>
+      <div class="benefit-tag" data-cat="campo">🔬 Campo de pruebas</div>
+      <div class="benefit-tag" data-cat="autoria">📝 Co-autoría documentada</div>
+      <div class="benefit-tag" data-cat="red">🤝 Red especializada</div>
+      <div class="benefit-tag" data-cat="caso">📊 Caso de estudio</div>
+      <div class="benefit-tag" data-cat="validacion">✅ Validación de expertise</div>
+    </div>
 
-  <div class="summary-bar">
-    <div class="summary-title">Valor colectivo del equipo</div>
-    <div class="summary-stats">
-      <div class="stat-item">
-        <div class="stat-number rose">7</div>
-        <div class="stat-label">Profesionales</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number gold">36</div>
-        <div class="stat-label">Beneficios cruzados</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number teal">313</div>
-        <div class="stat-label">CB potenciales</div>
-      </div>
-      <div class="stat-item">
-        <div class="stat-number emerald">6</div>
-        <div class="stat-label">Tipos de retorno</div>
+    <div class="members-grid" id="membersGrid"></div>
+
+    <div class="summary-bar">
+      <div class="summary-title">Valor colectivo del equipo</div>
+      <div class="summary-stats">
+        <div class="stat-item">
+          <div class="stat-number rose">7</div>
+          <div class="stat-label">Profesionales</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number gold">36</div>
+          <div class="stat-label">Beneficios cruzados</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number teal">313</div>
+          <div class="stat-label">CB potenciales</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-number emerald">6</div>
+          <div class="stat-label">Tipos de retorno</div>
+        </div>
       </div>
     </div>
+
+    <div class="note">
+      <strong>Nota:</strong> Este mapa incluye a los 7 miembros del núcleo productivo que han realizado aportes
+      sustantivos documentados, con el objetivo de facilitar la lectura y comprensión del valor mutuo. Las
+      contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
+    </div>
+
+    <footer>
+      <div class="footer-author">Roberto Salas Letelier</div>
+      <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
+      <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+          rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
+    </footer>
+
   </div>
 
-  <div class="note">
-    <strong>Nota:</strong> Este mapa incluye a los 7 miembros del núcleo productivo que han realizado aportes sustantivos documentados, con el objetivo de facilitar la lectura y comprensión del valor mutuo. Las contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
-  </div>
-
-  <footer>
-    <div class="footer-author">Roberto Salas Letelier</div>
-    <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
-    <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
-  </footer>
-
-</div>
-
-<script>
-const memberData = [
-  {
-    id: 'ricardo',
-    name: 'Ricardo Ardiles',
-    icon: '🏛️',
-    role: 'Líder del Proyecto · Acceso institucional JNCB',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Posicionamiento como <strong>líder de la primera iniciativa formal de modernización digital de Bomberos en Chile</strong>. Reconocimiento ante JNCB y ANB como quien articuló esta comisión.',
-        concrete: 'Tu nombre en la propuesta que llegará al Presidente Nacional de Bomberos.'
+  <script>
+    const memberData = [
+      {
+        id: 'ricardo',
+        name: 'Ricardo Ardiles',
+        icon: '🏛️',
+        role: 'Líder del Proyecto · Acceso institucional JNCB',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Posicionamiento como <strong>líder de la primera iniciativa formal de modernización digital de Bomberos en Chile</strong>. Reconocimiento ante JNCB y ANB como quien articuló esta comisión.',
+            concrete: 'Tu nombre en la propuesta que llegará al Presidente Nacional de Bomberos.'
+          },
+          campo: {
+            has: true,
+            desc: 'Acceso a un <strong>equipo técnico multidisciplinario de primer nivel</strong> (data engineering, neurociencias, gobernanza IA, desarrollo ágil) que normalmente tendría costo de consultoría.',
+            concrete: 'Expertise profesional de 7 especialistas trabajando para tu proyecto.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría del plan de modernización digital y de cada documento que se produzca. <strong>Tu nombre como líder en todos los entregables formales</strong>.',
+            concrete: 'Documentación formal con tu autoría como líder del proyecto.'
+          },
+          red: {
+            has: true,
+            desc: '<strong>Red directa con expertos en IA, datos, gobernanza y CX</strong> que pueden seguir apoyando a Bomberos más allá de esta comisión.',
+            concrete: 'Contactos profesionales permanentes en el ecosistema IA chileno.'
+          },
+          caso: {
+            has: true,
+            desc: 'Un caso demostrable ante JNCB de que <strong>la colaboración con el sector IA genera valor real</strong> para Bomberos sin costo institucional directo.',
+            concrete: 'Evidencia concreta para justificar modernización digital ante la institución.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de tu <strong>capacidad de liderar proyectos de innovación</strong> en una institución tradicional, conectando mundo de Bomberos con mundo de IA.',
+            concrete: 'Demostración de liderazgo transformador dentro de Bomberos.'
+          }
+        }
       },
-      campo: {
-        has: true,
-        desc: 'Acceso a un <strong>equipo técnico multidisciplinario de primer nivel</strong> (data engineering, neurociencias, gobernanza IA, desarrollo ágil) que normalmente tendría costo de consultoría.',
-        concrete: 'Expertise profesional de 7 especialistas trabajando para tu proyecto.'
+      {
+        id: 'carlos',
+        name: 'Carlos González',
+        icon: '⚙️',
+        role: 'Coord. Técnica · Ex-CENIA · Informática y automatización',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Reconocimiento como el <strong>arquitecto técnico del proyecto de modernización</strong>. Tus 3 categorías con 9 propuestas se convierten en referencia para futuras iniciativas de IA en servicios públicos.',
+            concrete: 'Tu nombre como autor del análisis técnico en presentaciones ante JNCB y CCHIA.'
+          },
+          campo: {
+            has: true,
+            desc: 'Oportunidad de <strong>implementar y probar soluciones IA en un entorno real</strong> con usuarios reales (bomberos), no en laboratorio. Acceso que normalmente requiere meses de negociación institucional.',
+            concrete: 'Campo de pruebas con 313 cuerpos de bomberos potenciales.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría documentada de las <strong>especificaciones técnicas, plan de integración de APIs e informes de pilotos</strong> que salgan de la Coordinación Técnica.',
+            concrete: 'Portfolio profesional con caso real de IA aplicada en sector público.'
+          },
+          red: {
+            has: true,
+            desc: 'Conexión directa con <strong>expertos complementarios</strong>: data engineering (Hans), neurociencias (Alexis), gobernanza (Eric), vinculación institucional (Ricardo).',
+            concrete: 'Red de colaboradores para proyectos futuros más allá de esta comisión.'
+          },
+          caso: {
+            has: true,
+            desc: 'Tu experiencia en CENIA se complementa con <strong>un caso de impacto social medible</strong>: modernización digital para 313 cuerpos de bomberos y sus voluntarios.',
+            concrete: 'Caso demostrable de IA para bien social en tu trayectoria profesional.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de tu capacidad de <strong>traducir análisis técnico en propuestas implementables</strong>. El compromiso que hiciste de "elegir un proyecto y mostrarlo" se convierte en evidencia concreta.',
+            concrete: 'Demostración de que tu expertise de CENIA se aplica en problemas reales.'
+          }
+        }
       },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría del plan de modernización digital y de cada documento que se produzca. <strong>Tu nombre como líder en todos los entregables formales</strong>.',
-        concrete: 'Documentación formal con tu autoría como líder del proyecto.'
+      {
+        id: 'eduardo',
+        name: 'Eduardo Escalante',
+        icon: '🚀',
+        role: 'Coord. Técnica · Desarrollo ágil · Apps funcionales en quintacbo.cl',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Tus apps ya funcionan y eso te posiciona como <strong>el miembro que pasó de la idea a la acción más rápido</strong>. El respaldo institucional de CCHIA amplifica el alcance de lo que ya construiste.',
+            concrete: 'Tus apps visibilizadas ante JNCB, ANB y los 313 cuerpos de bomberos del país.'
+          },
+          campo: {
+            has: true,
+            desc: '<strong>Escalar de la Quinta Compañía a nivel nacional.</strong> La comisión te da acceso institucional (vía Ricardo) y diagnóstico de necesidades (vía Alexis) que individualmente tomaría años conseguir.',
+            concrete: 'De 1 compañía piloto a potencialmente 313 cuerpos de bomberos como usuarios.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría de las aplicaciones y del curso "Fundamentos del Fuego y su Extinción". <strong>Tu trabajo queda registrado formalmente</strong> como contribución al proyecto CCHIA.',
+            concrete: 'Reconocimiento formal de autoría sobre las herramientas que ya creaste.'
+          },
+          red: {
+            has: true,
+            desc: 'Acceso a <strong>especialistas que complementan tu velocidad de ejecución</strong>: Hans para datos, Alexis para validación con usuarios, Eric para cumplimiento ético, Roberto para articulación institucional.',
+            concrete: 'Equipo multidisciplinario que potencia tus quick wins hacia escala.'
+          },
+          caso: {
+            has: true,
+            desc: 'Tu enfoque de "small wins strategy" del MIT <strong>se documenta como caso de estudio real</strong> de transformación digital en institución tradicional latinoamericana.',
+            concrete: 'Caso publicable de innovación ágil en servicios de emergencia.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de que tu <strong>metodología de desarrollo rápido con IA funciona en contexto real</strong>: apps en producción, curso creado en 1 día, pruebas con usuarios reales.',
+            concrete: 'Evidencia medible de que tu enfoque produce resultados concretos.'
+          }
+        }
       },
-      red: {
-        has: true,
-        desc: '<strong>Red directa con expertos en IA, datos, gobernanza y CX</strong> que pueden seguir apoyando a Bomberos más allá de esta comisión.',
-        concrete: 'Contactos profesionales permanentes en el ecosistema IA chileno.'
+      {
+        id: 'hans',
+        name: 'Hans Edelsberg',
+        icon: '📊',
+        role: 'Coord. Técnica · Data engineering · Arquitectura de datos',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Posicionamiento como <strong>el experto que puso el realismo técnico</strong> al proyecto. Tu argumento "sin datos no hay IA" se convierte en principio fundacional de la iniciativa.',
+            concrete: 'Reconocimiento como quien ancló el proyecto en realidad técnica.'
+          },
+          campo: {
+            has: true,
+            desc: 'Acceso a un <strong>desafío real de data engineering a escala nacional</strong>: estandarizar datos de 313 cuerpos de bomberos con sistemas heterogéneos. Caso que pocas organizaciones pueden ofrecer.',
+            concrete: 'Proyecto de arquitectura de datos con complejidad e impacto reales.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría del <strong>plan de integración de APIs y estándares de interoperabilidad</strong> para JNCB. Tu nombre en la propuesta técnica de apertura de datos.',
+            concrete: 'Documento de autoría sobre arquitectura de datos para Bomberos de Chile.'
+          },
+          red: {
+            has: true,
+            desc: 'Conexión con <strong>Ricardo (acceso a JNCB para negociar apertura de APIs)</strong> y con Carlos (arquitectura técnica complementaria). Red que convierte tu visión de datos en acción.',
+            concrete: 'Acceso directo a tomadores de decisión que pueden abrir los datos que necesitas.'
+          },
+          caso: {
+            has: true,
+            desc: 'Caso de <strong>transformación de datos en institución jerárquica y tradicional</strong>. Documentación de cómo se pasa de "no hay datos" a "hay arquitectura de datos nacional".',
+            concrete: 'Caso de estudio de digitalización en sector público para tu portfolio.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de tu <strong>independencia de criterio</strong>: fuiste el primero en cuestionar el Acuerdo y en advertir sobre datos. Eso construye reputación de rigor profesional.',
+            concrete: 'Credibilidad como profesional que prioriza calidad sobre consenso fácil.'
+          }
+        }
       },
-      caso: {
-        has: true,
-        desc: 'Un caso demostrable ante JNCB de que <strong>la colaboración con el sector IA genera valor real</strong> para Bomberos sin costo institucional directo.',
-        concrete: 'Evidencia concreta para justificar modernización digital ante la institución.'
+      {
+        id: 'alexis',
+        name: 'Alexis Brantes',
+        icon: '🧠',
+        role: 'Coord. Investigación · AIM Framework · Neurociencias aplicadas',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Tu AIM Framework se aplica en un <strong>proyecto de alcance nacional con visibilidad institucional</strong>. De framework académico a herramienta probada en campo.',
+            concrete: 'AIM Framework referenciado en documentos oficiales de CCHIA y presentaciones a JNCB.'
+          },
+          campo: {
+            has: true,
+            desc: '<strong>CB Santiago como campo de pruebas real</strong> para tu metodología de diagnóstico humano/emocional. Acceso facilitado por tu contacto previo + respaldo institucional de CCHIA.',
+            concrete: 'Entrevistas y mapeo con bomberos reales validando tu framework.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría del <strong>informe de diagnóstico humano/emocional</strong> de la comisión. Tu AIM Framework documentado con atribución clara como autor original.',
+            concrete: 'Publicación formal con tu nombre como creador del marco de diagnóstico.'
+          },
+          red: {
+            has: true,
+            desc: 'Conexión directa con <strong>expertos complementarios a tu perfil</strong>: data engineering (Hans), desarrollo ágil (Eduardo), gobernanza (Eric), acceso institucional (Ricardo).',
+            concrete: 'Red de colaboradores que potencian tu trabajo sin competir con él.'
+          },
+          caso: {
+            has: true,
+            desc: '<strong>Caso real de aplicación de neurociencias en servicios de emergencia</strong>. Potencial para publicación académica o profesional con datos reales.',
+            concrete: 'Tu libro y framework validados empíricamente en contexto de alta complejidad.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de que tu separación transparente entre <strong>aporte pro-bono y producto comercial es un modelo a seguir</strong>. Tu profesionalismo queda documentado como referencia.',
+            concrete: 'Demostración de integridad profesional ante pares y ante la institución.'
+          }
+        }
       },
-      validacion: {
-        has: true,
-        desc: 'Validación de tu <strong>capacidad de liderar proyectos de innovación</strong> en una institución tradicional, conectando mundo de Bomberos con mundo de IA.',
-        concrete: 'Demostración de liderazgo transformador dentro de Bomberos.'
+      {
+        id: 'eric',
+        name: 'Eric Tureo',
+        icon: '⚖️',
+        role: 'Coord. Investigación · Gobernanza y ética de IA',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Posicionamiento como <strong>consultor de gobernanza de IA que no solo teoriza sino que implementa</strong>. Tus 4 dimensiones se convierten en marco real de un proyecto nacional.',
+            concrete: 'Tu marco de gobernanza aplicado en caso real ante JNCB y sector público.'
+          },
+          campo: {
+            has: true,
+            desc: 'Oportunidad única de <strong>diseñar gobernanza de IA desde cero para una institución nacional</strong>. Bomberos no tiene marco previo — lo que diseñes será el estándar fundacional.',
+            concrete: 'Diseño de gobernanza de IA para 313 cuerpos de bomberos como caso greenfield.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría del <strong>marco ético, políticas de gobernanza y evaluaciones de impacto</strong>. Tu nombre en los lineamientos que guiarán la adopción de IA en Bomberos.',
+            concrete: 'Documentos de gobernanza con tu firma como co-diseñador.'
+          },
+          red: {
+            has: true,
+            desc: 'Conexión con <strong>profesionales que necesitan tu expertise</strong>: Eduardo necesita guardarraíles éticos, Hans necesita marco de gobernanza de datos, Carlos necesita estándares para adquisiciones.',
+            concrete: 'Demanda real de tu expertise por parte de otros miembros del equipo.'
+          },
+          caso: {
+            has: true,
+            desc: '<strong>Caso de adopción responsable de IA en institución de voluntarios</strong> con dimensiones únicas: datos sensibles, operaciones de emergencia, jerarquía tradicional.',
+            concrete: 'Caso de estudio de gobernanza IA con complejidad institucional real.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación de que <strong>la gobernanza no frena la innovación sino que la hace sostenible</strong>. Las 4 dimensiones que planteaste se implementan junto con los quick wins, no después.',
+            concrete: 'Evidencia de que ética y velocidad coexisten en proyectos de IA.'
+          }
+        }
+      },
+      {
+        id: 'roberto',
+        name: 'Roberto Salas',
+        icon: '🌐',
+        role: 'Coord. Ética y Gobernanza · Facilitación ecosistémica',
+        benefits: {
+          visibilidad: {
+            has: true,
+            desc: 'Posicionamiento como <strong>facilitador ecosistémico que conecta actores diversos</strong> en un proyecto concreto de impacto nacional. De framework teórico a práctica demostrable.',
+            concrete: 'Visibilidad como articulador ante JNCB y socios CCHIA.'
+          },
+          campo: {
+            has: true,
+            desc: 'Proyecto Bomberos como <strong>campo de pruebas real para el Sistema Operativo Ecosistémico</strong>. Primera aplicación empírica de tu framework en caso concreto multisectorial.',
+            concrete: '313 cuerpos de bomberos + JNCB + academia + sector privado como ecosistema real.'
+          },
+          autoria: {
+            has: true,
+            desc: 'Co-autoría del <strong>marco ético, políticas de gobernanza, arquitectura de vinculación y modelo de PI</strong>. Tu nombre en los documentos institucionales de la comisión.',
+            concrete: 'Documentación formal con autoría clara de tus frameworks y contribuciones.'
+          },
+          red: {
+            has: true,
+            desc: 'Coalición con <strong>profesionales de alto nivel</strong> que validan tu enfoque ecosistémico: Ricardo (acceso), Carlos (técnico), Eduardo (ejecución), Hans (datos), Alexis (humano), Eric (gobernanza).',
+            concrete: 'Red de aliados que demuestran que la facilitación ecosistémica funciona.'
+          },
+          caso: {
+            has: true,
+            desc: '<strong>Caso fundacional de CCHIA como articuladora ecosistémica</strong>. Demostración medible de que el modelo de facilitación genera valor que la imposición no logra.',
+            concrete: 'Caso de demostración documentado para futuras iniciativas CCHIA.'
+          },
+          validacion: {
+            has: true,
+            desc: 'Validación empírica de que <strong>la facilitación ecosistémica produce resultados reales</strong>: coaliciones construidas, propuestas integradas, conflictos resueltos, marcos diseñados.',
+            concrete: 'Evidencia concreta de que articular actores diversos genera más valor que imponer soluciones desde un centro.'
+          }
+        }
       }
-    }
-  },
-  {
-    id: 'carlos',
-    name: 'Carlos González',
-    icon: '⚙️',
-    role: 'Coord. Técnica · Ex-CENIA · Informática y automatización',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Reconocimiento como el <strong>arquitecto técnico del proyecto de modernización</strong>. Tus 3 categorías con 9 propuestas se convierten en referencia para futuras iniciativas de IA en servicios públicos.',
-        concrete: 'Tu nombre como autor del análisis técnico en presentaciones ante JNCB y CCHIA.'
-      },
-      campo: {
-        has: true,
-        desc: 'Oportunidad de <strong>implementar y probar soluciones IA en un entorno real</strong> con usuarios reales (bomberos), no en laboratorio. Acceso que normalmente requiere meses de negociación institucional.',
-        concrete: 'Campo de pruebas con 313 cuerpos de bomberos potenciales.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría documentada de las <strong>especificaciones técnicas, plan de integración de APIs e informes de pilotos</strong> que salgan de la Coordinación Técnica.',
-        concrete: 'Portfolio profesional con caso real de IA aplicada en sector público.'
-      },
-      red: {
-        has: true,
-        desc: 'Conexión directa con <strong>expertos complementarios</strong>: data engineering (Hans), neurociencias (Alexis), gobernanza (Eric), vinculación institucional (Ricardo).',
-        concrete: 'Red de colaboradores para proyectos futuros más allá de esta comisión.'
-      },
-      caso: {
-        has: true,
-        desc: 'Tu experiencia en CENIA se complementa con <strong>un caso de impacto social medible</strong>: modernización digital para 313 cuerpos de bomberos y sus voluntarios.',
-        concrete: 'Caso demostrable de IA para bien social en tu trayectoria profesional.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación de tu capacidad de <strong>traducir análisis técnico en propuestas implementables</strong>. El compromiso que hiciste de "elegir un proyecto y mostrarlo" se convierte en evidencia concreta.',
-        concrete: 'Demostración de que tu expertise de CENIA se aplica en problemas reales.'
-      }
-    }
-  },
-  {
-    id: 'eduardo',
-    name: 'Eduardo Escalante',
-    icon: '🚀',
-    role: 'Coord. Técnica · Desarrollo ágil · Apps funcionales en quintacbo.cl',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Tus apps ya funcionan y eso te posiciona como <strong>el miembro que pasó de la idea a la acción más rápido</strong>. El respaldo institucional de CCHIA amplifica el alcance de lo que ya construiste.',
-        concrete: 'Tus apps visibilizadas ante JNCB, ANB y los 313 cuerpos de bomberos del país.'
-      },
-      campo: {
-        has: true,
-        desc: '<strong>Escalar de la Quinta Compañía a nivel nacional.</strong> La comisión te da acceso institucional (vía Ricardo) y diagnóstico de necesidades (vía Alexis) que individualmente tomaría años conseguir.',
-        concrete: 'De 1 compañía piloto a potencialmente 313 cuerpos de bomberos como usuarios.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría de las aplicaciones y del curso "Fundamentos del Fuego y su Extinción". <strong>Tu trabajo queda registrado formalmente</strong> como contribución al proyecto CCHIA.',
-        concrete: 'Reconocimiento formal de autoría sobre las herramientas que ya creaste.'
-      },
-      red: {
-        has: true,
-        desc: 'Acceso a <strong>especialistas que complementan tu velocidad de ejecución</strong>: Hans para datos, Alexis para validación con usuarios, Eric para cumplimiento ético, Roberto para articulación institucional.',
-        concrete: 'Equipo multidisciplinario que potencia tus quick wins hacia escala.'
-      },
-      caso: {
-        has: true,
-        desc: 'Tu enfoque de "small wins strategy" del MIT <strong>se documenta como caso de estudio real</strong> de transformación digital en institución tradicional latinoamericana.',
-        concrete: 'Caso publicable de innovación ágil en servicios de emergencia.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación de que tu <strong>metodología de desarrollo rápido con IA funciona en contexto real</strong>: apps en producción, curso creado en 1 día, pruebas con usuarios reales.',
-        concrete: 'Evidencia medible de que tu enfoque produce resultados concretos.'
-      }
-    }
-  },
-  {
-    id: 'hans',
-    name: 'Hans Edelsberg',
-    icon: '📊',
-    role: 'Coord. Técnica · Data engineering · Arquitectura de datos',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Posicionamiento como <strong>el experto que puso el realismo técnico</strong> al proyecto. Tu argumento "sin datos no hay IA" se convierte en principio fundacional de la iniciativa.',
-        concrete: 'Reconocimiento como quien ancló el proyecto en realidad técnica.'
-      },
-      campo: {
-        has: true,
-        desc: 'Acceso a un <strong>desafío real de data engineering a escala nacional</strong>: estandarizar datos de 313 cuerpos de bomberos con sistemas heterogéneos. Caso que pocas organizaciones pueden ofrecer.',
-        concrete: 'Proyecto de arquitectura de datos con complejidad e impacto reales.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría del <strong>plan de integración de APIs y estándares de interoperabilidad</strong> para JNCB. Tu nombre en la propuesta técnica de apertura de datos.',
-        concrete: 'Documento de autoría sobre arquitectura de datos para Bomberos de Chile.'
-      },
-      red: {
-        has: true,
-        desc: 'Conexión con <strong>Ricardo (acceso a JNCB para negociar apertura de APIs)</strong> y con Carlos (arquitectura técnica complementaria). Red que convierte tu visión de datos en acción.',
-        concrete: 'Acceso directo a tomadores de decisión que pueden abrir los datos que necesitas.'
-      },
-      caso: {
-        has: true,
-        desc: 'Caso de <strong>transformación de datos en institución jerárquica y tradicional</strong>. Documentación de cómo se pasa de "no hay datos" a "hay arquitectura de datos nacional".',
-        concrete: 'Caso de estudio de digitalización en sector público para tu portfolio.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación de tu <strong>independencia de criterio</strong>: fuiste el primero en cuestionar el Acuerdo y en advertir sobre datos. Eso construye reputación de rigor profesional.',
-        concrete: 'Credibilidad como profesional que prioriza calidad sobre consenso fácil.'
-      }
-    }
-  },
-  {
-    id: 'alexis',
-    name: 'Alexis Brantes',
-    icon: '🧠',
-    role: 'Coord. Investigación · AIM Framework · Neurociencias aplicadas',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Tu AIM Framework se aplica en un <strong>proyecto de alcance nacional con visibilidad institucional</strong>. De framework académico a herramienta probada en campo.',
-        concrete: 'AIM Framework referenciado en documentos oficiales de CCHIA y presentaciones a JNCB.'
-      },
-      campo: {
-        has: true,
-        desc: '<strong>CB Santiago como campo de pruebas real</strong> para tu metodología de diagnóstico humano/emocional. Acceso facilitado por tu contacto previo + respaldo institucional de CCHIA.',
-        concrete: 'Entrevistas y mapeo con bomberos reales validando tu framework.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría del <strong>informe de diagnóstico humano/emocional</strong> de la comisión. Tu AIM Framework documentado con atribución clara como autor original.',
-        concrete: 'Publicación formal con tu nombre como creador del marco de diagnóstico.'
-      },
-      red: {
-        has: true,
-        desc: 'Conexión directa con <strong>expertos complementarios a tu perfil</strong>: data engineering (Hans), desarrollo ágil (Eduardo), gobernanza (Eric), acceso institucional (Ricardo).',
-        concrete: 'Red de colaboradores que potencian tu trabajo sin competir con él.'
-      },
-      caso: {
-        has: true,
-        desc: '<strong>Caso real de aplicación de neurociencias en servicios de emergencia</strong>. Potencial para publicación académica o profesional con datos reales.',
-        concrete: 'Tu libro y framework validados empíricamente en contexto de alta complejidad.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación de que tu separación transparente entre <strong>aporte pro-bono y producto comercial es un modelo a seguir</strong>. Tu profesionalismo queda documentado como referencia.',
-        concrete: 'Demostración de integridad profesional ante pares y ante la institución.'
-      }
-    }
-  },
-  {
-    id: 'eric',
-    name: 'Eric Tureo',
-    icon: '⚖️',
-    role: 'Coord. Investigación · Gobernanza y ética de IA',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Posicionamiento como <strong>consultor de gobernanza de IA que no solo teoriza sino que implementa</strong>. Tus 4 dimensiones se convierten en marco real de un proyecto nacional.',
-        concrete: 'Tu marco de gobernanza aplicado en caso real ante JNCB y sector público.'
-      },
-      campo: {
-        has: true,
-        desc: 'Oportunidad única de <strong>diseñar gobernanza de IA desde cero para una institución nacional</strong>. Bomberos no tiene marco previo — lo que diseñes será el estándar fundacional.',
-        concrete: 'Diseño de gobernanza de IA para 313 cuerpos de bomberos como caso greenfield.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría del <strong>marco ético, políticas de gobernanza y evaluaciones de impacto</strong>. Tu nombre en los lineamientos que guiarán la adopción de IA en Bomberos.',
-        concrete: 'Documentos de gobernanza con tu firma como co-diseñador.'
-      },
-      red: {
-        has: true,
-        desc: 'Conexión con <strong>profesionales que necesitan tu expertise</strong>: Eduardo necesita guardarraíles éticos, Hans necesita marco de gobernanza de datos, Carlos necesita estándares para adquisiciones.',
-        concrete: 'Demanda real de tu expertise por parte de otros miembros del equipo.'
-      },
-      caso: {
-        has: true,
-        desc: '<strong>Caso de adopción responsable de IA en institución de voluntarios</strong> con dimensiones únicas: datos sensibles, operaciones de emergencia, jerarquía tradicional.',
-        concrete: 'Caso de estudio de gobernanza IA con complejidad institucional real.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación de que <strong>la gobernanza no frena la innovación sino que la hace sostenible</strong>. Las 4 dimensiones que planteaste se implementan junto con los quick wins, no después.',
-        concrete: 'Evidencia de que ética y velocidad coexisten en proyectos de IA.'
-      }
-    }
-  },
-  {
-    id: 'roberto',
-    name: 'Roberto Salas',
-    icon: '🌐',
-    role: 'Coord. Ética y Gobernanza · Facilitación ecosistémica',
-    benefits: {
-      visibilidad: {
-        has: true,
-        desc: 'Posicionamiento como <strong>facilitador ecosistémico que conecta actores diversos</strong> en un proyecto concreto de impacto nacional. De framework teórico a práctica demostrable.',
-        concrete: 'Visibilidad como articulador ante JNCB y socios CCHIA.'
-      },
-      campo: {
-        has: true,
-        desc: 'Proyecto Bomberos como <strong>campo de pruebas real para el Sistema Operativo Ecosistémico</strong>. Primera aplicación empírica de tu framework en caso concreto multisectorial.',
-        concrete: '313 cuerpos de bomberos + JNCB + academia + sector privado como ecosistema real.'
-      },
-      autoria: {
-        has: true,
-        desc: 'Co-autoría del <strong>marco ético, políticas de gobernanza, arquitectura de vinculación y modelo de PI</strong>. Tu nombre en los documentos institucionales de la comisión.',
-        concrete: 'Documentación formal con autoría clara de tus frameworks y contribuciones.'
-      },
-      red: {
-        has: true,
-        desc: 'Coalición con <strong>profesionales de alto nivel</strong> que validan tu enfoque ecosistémico: Ricardo (acceso), Carlos (técnico), Eduardo (ejecución), Hans (datos), Alexis (humano), Eric (gobernanza).',
-        concrete: 'Red de aliados que demuestran que la facilitación ecosistémica funciona.'
-      },
-      caso: {
-        has: true,
-        desc: '<strong>Caso fundacional de CCHIA como articuladora ecosistémica</strong>. Demostración medible de que el modelo de facilitación genera valor que la imposición no logra.',
-        concrete: 'Caso de demostración documentado para futuras iniciativas CCHIA.'
-      },
-      validacion: {
-        has: true,
-        desc: 'Validación empírica de que <strong>la facilitación ecosistémica produce resultados reales</strong>: coaliciones construidas, propuestas integradas, conflictos resueltos, marcos diseñados.',
-        concrete: 'Evidencia concreta de que articular actores diversos genera más valor que imponer soluciones desde un centro.'
-      }
-    }
-  }
-];
+    ];
 
-const categories = ['visibilidad', 'campo', 'autoria', 'red', 'caso', 'validacion'];
+    const categories = ['visibilidad', 'campo', 'autoria', 'red', 'caso', 'validacion'];
 
-function buildCards() {
-  const grid = document.getElementById('membersGrid');
+    function buildCards() {
+      const grid = document.getElementById('membersGrid');
 
-  memberData.forEach(member => {
-    const card = document.createElement('div');
-    card.className = 'member-card';
-    card.id = `card-${member.id}`;
+      memberData.forEach(member => {
+        const card = document.createElement('div');
+        card.className = 'member-card';
+        card.id = `card-${member.id}`;
 
-    // Build mini dots
-    let dotsHTML = '';
-    categories.forEach(cat => {
-      const has = member.benefits[cat] && member.benefits[cat].has;
-      dotsHTML += `<div class="mini-dot ${has ? 'filled' : 'empty'}" data-cat="${cat}"></div>`;
-    });
+        // Build mini dots
+        let dotsHTML = '';
+        categories.forEach(cat => {
+          const has = member.benefits[cat] && member.benefits[cat].has;
+          dotsHTML += `<div class="mini-dot ${has ? 'filled' : 'empty'}" data-cat="${cat}"></div>`;
+        });
 
-    // Build benefits
-    let benefitsHTML = '';
-    categories.forEach(cat => {
-      const b = member.benefits[cat];
-      if (b && b.has) {
-        benefitsHTML += `
+        // Build benefits
+        let benefitsHTML = '';
+        categories.forEach(cat => {
+          const b = member.benefits[cat];
+          if (b && b.has) {
+            benefitsHTML += `
           <div class="benefit-item">
             <div class="benefit-indicator" data-cat="${cat}"></div>
             <div class="benefit-content">
@@ -802,10 +1009,10 @@ function buildCards() {
               <div class="benefit-concrete">→ ${b.concrete}</div>
             </div>
           </div>`;
-      }
-    });
+          }
+        });
 
-    card.innerHTML = `
+        card.innerHTML = `
       <div class="member-header" onclick="toggleCard('${member.id}')">
         <div class="member-icon">${member.icon}</div>
         <div class="member-info">
@@ -818,40 +1025,41 @@ function buildCards() {
       <div class="member-benefits">${benefitsHTML}</div>
     `;
 
-    grid.appendChild(card);
-  });
-}
+        grid.appendChild(card);
+      });
+    }
 
-function getCatLabel(cat) {
-  const labels = {
-    visibilidad: '🎯 Visibilidad profesional',
-    campo: '🔬 Campo de pruebas',
-    autoria: '📝 Co-autoría documentada',
-    red: '🤝 Red especializada',
-    caso: '📊 Caso de estudio',
-    validacion: '✅ Validación de expertise'
-  };
-  return labels[cat] || cat;
-}
+    function getCatLabel(cat) {
+      const labels = {
+        visibilidad: '🎯 Visibilidad profesional',
+        campo: '🔬 Campo de pruebas',
+        autoria: '📝 Co-autoría documentada',
+        red: '🤝 Red especializada',
+        caso: '📊 Caso de estudio',
+        validacion: '✅ Validación de expertise'
+      };
+      return labels[cat] || cat;
+    }
 
-function toggleCard(id) {
-  const card = document.getElementById(`card-${id}`);
-  const wasExpanded = card.classList.contains('expanded');
+    function toggleCard(id) {
+      const card = document.getElementById(`card-${id}`);
+      const wasExpanded = card.classList.contains('expanded');
 
-  // Close all
-  document.querySelectorAll('.member-card.expanded').forEach(c => c.classList.remove('expanded'));
+      // Close all
+      document.querySelectorAll('.member-card.expanded').forEach(c => c.classList.remove('expanded'));
 
-  // Toggle clicked
-  if (!wasExpanded) {
-    card.classList.add('expanded');
-    setTimeout(() => {
-      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  }
-}
+      // Toggle clicked
+      if (!wasExpanded) {
+        card.classList.add('expanded');
+        setTimeout(() => {
+          card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
 
-buildCards();
-</script>
+    buildCards();
+  </script>
 
 </body>
+
 </html>

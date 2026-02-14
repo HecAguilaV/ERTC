@@ -1,685 +1,891 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Cadena de Valor — Proyecto Bomberos | Roberto Salas Letelier</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --navy: #0a1628;
-    --navy-light: #132240;
-    --navy-mid: #1a3158;
-    --accent-gold: #d4a843;
-    --accent-teal: #2dd4bf;
-    --text-primary: #e8edf5;
-    --text-secondary: #94a3b8;
-    --stage1: #f87171;
-    --stage2: #fb923c;
-    --stage3: #fbbf24;
-    --stage4: #34d399;
-    --stage5: #2dd4bf;
-    --stage6: #38bdf8;
-    --stage7: #a78bfa;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cadena de Valor — Proyecto Bomberos | Roberto Salas Letelier</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --navy: #0a1628;
+      --navy-light: #132240;
+      --navy-mid: #1a3158;
+      --accent-gold: #d4a843;
+      --accent-teal: #2dd4bf;
+      --text-primary: #e8edf5;
+      --text-secondary: #94a3b8;
+      --stage1: #f87171;
+      --stage2: #fb923c;
+      --stage3: #fbbf24;
+      --stage4: #34d399;
+      --stage5: #2dd4bf;
+      --stage6: #38bdf8;
+      --stage7: #a78bfa;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--navy);
-    color: var(--text-primary);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--navy);
+      color: var(--text-primary);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
 
-  .bg-pattern {
-    position: fixed;
-    top: 0; left: 0; right: 0; bottom: 0;
-    background:
-      radial-gradient(ellipse at 10% 20%, rgba(248, 113, 113, 0.03) 0%, transparent 40%),
-      radial-gradient(ellipse at 90% 50%, rgba(45, 212, 191, 0.04) 0%, transparent 40%),
-      radial-gradient(ellipse at 50% 90%, rgba(167, 139, 250, 0.03) 0%, transparent 40%);
-    pointer-events: none;
-    z-index: 0;
-  }
+    .bg-pattern {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background:
+        radial-gradient(ellipse at 10% 20%, rgba(248, 113, 113, 0.03) 0%, transparent 40%),
+        radial-gradient(ellipse at 90% 50%, rgba(45, 212, 191, 0.04) 0%, transparent 40%),
+        radial-gradient(ellipse at 50% 90%, rgba(167, 139, 250, 0.03) 0%, transparent 40%);
+      pointer-events: none;
+      z-index: 0;
+    }
 
-  .container {
-    position: relative;
-    z-index: 1;
-    max-width: 720px;
-    margin: 0 auto;
-    padding: 24px 16px 40px;
-  }
+    .container {
+      position: relative;
+      z-index: 1;
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 24px 16px 40px;
+    }
 
-  header {
-    text-align: center;
-    margin-bottom: 28px;
-    animation: fadeInDown 0.8s ease;
-  }
+    header {
+      text-align: center;
+      margin-bottom: 28px;
+      animation: fadeInDown 0.8s ease;
+    }
 
-  @keyframes fadeInDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes fadeIn {
-    from { opacity: 0; }
-    to { opacity: 1; }
-  }
-  @keyframes slideUp {
-    from { opacity: 0; transform: translateY(16px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  @keyframes pulseGlow {
-    0%, 100% { opacity: 0.4; }
-    50% { opacity: 1; }
-  }
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
 
-  .badge {
-    display: inline-block;
-    font-size: 10px;
-    letter-spacing: 2.5px;
-    text-transform: uppercase;
-    color: var(--accent-teal);
-    border: 1px solid rgba(45, 212, 191, 0.3);
-    padding: 5px 14px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-  }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  h1 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(22px, 5vw, 34px);
-    font-weight: 700;
-    line-height: 1.2;
-    margin-bottom: 8px;
-    background: linear-gradient(135deg, var(--stage1) 0%, var(--stage4) 40%, var(--stage7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-  }
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
 
-  .subtitle {
-    font-size: 14px;
-    color: var(--text-secondary);
-    max-width: 520px;
-    margin: 0 auto 12px;
-    line-height: 1.6;
-  }
+      to {
+        opacity: 1;
+      }
+    }
 
-  .author {
-    font-size: 12px;
-    color: var(--accent-gold);
-    letter-spacing: 1px;
-    margin-top: 8px;
-  }
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
 
-  .key-message {
-    background: linear-gradient(135deg, rgba(45, 212, 191, 0.06) 0%, rgba(167, 139, 250, 0.06) 100%);
-    border: 1px solid rgba(45, 212, 191, 0.15);
-    border-radius: 14px;
-    padding: 16px 20px;
-    margin-bottom: 28px;
-    text-align: center;
-    font-size: 14px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    animation: fadeIn 1s ease 0.3s both;
-  }
-  .key-message strong { color: var(--accent-teal); font-weight: 600; }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
 
-  .instructions {
-    background: var(--navy-light);
-    border: 1px solid rgba(45, 212, 191, 0.15);
-    border-radius: 12px;
-    padding: 12px 18px;
-    margin-bottom: 28px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-    animation: fadeIn 1s ease 0.5s both;
-  }
-  .instructions span { color: var(--accent-teal); font-weight: 500; }
+    @keyframes pulseGlow {
 
-  /* Chain layout */
-  .chain {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0;
-    margin-bottom: 32px;
-  }
+      0%,
+      100% {
+        opacity: 0.4;
+      }
 
-  /* The connecting line */
-  .chain::before {
-    content: '';
-    position: absolute;
-    left: 28px;
-    top: 40px;
-    bottom: 40px;
-    width: 3px;
-    background: linear-gradient(180deg,
-      var(--stage1) 0%,
-      var(--stage2) 16%,
-      var(--stage3) 32%,
-      var(--stage4) 48%,
-      var(--stage5) 64%,
-      var(--stage6) 80%,
-      var(--stage7) 100%
-    );
-    border-radius: 2px;
-    opacity: 0.4;
-  }
+      50% {
+        opacity: 1;
+      }
+    }
 
-  .stage-wrapper {
-    position: relative;
-    padding-left: 60px;
-    min-height: 80px;
-    animation: slideUp 0.5s ease both;
-  }
+    .badge {
+      display: inline-block;
+      font-size: 10px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: var(--accent-teal);
+      border: 1px solid rgba(45, 212, 191, 0.3);
+      padding: 5px 14px;
+      border-radius: 20px;
+      margin-bottom: 16px;
+    }
 
-  .stage-wrapper:nth-child(1) { animation-delay: 0.1s; }
-  .stage-wrapper:nth-child(2) { animation-delay: 0.2s; }
-  .stage-wrapper:nth-child(3) { animation-delay: 0.3s; }
-  .stage-wrapper:nth-child(4) { animation-delay: 0.4s; }
-  .stage-wrapper:nth-child(5) { animation-delay: 0.5s; }
-  .stage-wrapper:nth-child(6) { animation-delay: 0.6s; }
-  .stage-wrapper:nth-child(7) { animation-delay: 0.7s; }
+    h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, var(--stage1) 0%, var(--stage4) 40%, var(--stage7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-  /* Stage node on the line */
-  .stage-node {
-    position: absolute;
-    left: 16px;
-    top: 18px;
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 11px;
-    font-weight: 700;
-    color: var(--navy);
-    z-index: 2;
-    box-shadow: 0 0 0 4px var(--navy), 0 0 12px rgba(0,0,0,0.3);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-  }
+    .subtitle {
+      font-size: 14px;
+      color: var(--text-secondary);
+      max-width: 520px;
+      margin: 0 auto 12px;
+      line-height: 1.6;
+    }
 
-  .stage-wrapper.active .stage-node {
-    transform: scale(1.25);
-    box-shadow: 0 0 0 4px var(--navy), 0 0 20px currentColor;
-  }
+    .author {
+      font-size: 12px;
+      color: var(--accent-gold);
+      letter-spacing: 1px;
+      margin-top: 8px;
+    }
 
-  .stage-node[data-stage="1"] { background: var(--stage1); }
-  .stage-node[data-stage="2"] { background: var(--stage2); }
-  .stage-node[data-stage="3"] { background: var(--stage3); }
-  .stage-node[data-stage="4"] { background: var(--stage4); }
-  .stage-node[data-stage="5"] { background: var(--stage5); }
-  .stage-node[data-stage="6"] { background: var(--stage6); }
-  .stage-node[data-stage="7"] { background: var(--stage7); }
+    .key-message {
+      background: linear-gradient(135deg, rgba(45, 212, 191, 0.06) 0%, rgba(167, 139, 250, 0.06) 100%);
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      border-radius: 14px;
+      padding: 16px 20px;
+      margin-bottom: 28px;
+      text-align: center;
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      animation: fadeIn 1s ease 0.3s both;
+    }
 
-  /* Stage card */
-  .stage-card {
-    background: var(--navy-light);
-    border: 1px solid rgba(255,255,255,0.06);
-    border-radius: 14px;
-    overflow: hidden;
-    margin-bottom: 12px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-  }
+    .key-message strong {
+      color: var(--accent-teal);
+      font-weight: 600;
+    }
 
-  .stage-card:hover {
-    border-color: rgba(255,255,255,0.12);
-  }
+    .instructions {
+      background: var(--navy-light);
+      border: 1px solid rgba(45, 212, 191, 0.15);
+      border-radius: 12px;
+      padding: 12px 18px;
+      margin-bottom: 28px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      animation: fadeIn 1s ease 0.5s both;
+    }
 
-  .stage-wrapper.active .stage-card {
-    box-shadow: 0 4px 24px rgba(0,0,0,0.3);
-  }
+    .instructions span {
+      color: var(--accent-teal);
+      font-weight: 500;
+    }
 
-  .stage-header {
-    display: flex;
-    align-items: center;
-    padding: 14px 16px;
-    gap: 10px;
-  }
+    /* Chain layout */
+    .chain {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin-bottom: 32px;
+    }
 
-  .stage-emoji {
-    font-size: 20px;
-    width: 36px;
-    height: 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border-radius: 10px;
-    flex-shrink: 0;
-  }
+    /* The connecting line */
+    .chain::before {
+      content: '';
+      position: absolute;
+      left: 28px;
+      top: 40px;
+      bottom: 40px;
+      width: 3px;
+      background: linear-gradient(180deg,
+          var(--stage1) 0%,
+          var(--stage2) 16%,
+          var(--stage3) 32%,
+          var(--stage4) 48%,
+          var(--stage5) 64%,
+          var(--stage6) 80%,
+          var(--stage7) 100%);
+      border-radius: 2px;
+      opacity: 0.4;
+    }
 
-  .stage-emoji[data-stage="1"] { background: rgba(248, 113, 113, 0.12); }
-  .stage-emoji[data-stage="2"] { background: rgba(251, 146, 60, 0.12); }
-  .stage-emoji[data-stage="3"] { background: rgba(251, 191, 36, 0.12); }
-  .stage-emoji[data-stage="4"] { background: rgba(52, 211, 153, 0.12); }
-  .stage-emoji[data-stage="5"] { background: rgba(45, 212, 191, 0.12); }
-  .stage-emoji[data-stage="6"] { background: rgba(56, 189, 248, 0.12); }
-  .stage-emoji[data-stage="7"] { background: rgba(167, 139, 250, 0.12); }
+    .stage-wrapper {
+      position: relative;
+      padding-left: 60px;
+      min-height: 80px;
+      animation: slideUp 0.5s ease both;
+    }
 
-  .stage-title-area { flex: 1; min-width: 0; }
+    .stage-wrapper:nth-child(1) {
+      animation-delay: 0.1s;
+    }
 
-  .stage-name {
-    font-weight: 700;
-    font-size: 14px;
-    color: var(--text-primary);
-    line-height: 1.3;
-  }
+    .stage-wrapper:nth-child(2) {
+      animation-delay: 0.2s;
+    }
 
-  .stage-name[data-stage="1"] .stage-num { color: var(--stage1); }
-  .stage-name[data-stage="2"] .stage-num { color: var(--stage2); }
-  .stage-name[data-stage="3"] .stage-num { color: var(--stage3); }
-  .stage-name[data-stage="4"] .stage-num { color: var(--stage4); }
-  .stage-name[data-stage="5"] .stage-num { color: var(--stage5); }
-  .stage-name[data-stage="6"] .stage-num { color: var(--stage6); }
-  .stage-name[data-stage="7"] .stage-num { color: var(--stage7); }
+    .stage-wrapper:nth-child(3) {
+      animation-delay: 0.3s;
+    }
 
-  .stage-owner {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 2px;
-  }
+    .stage-wrapper:nth-child(4) {
+      animation-delay: 0.4s;
+    }
 
-  .expand-arrow {
-    color: var(--text-secondary);
-    font-size: 12px;
-    transition: transform 0.3s ease;
-    flex-shrink: 0;
-  }
+    .stage-wrapper:nth-child(5) {
+      animation-delay: 0.5s;
+    }
 
-  .stage-wrapper.active .expand-arrow {
-    transform: rotate(180deg);
-  }
+    .stage-wrapper:nth-child(6) {
+      animation-delay: 0.6s;
+    }
 
-  /* Expanded content */
-  .stage-detail {
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.5s ease;
-  }
+    .stage-wrapper:nth-child(7) {
+      animation-delay: 0.7s;
+    }
 
-  .stage-wrapper.active .stage-detail {
-    max-height: 800px;
-  }
+    /* Stage node on the line */
+    .stage-node {
+      position: absolute;
+      left: 16px;
+      top: 18px;
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--navy);
+      z-index: 2;
+      box-shadow: 0 0 0 4px var(--navy), 0 0 12px rgba(0, 0, 0, 0.3);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-  .stage-detail-inner {
-    padding: 0 16px 18px;
-  }
+    .stage-wrapper.active .stage-node {
+      transform: scale(1.25);
+      box-shadow: 0 0 0 4px var(--navy), 0 0 20px currentColor;
+    }
 
-  .flow-section {
-    margin-bottom: 14px;
-  }
+    .stage-node[data-stage="1"] {
+      background: var(--stage1);
+    }
 
-  .flow-label {
-    font-size: 10px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    font-weight: 700;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 6px;
-  }
+    .stage-node[data-stage="2"] {
+      background: var(--stage2);
+    }
 
-  .flow-label.input { color: var(--accent-gold); }
-  .flow-label.process { color: var(--text-primary); }
-  .flow-label.output { color: var(--accent-teal); }
-  .flow-label.why { color: var(--accent-gold); }
+    .stage-node[data-stage="3"] {
+      background: var(--stage3);
+    }
 
-  .flow-text {
-    font-size: 13px;
-    color: var(--text-secondary);
-    line-height: 1.7;
-    padding-left: 2px;
-  }
+    .stage-node[data-stage="4"] {
+      background: var(--stage4);
+    }
 
-  .flow-text strong {
-    color: var(--text-primary);
-    font-weight: 500;
-  }
+    .stage-node[data-stage="5"] {
+      background: var(--stage5);
+    }
 
-  .output-box {
-    background: rgba(45, 212, 191, 0.06);
-    border-left: 3px solid var(--accent-teal);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--accent-teal);
-    font-weight: 500;
-    line-height: 1.5;
-  }
+    .stage-node[data-stage="6"] {
+      background: var(--stage6);
+    }
 
-  .why-box {
-    background: rgba(212, 168, 67, 0.06);
-    border-left: 3px solid var(--accent-gold);
-    border-radius: 0 8px 8px 0;
-    padding: 10px 14px;
-    font-size: 13px;
-    color: var(--accent-gold);
-    font-weight: 500;
-    line-height: 1.5;
-    font-style: italic;
-  }
+    .stage-node[data-stage="7"] {
+      background: var(--stage7);
+    }
 
-  /* Connector arrows between stages */
-  .connector {
-    display: flex;
-    align-items: center;
-    padding-left: 60px;
-    height: 8px;
-    position: relative;
-  }
+    /* Stage card */
+    .stage-card {
+      background: var(--navy-light);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 14px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
 
-  .connector-text {
-    font-size: 9px;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.15);
-    padding-left: 4px;
-  }
+    .stage-card:hover {
+      border-color: rgba(255, 255, 255, 0.12);
+    }
 
-  /* Summary */
-  .chain-summary {
-    background: var(--navy-light);
-    border: 1px solid rgba(167, 139, 250, 0.15);
-    border-radius: 14px;
-    padding: 20px 22px;
-    margin-bottom: 24px;
-    animation: fadeIn 1s ease 1s both;
-  }
+    .stage-wrapper.active .stage-card {
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.3);
+    }
 
-  .chain-summary-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 16px;
-    background: linear-gradient(135deg, var(--stage1) 0%, var(--stage7) 100%);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    margin-bottom: 14px;
-  }
+    .stage-header {
+      display: flex;
+      align-items: center;
+      padding: 14px 16px;
+      gap: 10px;
+    }
 
-  .chain-flow-mini {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 6px;
-    align-items: center;
-    justify-content: center;
-  }
+    .stage-emoji {
+      font-size: 20px;
+      width: 36px;
+      height: 36px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
 
-  .mini-stage {
-    display: flex;
-    align-items: center;
-    gap: 5px;
-    font-size: 11px;
-    padding: 5px 10px;
-    border-radius: 8px;
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.06);
-    color: var(--text-secondary);
-  }
+    .stage-emoji[data-stage="1"] {
+      background: rgba(248, 113, 113, 0.12);
+    }
 
-  .mini-stage .ms-dot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    flex-shrink: 0;
-  }
+    .stage-emoji[data-stage="2"] {
+      background: rgba(251, 146, 60, 0.12);
+    }
 
-  .mini-stage[data-s="1"] .ms-dot { background: var(--stage1); }
-  .mini-stage[data-s="2"] .ms-dot { background: var(--stage2); }
-  .mini-stage[data-s="3"] .ms-dot { background: var(--stage3); }
-  .mini-stage[data-s="4"] .ms-dot { background: var(--stage4); }
-  .mini-stage[data-s="5"] .ms-dot { background: var(--stage5); }
-  .mini-stage[data-s="6"] .ms-dot { background: var(--stage6); }
-  .mini-stage[data-s="7"] .ms-dot { background: var(--stage7); }
+    .stage-emoji[data-stage="3"] {
+      background: rgba(251, 191, 36, 0.12);
+    }
 
-  .mini-arrow {
-    color: rgba(255,255,255,0.15);
-    font-size: 10px;
-  }
+    .stage-emoji[data-stage="4"] {
+      background: rgba(52, 211, 153, 0.12);
+    }
 
-  .chain-message {
-    margin-top: 14px;
-    font-size: 13px;
-    color: var(--text-secondary);
-    text-align: center;
-    line-height: 1.6;
-  }
+    .stage-emoji[data-stage="5"] {
+      background: rgba(45, 212, 191, 0.12);
+    }
 
-  .chain-message em {
-    font-style: normal;
-    color: var(--accent-teal);
-    font-weight: 500;
-  }
+    .stage-emoji[data-stage="6"] {
+      background: rgba(56, 189, 248, 0.12);
+    }
 
-  .note {
-    text-align: center;
-    font-size: 11px;
-    color: var(--text-secondary);
-    line-height: 1.6;
-    margin-top: 24px;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.02);
-    border-radius: 10px;
-    border: 1px solid rgba(255,255,255,0.04);
-  }
+    .stage-emoji[data-stage="7"] {
+      background: rgba(167, 139, 250, 0.12);
+    }
 
-  footer {
-    text-align: center;
-    margin-top: 32px;
-    padding-top: 20px;
-    border-top: 1px solid rgba(255,255,255,0.06);
-  }
+    .stage-title-area {
+      flex: 1;
+      min-width: 0;
+    }
 
-  .footer-author {
-    font-size: 13px;
-    color: var(--accent-gold);
-    font-weight: 500;
-    letter-spacing: 0.5px;
-  }
+    .stage-name {
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--text-primary);
+      line-height: 1.3;
+    }
 
-  .footer-org {
-    font-size: 11px;
-    color: var(--text-secondary);
-    margin-top: 4px;
-  }
+    .stage-name[data-stage="1"] .stage-num {
+      color: var(--stage1);
+    }
 
-  .footer-date {
-    font-size: 10px;
-    color: rgba(255,255,255,0.2);
-    margin-top: 8px;
-  }
-</style>
+    .stage-name[data-stage="2"] .stage-num {
+      color: var(--stage2);
+    }
+
+    .stage-name[data-stage="3"] .stage-num {
+      color: var(--stage3);
+    }
+
+    .stage-name[data-stage="4"] .stage-num {
+      color: var(--stage4);
+    }
+
+    .stage-name[data-stage="5"] .stage-num {
+      color: var(--stage5);
+    }
+
+    .stage-name[data-stage="6"] .stage-num {
+      color: var(--stage6);
+    }
+
+    .stage-name[data-stage="7"] .stage-num {
+      color: var(--stage7);
+    }
+
+    .stage-owner {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+
+    .expand-arrow {
+      color: var(--text-secondary);
+      font-size: 12px;
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+    }
+
+    .stage-wrapper.active .expand-arrow {
+      transform: rotate(180deg);
+    }
+
+    /* Expanded content */
+    .stage-detail {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease;
+    }
+
+    .stage-wrapper.active .stage-detail {
+      max-height: 800px;
+    }
+
+    .stage-detail-inner {
+      padding: 0 16px 18px;
+    }
+
+    .flow-section {
+      margin-bottom: 14px;
+    }
+
+    .flow-label {
+      font-size: 10px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .flow-label.input {
+      color: var(--accent-gold);
+    }
+
+    .flow-label.process {
+      color: var(--text-primary);
+    }
+
+    .flow-label.output {
+      color: var(--accent-teal);
+    }
+
+    .flow-label.why {
+      color: var(--accent-gold);
+    }
+
+    .flow-text {
+      font-size: 13px;
+      color: var(--text-secondary);
+      line-height: 1.7;
+      padding-left: 2px;
+    }
+
+    .flow-text strong {
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+
+    .output-box {
+      background: rgba(45, 212, 191, 0.06);
+      border-left: 3px solid var(--accent-teal);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--accent-teal);
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .why-box {
+      background: rgba(212, 168, 67, 0.06);
+      border-left: 3px solid var(--accent-gold);
+      border-radius: 0 8px 8px 0;
+      padding: 10px 14px;
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 500;
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* Connector arrows between stages */
+    .connector {
+      display: flex;
+      align-items: center;
+      padding-left: 60px;
+      height: 8px;
+      position: relative;
+    }
+
+    .connector-text {
+      font-size: 9px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: rgba(255, 255, 255, 0.15);
+      padding-left: 4px;
+    }
+
+    /* Summary */
+    .chain-summary {
+      background: var(--navy-light);
+      border: 1px solid rgba(167, 139, 250, 0.15);
+      border-radius: 14px;
+      padding: 20px 22px;
+      margin-bottom: 24px;
+      animation: fadeIn 1s ease 1s both;
+    }
+
+    .chain-summary-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 16px;
+      background: linear-gradient(135deg, var(--stage1) 0%, var(--stage7) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 14px;
+    }
+
+    .chain-flow-mini {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .mini-stage {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      color: var(--text-secondary);
+    }
+
+    .mini-stage .ms-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    .mini-stage[data-s="1"] .ms-dot {
+      background: var(--stage1);
+    }
+
+    .mini-stage[data-s="2"] .ms-dot {
+      background: var(--stage2);
+    }
+
+    .mini-stage[data-s="3"] .ms-dot {
+      background: var(--stage3);
+    }
+
+    .mini-stage[data-s="4"] .ms-dot {
+      background: var(--stage4);
+    }
+
+    .mini-stage[data-s="5"] .ms-dot {
+      background: var(--stage5);
+    }
+
+    .mini-stage[data-s="6"] .ms-dot {
+      background: var(--stage6);
+    }
+
+    .mini-stage[data-s="7"] .ms-dot {
+      background: var(--stage7);
+    }
+
+    .mini-arrow {
+      color: rgba(255, 255, 255, 0.15);
+      font-size: 10px;
+    }
+
+    .chain-message {
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--text-secondary);
+      text-align: center;
+      line-height: 1.6;
+    }
+
+    .chain-message em {
+      font-style: normal;
+      color: var(--accent-teal);
+      font-weight: 500;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      margin-top: 24px;
+      padding: 14px 18px;
+      background: rgba(255, 255, 255, 0.02);
+      border-radius: 10px;
+      border: 1px solid rgba(255, 255, 255, 0.04);
+    }
+
+    footer {
+      text-align: center;
+      margin-top: 32px;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    .footer-author {
+      font-size: 13px;
+      color: var(--accent-gold);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+
+    .footer-org {
+      font-size: 11px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .footer-date {
+      font-size: 10px;
+      color: rgba(255, 255, 255, 0.2);
+      margin-top: 8px;
+    }
+
+    .btn-back {
+      position: fixed;
+      top: 20px;
+      left: 20px;
+      z-index: 1000;
+      font-size: 13px;
+      padding: 8px 14px;
+      border-radius: 20px;
+      background: rgba(10, 22, 40, 0.8);
+      color: #e8edf5;
+      text-decoration: none;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+      font-family: 'DM Sans', sans-serif;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .btn-back:hover {
+      background: rgba(10, 22, 40, 0.95);
+      border-color: rgba(45, 212, 191, 0.3);
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 680px) {
+      .btn-back {
+        top: 10px;
+        left: 10px;
+        font-size: 11px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="bg-pattern"></div>
+  <a href="index.html" class="btn-back">← Volver al ERTC</a>
 
-<div class="container">
+  <div class="bg-pattern"></div>
 
-  <header>
-    <div class="badge">Comisión Bomberos-IA</div>
-    <h1>Cadena de Valor</h1>
-    <p class="subtitle">Cada eslabón del proyecto depende del anterior y habilita al siguiente. Si falta uno, la cadena se rompe — todos somos necesarios.</p>
-    <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
-  </header>
+  <div class="container">
 
-  <div class="key-message">
-    El proyecto no es una lista de tareas independientes. Es una <strong>cadena donde cada aporte alimenta al siguiente</strong>. Tu trabajo multiplica el de otros — y el de otros multiplica el tuyo.
-  </div>
+    <header>
+      <div class="badge">Comisión Bomberos-IA</div>
+      <h1>Cadena de Valor</h1>
+      <p class="subtitle">Cada eslabón del proyecto depende del anterior y habilita al siguiente. Si falta uno, la
+        cadena se rompe — todos somos necesarios.</p>
+      <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
+    </header>
 
-  <div class="instructions">
-    <span>Toca cada eslabón</span> para ver qué recibe, qué produce y por qué es indispensable
-  </div>
-
-  <div class="chain" id="chain"></div>
-
-  <div class="chain-summary">
-    <div class="chain-summary-title">El flujo completo</div>
-    <div class="chain-flow-mini">
-      <div class="mini-stage" data-s="1"><span class="ms-dot"></span>Acceso</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="2"><span class="ms-dot"></span>Dx Humano</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="3"><span class="ms-dot"></span>Dx Datos</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="4"><span class="ms-dot"></span>Arquitectura</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="5"><span class="ms-dot"></span>Prototipo</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="6"><span class="ms-dot"></span>Gobernanza</div>
-      <span class="mini-arrow">→</span>
-      <div class="mini-stage" data-s="7"><span class="ms-dot"></span>Escalar</div>
+    <div class="key-message">
+      El proyecto no es una lista de tareas independientes. Es una <strong>cadena donde cada aporte alimenta al
+        siguiente</strong>. Tu trabajo multiplica el de otros — y el de otros multiplica el tuyo.
     </div>
-    <div class="chain-message">
-      De la puerta que abre Ricardo hasta el escalamiento nacional, <em>cada eslabón transforma lo que recibe y habilita lo que sigue</em>. Ningún miembro logra impacto completo sin los demás.
+
+    <div class="instructions">
+      <span>Toca cada eslabón</span> para ver qué recibe, qué produce y por qué es indispensable
     </div>
+
+    <div class="chain" id="chain"></div>
+
+    <div class="chain-summary">
+      <div class="chain-summary-title">El flujo completo</div>
+      <div class="chain-flow-mini">
+        <div class="mini-stage" data-s="1"><span class="ms-dot"></span>Acceso</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="2"><span class="ms-dot"></span>Dx Humano</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="3"><span class="ms-dot"></span>Dx Datos</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="4"><span class="ms-dot"></span>Arquitectura</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="5"><span class="ms-dot"></span>Prototipo</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="6"><span class="ms-dot"></span>Gobernanza</div>
+        <span class="mini-arrow">→</span>
+        <div class="mini-stage" data-s="7"><span class="ms-dot"></span>Escalar</div>
+      </div>
+      <div class="chain-message">
+        De la puerta que abre Ricardo hasta el escalamiento nacional, <em>cada eslabón transforma lo que recibe y
+          habilita lo que sigue</em>. Ningún miembro logra impacto completo sin los demás.
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Nota:</strong> Esta cadena incluye a los 7 miembros del núcleo productivo que han realizado aportes
+      sustantivos documentados, con el objetivo de facilitar la lectura y comprensión del flujo de valor. Los eslabones
+      representan funciones, no jerarquías — y las contribuciones de todos los miembros de la comisión son valoradas y
+      bienvenidas.
+    </div>
+
+    <footer>
+      <div class="footer-author">Roberto Salas Letelier</div>
+      <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
+      <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"
+          rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
+    </footer>
+
   </div>
 
-  <div class="note">
-    <strong>Nota:</strong> Esta cadena incluye a los 7 miembros del núcleo productivo que han realizado aportes sustantivos documentados, con el objetivo de facilitar la lectura y comprensión del flujo de valor. Los eslabones representan funciones, no jerarquías — y las contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
-  </div>
+  <script>
+    const stages = [
+      {
+        num: 1,
+        emoji: '🏛️',
+        name: 'Acceso Institucional',
+        owner: 'Ricardo Ardiles — Líder del Proyecto',
+        input: {
+          label: 'Punto de partida',
+          text: 'La misión de CCHIA de articular el ecosistema IA chileno + la necesidad real de modernización de Bomberos + la relación directa de Ricardo con JNCB y su Presidente Nacional.'
+        },
+        process: {
+          label: 'Qué hace Ricardo',
+          text: '<strong>Abre las puertas institucionales</strong> que ningún otro miembro podría abrir individualmente. Legitima la comisión ante Bomberos. Convoca al equipo. Presenta el plan de trabajo de 6 meses ante JNCB. Facilita acceso a voluntarios, datos y tomadores de decisión.'
+        },
+        output: 'Acceso formal a la institución Bomberos de Chile: voluntarios para entrevistas, datos para análisis, directivos para validación, y legitimidad para todo lo que sigue.',
+        why: 'Sin acceso institucional, las mejores propuestas técnicas se quedan en el papel. Ricardo es la llave que abre la puerta al ecosistema real.'
+      },
+      {
+        num: 2,
+        emoji: '🧠',
+        name: 'Diagnóstico Humano',
+        owner: 'Alexis Brantes — Coord. Investigación',
+        input: {
+          label: 'Recibe del eslabón anterior',
+          text: 'Acceso a voluntarios y operativos de Bomberos (facilitado por Ricardo) + contacto directo con CB Santiago (propio de Alexis). Sin este acceso, el diagnóstico humano sería imposible.'
+        },
+        process: {
+          label: 'Qué hace Alexis',
+          text: 'Aplica su <strong>AIM Framework</strong> (Affective Interactions Model) para mapear las interacciones afectivas y cognitivas de los voluntarios. Identifica pain points emocionales, resistencias culturales y necesidades reales desde la perspectiva de quienes usarán la tecnología.'
+        },
+        output: 'Mapa de necesidades humanas reales: qué sienten, qué temen, qué necesitan los bomberos. Resistencias culturales identificadas. Criterios de adopción validados por usuarios reales.',
+        why: 'Sin diagnóstico humano, la tecnología resuelve problemas que nadie tiene. Alexis asegura que lo que construyamos responda a dolor real, no a supuestos técnicos.'
+      },
+      {
+        num: 3,
+        emoji: '📊',
+        name: 'Diagnóstico de Datos e Infraestructura',
+        owner: 'Hans Edelsberg — Coord. Técnica',
+        input: {
+          label: 'Recibe de eslabones anteriores',
+          text: 'Acceso a sistemas y datos de JNCB (vía Ricardo) + comprensión de qué datos son relevantes según necesidades reales de voluntarios (vía Alexis). El diagnóstico humano orienta qué datos buscar.'
+        },
+        process: {
+          label: 'Qué hace Hans',
+          text: '<strong>Evalúa el estado real de los datos</strong> en Bomberos: ¿existen datos estructurados? ¿están limpios? ¿son accesibles? Identifica la brecha entre "lo que tenemos" y "lo que necesitamos para aplicar IA". Propone arquitectura de APIs abiertas de JNCB para estandarización.'
+        },
+        output: 'Diagnóstico de madurez de datos: qué hay, qué falta, qué se necesita digitalizar primero. Propuesta de APIs abiertas. Mapa de infraestructura técnica existente vs requerida.',
+        why: 'Sin datos limpios no hay IA que aplicar — hay solo digitalización de procesos. Hans determina si podemos hacer IA real o si primero necesitamos construir los cimientos.'
+      },
+      {
+        num: 4,
+        emoji: '⚙️',
+        name: 'Arquitectura de Propuestas Técnicas',
+        owner: 'Carlos González — Coord. Técnica',
+        input: {
+          label: 'Recibe de eslabones anteriores',
+          text: 'Necesidades humanas validadas (Alexis) + estado real de datos e infraestructura (Hans) + acceso institucional confirmado (Ricardo). Ahora sabe qué quieren los bomberos Y qué es técnicamente posible hoy.'
+        },
+        process: {
+          label: 'Qué hace Carlos',
+          text: '<strong>Organiza el territorio técnico</strong> en 3 categorías y 9 propuestas específicas: gestión de emergencias (apps, despacho IA, visión artificial), mejoras internas (logística, EdTech, gobernanza de datos), y modernización económica (brechas, estándares, vinculación). Prioriza por viabilidad cruzando información de los eslabones anteriores.'
+        },
+        output: 'Menú de 9 propuestas técnicas priorizadas por viabilidad, con especificaciones de qué se necesita para cada una. Roadmap técnico que distingue quick wins de proyectos de largo plazo.',
+        why: 'Sin arquitectura técnica, las ideas quedan dispersas. Carlos transforma diagnósticos en un mapa de acción con opciones concretas y criterios de decisión.'
+      },
+      {
+        num: 5,
+        emoji: '🚀',
+        name: 'Prototipado y Quick Wins',
+        owner: 'Eduardo Escalante — Coord. Técnica',
+        input: {
+          label: 'Recibe de eslabones anteriores',
+          text: 'Propuestas técnicas priorizadas (Carlos) + necesidades humanas validadas (Alexis) + estado de datos (Hans) + acceso a campo de pruebas (Ricardo). Sabe qué construir, para quién, con qué datos y dónde probarlo.'
+        },
+        process: {
+          label: 'Qué hace Eduardo',
+          text: '<strong>Construye y prueba rápidamente.</strong> Desarrollo ágil de aplicaciones funcionales y herramientas de capacitación. Ya tiene 2 apps operativas en quintacbo.cl y un curso creado con IA en 1 día. Aplica "small wins strategy" del MIT: demostrar valor rápido para generar confianza y momentum.'
+        },
+        output: 'Prototipos funcionales probados con usuarios reales. Evidencia tangible de que la modernización digital es posible y deseable. Feedback de usuarios para iteración. Credibilidad del proyecto ante JNCB.',
+        why: 'Sin prototipos, todo es teoría. Eduardo demuestra que se puede pasar de la idea a la acción en días — y eso genera la confianza institucional que el proyecto necesita para escalar.'
+      },
+      {
+        num: 6,
+        emoji: '⚖️',
+        name: 'Gobernanza y Marco Ético',
+        owner: 'Eric Tureo + Roberto Salas — Coord. Investigación + Coord. Ética y Gobernanza',
+        input: {
+          label: 'Recibe de eslabones anteriores',
+          text: 'Prototipos funcionando (Eduardo) + arquitectura técnica definida (Carlos) + diagnóstico de datos (Hans) + necesidades humanas (Alexis) + relación institucional (Ricardo). Ahora hay algo concreto que gobernar.'
+        },
+        process: {
+          label: 'Qué hacen Eric y Roberto',
+          text: 'Eric aporta las <strong>4 dimensiones de gobernanza</strong> (alcance, propiedad, sostenibilidad, ética de IA). Roberto diseña el <strong>marco de protección de PI, modelo de participación voluntaria, y separación pro-bono/comercial</strong>. Juntos: las preguntas correctas + las respuestas sistémicas. Evaluación de impacto ético de las soluciones desarrolladas.'
+        },
+        output: 'Marco ético operativo. Políticas de gobernanza de datos y de IA. Modelo de PI (autores retienen, CCHIA recibe licencia). Proceso transparente para participación comercial futura. Criterios de sostenibilidad.',
+        why: 'Sin gobernanza, los quick wins no escalan y los conflictos de PI destruyen la colaboración. Este eslabón asegura que lo que funciona en piloto pueda crecer sin fracturar al equipo ni a la institución.'
+      },
+      {
+        num: 7,
+        emoji: '🌐',
+        name: 'Articulación y Escalamiento',
+        owner: 'Roberto Salas + Ricardo Ardiles — Coord. Ética y Gobernanza + Líder del Proyecto',
+        input: {
+          label: 'Recibe de todos los eslabones anteriores',
+          text: 'Prototipos validados + marco de gobernanza + arquitectura técnica + diagnósticos humano y de datos + acceso institucional. El proyecto completo, listo para ir más allá del piloto.'
+        },
+        process: {
+          label: 'Qué hacen Roberto y Ricardo',
+          text: 'Roberto diseña la <strong>arquitectura de vinculación institucional</strong>: cómo articular JNCB, ANB, cuerpos locales, gobierno, academia y sector privado para escalar lo que funciona. Ricardo activa sus contactos institucionales para ejecutar esa articulación. Mapeo de incentivos por actor, interfaces de colaboración, y hoja de ruta de vinculación.'
+        },
+        output: 'Propuesta integral para escalar de 1 compañía piloto a los 313 cuerpos de bomberos de Chile. Modelo replicable para futuras iniciativas de CCHIA. Caso de demostración documentado.',
+        why: 'Sin articulación ecosistémica, un piloto exitoso se queda en piloto. Este eslabón transforma una experiencia local en una transformación nacional — que es la razón de ser de CCHIA.'
+      }
+    ];
 
-  <footer>
-    <div class="footer-author">Roberto Salas Letelier</div>
-    <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
-    <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
-  </footer>
+    function buildChain() {
+      const chain = document.getElementById('chain');
 
-</div>
+      stages.forEach((stage, i) => {
+        // Stage wrapper
+        const wrapper = document.createElement('div');
+        wrapper.className = 'stage-wrapper';
+        wrapper.id = `stage-${stage.num}`;
 
-<script>
-const stages = [
-  {
-    num: 1,
-    emoji: '🏛️',
-    name: 'Acceso Institucional',
-    owner: 'Ricardo Ardiles — Líder del Proyecto',
-    input: {
-      label: 'Punto de partida',
-      text: 'La misión de CCHIA de articular el ecosistema IA chileno + la necesidad real de modernización de Bomberos + la relación directa de Ricardo con JNCB y su Presidente Nacional.'
-    },
-    process: {
-      label: 'Qué hace Ricardo',
-      text: '<strong>Abre las puertas institucionales</strong> que ningún otro miembro podría abrir individualmente. Legitima la comisión ante Bomberos. Convoca al equipo. Presenta el plan de trabajo de 6 meses ante JNCB. Facilita acceso a voluntarios, datos y tomadores de decisión.'
-    },
-    output: 'Acceso formal a la institución Bomberos de Chile: voluntarios para entrevistas, datos para análisis, directivos para validación, y legitimidad para todo lo que sigue.',
-    why: 'Sin acceso institucional, las mejores propuestas técnicas se quedan en el papel. Ricardo es la llave que abre la puerta al ecosistema real.'
-  },
-  {
-    num: 2,
-    emoji: '🧠',
-    name: 'Diagnóstico Humano',
-    owner: 'Alexis Brantes — Coord. Investigación',
-    input: {
-      label: 'Recibe del eslabón anterior',
-      text: 'Acceso a voluntarios y operativos de Bomberos (facilitado por Ricardo) + contacto directo con CB Santiago (propio de Alexis). Sin este acceso, el diagnóstico humano sería imposible.'
-    },
-    process: {
-      label: 'Qué hace Alexis',
-      text: 'Aplica su <strong>AIM Framework</strong> (Affective Interactions Model) para mapear las interacciones afectivas y cognitivas de los voluntarios. Identifica pain points emocionales, resistencias culturales y necesidades reales desde la perspectiva de quienes usarán la tecnología.'
-    },
-    output: 'Mapa de necesidades humanas reales: qué sienten, qué temen, qué necesitan los bomberos. Resistencias culturales identificadas. Criterios de adopción validados por usuarios reales.',
-    why: 'Sin diagnóstico humano, la tecnología resuelve problemas que nadie tiene. Alexis asegura que lo que construyamos responda a dolor real, no a supuestos técnicos.'
-  },
-  {
-    num: 3,
-    emoji: '📊',
-    name: 'Diagnóstico de Datos e Infraestructura',
-    owner: 'Hans Edelsberg — Coord. Técnica',
-    input: {
-      label: 'Recibe de eslabones anteriores',
-      text: 'Acceso a sistemas y datos de JNCB (vía Ricardo) + comprensión de qué datos son relevantes según necesidades reales de voluntarios (vía Alexis). El diagnóstico humano orienta qué datos buscar.'
-    },
-    process: {
-      label: 'Qué hace Hans',
-      text: '<strong>Evalúa el estado real de los datos</strong> en Bomberos: ¿existen datos estructurados? ¿están limpios? ¿son accesibles? Identifica la brecha entre "lo que tenemos" y "lo que necesitamos para aplicar IA". Propone arquitectura de APIs abiertas de JNCB para estandarización.'
-    },
-    output: 'Diagnóstico de madurez de datos: qué hay, qué falta, qué se necesita digitalizar primero. Propuesta de APIs abiertas. Mapa de infraestructura técnica existente vs requerida.',
-    why: 'Sin datos limpios no hay IA que aplicar — hay solo digitalización de procesos. Hans determina si podemos hacer IA real o si primero necesitamos construir los cimientos.'
-  },
-  {
-    num: 4,
-    emoji: '⚙️',
-    name: 'Arquitectura de Propuestas Técnicas',
-    owner: 'Carlos González — Coord. Técnica',
-    input: {
-      label: 'Recibe de eslabones anteriores',
-      text: 'Necesidades humanas validadas (Alexis) + estado real de datos e infraestructura (Hans) + acceso institucional confirmado (Ricardo). Ahora sabe qué quieren los bomberos Y qué es técnicamente posible hoy.'
-    },
-    process: {
-      label: 'Qué hace Carlos',
-      text: '<strong>Organiza el territorio técnico</strong> en 3 categorías y 9 propuestas específicas: gestión de emergencias (apps, despacho IA, visión artificial), mejoras internas (logística, EdTech, gobernanza de datos), y modernización económica (brechas, estándares, vinculación). Prioriza por viabilidad cruzando información de los eslabones anteriores.'
-    },
-    output: 'Menú de 9 propuestas técnicas priorizadas por viabilidad, con especificaciones de qué se necesita para cada una. Roadmap técnico que distingue quick wins de proyectos de largo plazo.',
-    why: 'Sin arquitectura técnica, las ideas quedan dispersas. Carlos transforma diagnósticos en un mapa de acción con opciones concretas y criterios de decisión.'
-  },
-  {
-    num: 5,
-    emoji: '🚀',
-    name: 'Prototipado y Quick Wins',
-    owner: 'Eduardo Escalante — Coord. Técnica',
-    input: {
-      label: 'Recibe de eslabones anteriores',
-      text: 'Propuestas técnicas priorizadas (Carlos) + necesidades humanas validadas (Alexis) + estado de datos (Hans) + acceso a campo de pruebas (Ricardo). Sabe qué construir, para quién, con qué datos y dónde probarlo.'
-    },
-    process: {
-      label: 'Qué hace Eduardo',
-      text: '<strong>Construye y prueba rápidamente.</strong> Desarrollo ágil de aplicaciones funcionales y herramientas de capacitación. Ya tiene 2 apps operativas en quintacbo.cl y un curso creado con IA en 1 día. Aplica "small wins strategy" del MIT: demostrar valor rápido para generar confianza y momentum.'
-    },
-    output: 'Prototipos funcionales probados con usuarios reales. Evidencia tangible de que la modernización digital es posible y deseable. Feedback de usuarios para iteración. Credibilidad del proyecto ante JNCB.',
-    why: 'Sin prototipos, todo es teoría. Eduardo demuestra que se puede pasar de la idea a la acción en días — y eso genera la confianza institucional que el proyecto necesita para escalar.'
-  },
-  {
-    num: 6,
-    emoji: '⚖️',
-    name: 'Gobernanza y Marco Ético',
-    owner: 'Eric Tureo + Roberto Salas — Coord. Investigación + Coord. Ética y Gobernanza',
-    input: {
-      label: 'Recibe de eslabones anteriores',
-      text: 'Prototipos funcionando (Eduardo) + arquitectura técnica definida (Carlos) + diagnóstico de datos (Hans) + necesidades humanas (Alexis) + relación institucional (Ricardo). Ahora hay algo concreto que gobernar.'
-    },
-    process: {
-      label: 'Qué hacen Eric y Roberto',
-      text: 'Eric aporta las <strong>4 dimensiones de gobernanza</strong> (alcance, propiedad, sostenibilidad, ética de IA). Roberto diseña el <strong>marco de protección de PI, modelo de participación voluntaria, y separación pro-bono/comercial</strong>. Juntos: las preguntas correctas + las respuestas sistémicas. Evaluación de impacto ético de las soluciones desarrolladas.'
-    },
-    output: 'Marco ético operativo. Políticas de gobernanza de datos y de IA. Modelo de PI (autores retienen, CCHIA recibe licencia). Proceso transparente para participación comercial futura. Criterios de sostenibilidad.',
-    why: 'Sin gobernanza, los quick wins no escalan y los conflictos de PI destruyen la colaboración. Este eslabón asegura que lo que funciona en piloto pueda crecer sin fracturar al equipo ni a la institución.'
-  },
-  {
-    num: 7,
-    emoji: '🌐',
-    name: 'Articulación y Escalamiento',
-    owner: 'Roberto Salas + Ricardo Ardiles — Coord. Ética y Gobernanza + Líder del Proyecto',
-    input: {
-      label: 'Recibe de todos los eslabones anteriores',
-      text: 'Prototipos validados + marco de gobernanza + arquitectura técnica + diagnósticos humano y de datos + acceso institucional. El proyecto completo, listo para ir más allá del piloto.'
-    },
-    process: {
-      label: 'Qué hacen Roberto y Ricardo',
-      text: 'Roberto diseña la <strong>arquitectura de vinculación institucional</strong>: cómo articular JNCB, ANB, cuerpos locales, gobierno, academia y sector privado para escalar lo que funciona. Ricardo activa sus contactos institucionales para ejecutar esa articulación. Mapeo de incentivos por actor, interfaces de colaboración, y hoja de ruta de vinculación.'
-    },
-    output: 'Propuesta integral para escalar de 1 compañía piloto a los 313 cuerpos de bomberos de Chile. Modelo replicable para futuras iniciativas de CCHIA. Caso de demostración documentado.',
-    why: 'Sin articulación ecosistémica, un piloto exitoso se queda en piloto. Este eslabón transforma una experiencia local en una transformación nacional — que es la razón de ser de CCHIA.'
-  }
-];
-
-function buildChain() {
-  const chain = document.getElementById('chain');
-
-  stages.forEach((stage, i) => {
-    // Stage wrapper
-    const wrapper = document.createElement('div');
-    wrapper.className = 'stage-wrapper';
-    wrapper.id = `stage-${stage.num}`;
-
-    wrapper.innerHTML = `
+        wrapper.innerHTML = `
       <div class="stage-node" data-stage="${stage.num}">${stage.num}</div>
       <div class="stage-card" onclick="toggleStage(${stage.num})">
         <div class="stage-header">
@@ -715,36 +921,37 @@ function buildChain() {
       </div>
     `;
 
-    chain.appendChild(wrapper);
+        chain.appendChild(wrapper);
 
-    // Add connector between stages (not after last)
-    if (i < stages.length - 1) {
-      const conn = document.createElement('div');
-      conn.className = 'connector';
-      conn.innerHTML = `<span class="connector-text">alimenta →</span>`;
-      chain.appendChild(conn);
+        // Add connector between stages (not after last)
+        if (i < stages.length - 1) {
+          const conn = document.createElement('div');
+          conn.className = 'connector';
+          conn.innerHTML = `<span class="connector-text">alimenta →</span>`;
+          chain.appendChild(conn);
+        }
+      });
     }
-  });
-}
 
-function toggleStage(num) {
-  const wrapper = document.getElementById(`stage-${num}`);
-  const wasActive = wrapper.classList.contains('active');
+    function toggleStage(num) {
+      const wrapper = document.getElementById(`stage-${num}`);
+      const wasActive = wrapper.classList.contains('active');
 
-  // Close all
-  document.querySelectorAll('.stage-wrapper.active').forEach(w => w.classList.remove('active'));
+      // Close all
+      document.querySelectorAll('.stage-wrapper.active').forEach(w => w.classList.remove('active'));
 
-  // Toggle
-  if (!wasActive) {
-    wrapper.classList.add('active');
-    setTimeout(() => {
-      wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-    }, 100);
-  }
-}
+      // Toggle
+      if (!wasActive) {
+        wrapper.classList.add('active');
+        setTimeout(() => {
+          wrapper.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }, 100);
+      }
+    }
 
-buildChain();
-</script>
+    buildChain();
+  </script>
 
 </body>
+
 </html>
