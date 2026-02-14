@@ -283,9 +283,17 @@
             text-align: justify;
         }
 
-        .home-content strong {
+        .home-content strong,
+        .home-content a {
             color: var(--text-primary);
             font-weight: 700;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .home-content a:hover {
+            color: var(--accent-gold);
+            text-decoration: underline;
         }
 
         .btn-primary {
@@ -397,8 +405,10 @@
                     </p>
 
                     <p>
-                        Nace a partir de las matrices desarrolladas por <strong>Roberto Salas</strong> en el
-                        contexto del trabajo de la <strong>Comisión de Digitalización de Bomberos en CCHIA</strong>,
+                        Nace a partir de las matrices desarrolladas por <a
+                            href="https://github.com/RSLNOCTILUCA/BOMBEROS_IA" target="_blank">Roberto Salas</a> en el
+                        contexto del trabajo de la <a href="https://www.cchia.cl/" target="_blank">Comisión de
+                            Digitalización de Bomberos en CCHIA</a>,
                         como un ejercicio de lectura y síntesis de los aportes compartidos por el
                         grupo.
                     </p>
