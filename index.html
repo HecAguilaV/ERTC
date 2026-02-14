@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ERTC</title>
+
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        :root {
+            --navy: #0a1628;
+            --navy-light: #132240;
+            --navy-mid: #1a3158;
+            --accent-gold: #d4a843;
+            --accent-teal: #2dd4bf;
+            --text-primary: #e8edf5;
+            --text-secondary: #94a3b8;
+            --border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box
+        }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background: var(--navy);
+            color: var(--text-primary);
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* ===== LAYOUT ===== */
+        .app {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            height: 100vh;
+            transition: grid-template-columns 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
+        }
+
+        /* ===== SIDEBAR ===== */
+        .sidebar {
+            background: var(--navy-light);
+            border-right: 1px solid var(--border);
+            display: flex;
+            flex-direction: column;
+            padding: 20px 16px;
+            overflow-x: hidden;
+            overflow-y: auto;
+        }
+
+        .sidebar>* {
+            min-width: 268px;
+            /* 300px (ancho) - 32px (padding) */
+        }
+
+        .brand {
+            margin-bottom: 18px;
+        }
+
+        .badge {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 2.5px;
+            text-transform: uppercase;
+            color: var(--accent-teal);
+            border: 1px solid rgba(45, 212, 191, 0.3);
+            padding: 6px 14px;
+            border-radius: 999px;
+            margin-bottom: 10px;
+        }
+
+        .brand h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            line-height: 1.2;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-gold) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .brand p {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-top: 6px;
+            line-height: 1.5;
+        }
+
+        .fundacional {
+            font-size: 12.5px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-top: 8px;
+            max-width: 240px;
+        }
+
+
+        /* ===== NAV ===== */
+        .nav {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 12px;
+        }
+
+        .nav-item {
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 12px 14px;
+            cursor: pointer;
+            transition: all .2s ease;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .nav-item:hover {
+            border-color: rgba(45, 212, 191, 0.25);
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .nav-item.active {
+            border-color: rgba(45, 212, 191, 0.5);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.25);
+        }
+
+        .nav-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .nav-item h3 {
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .nav-item p {
+            font-size: 12px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        /* ===== FOOTER SIDEBAR ===== */
+        .sidebar-footer {
+            margin-top: auto;
+            font-size: 11px;
+            color: rgba(255, 255, 255, 0.25);
+            padding-top: 12px;
+        }
+
+        /* ===== MAIN ===== */
+        .main {
+            position: relative;
+            background: var(--navy);
+        }
+
+        .main-header {
+            height: 54px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 16px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(10, 22, 40, 0.85);
+        }
+
+        .main-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .main-title span {
+            color: var(--accent-gold);
+        }
+
+        .actions {
+            display: flex;
+            gap: 8px;
+        }
+
+        .btn {
+            font-size: 11px;
+            padding: 6px 10px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255, 255, 255, 0.03);
+            color: var(--text-secondary);
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn:hover {
+            color: var(--text-primary);
+            border-color: rgba(45, 212, 191, 0.25);
+        }
+
+        /* Tooltip personalizado */
+        .btn {
+            position: relative;
+        }
+
+        .btn[data-title]:hover::after {
+            content: attr(data-title);
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            margin-top: 8px;
+            padding: 6px 10px;
+            background: rgba(10, 22, 40, 0.95);
+            color: var(--text-primary);
+            font-size: 11px;
+            white-space: nowrap;
+            border-radius: 6px;
+            pointer-events: none;
+            opacity: 0;
+            animation: fadeIn 0.2s forwards;
+            border: 1px solid var(--border);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 100;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        iframe {
+            width: 100%;
+            height: calc(100vh - 54px);
+            border: 0;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        /* ===== RESPONSIVE ===== */
+        .mobile-menu-toggle {
+            display: inline-flex !important;
+            /* Se muestra siempre ahora, para toggle en desktop */
+        }
+
+        .app.sidebar-collapsed {
+            grid-template-columns: 0px 1fr;
+        }
+
+
+
+        @media(max-width:900px) {
+            .app {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar {
+                display: flex;
+                position: fixed;
+                top: 0;
+                left: -100%;
+                width: 280px;
+                height: 100vh;
+                z-index: 1000;
+                transition: left 0.3s ease;
+                box-shadow: 0 0 50px rgba(0, 0, 0, 0.5);
+            }
+
+            .sidebar.active {
+                left: 0;
+            }
+
+            #closeSidebar {
+                display: block !important;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar" id="sidebar">
+            <div class="brand">
+                <button class="btn close-sidebar" id="closeSidebar"
+                    style="position:absolute; top:20px; right:16px; display:none; border:none; background:transparent;">
+                    <span style="font-size:24px; line-height:1; color:var(--text-secondary);">✕</span>
+                </button>
+                <div class="badge">CCHIA • BOMBEROS IA</div>
+                <h1>ERTC</h1>
+                <p class="fundacional">
+                    Estructura Relacional del Trabajo Colectivo.
+                </p>
+
+            </div>
+
+            <nav class="nav" id="nav"></nav>
+
+            <div class="sidebar-footer">
+                CC BY 4.0 · Documentación viva
+            </div>
+        </aside>
+
+        <!-- MAIN -->
+        <main class="main">
+            <div class="main-header">
+                <button class="btn mobile-menu-toggle" id="menuToggle" style="margin-right:10px;">
+                    <span style="font-size:20px; line-height:1;">☰</span>
+                </button>
+                <div class="main-title">Vista: <span id="viewName">Matriz de Sinergias</span></div>
+                <div class="actions">
+                    <a class="btn" id="openTab" href="#" target="_blank"
+                        data-title="Abrir esta vista en una pestaña nueva"><span
+                            style="font-size:15px; line-height:1; vertical-align:middle; margin-right:6px;">↗</span>
+                        Abrir</a>
+                    <button class="btn" id="reload" data-title="Recargar solo la visualización actual"><span
+                            style="font-size:20px; line-height:1; vertical-align:middle; margin-right:6px;">⟳</span>
+                        Recargar</button>
+
+                </div>
+            </div>
+
+            <iframe id="viewer" src="Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html">
+            </iframe>
+        </main>
+
+    </div>
+
+    <script>
+        const pages = [
+            {
+                key: "matriz",
+                title: "Matriz de Sinergias",
+                desc: "Quién potencia a quién. Lectura relacional.",
+                icon: "🧩",
+                file: "Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html"
+            },
+            {
+                key: "valor",
+                title: "Mapa de Valor",
+                desc: "Beneficios legítimos por participante.",
+                icon: "💠",
+                file: "Mapa_de_Valor_Beneficios_por_Participante_RobertoSalas.html"
+            },
+            {
+                key: "cadena",
+                title: "Cadena de Valor",
+                desc: "Flujo completo del proyecto.",
+                icon: "🔗",
+                file: "Cadena_de_Valor_Proyecto_Bomberos_RobertoSalas.html"
+            },
+            {
+                key: "qw",
+                title: "Quick Wins Cruzados",
+                desc: "Victorias compartidas en corto plazo.",
+                icon: "⚡",
+                file: "Quick_Wins_Cruzados_Victorias_Compartidas_RobertoSalas.html"
+            },
+            {
+                key: "market",
+                title: "Marketplace de Expertise",
+                desc: "Capacidades vs necesidades.",
+                icon: "🧠",
+                file: "Marketplace_Expertise_Capacidades_y_Necesidades_RobertoSalas.html"
+            }
+        ];
+
+        const nav = document.getElementById("nav");
+        const viewer = document.getElementById("viewer");
+        const viewName = document.getElementById("viewName");
+        const openTab = document.getElementById("openTab");
+        const reloadBtn = document.getElementById("reload");
+        const menuToggle = document.getElementById("menuToggle");
+        const closeSidebar = document.getElementById("closeSidebar");
+        const sidebar = document.getElementById("sidebar");
+
+        function activate(key) {
+            document.querySelectorAll(".nav-item")
+                .forEach(i => i.classList.toggle("active", i.dataset.key === key));
+            const p = pages.find(p => p.key === key);
+            viewer.src = p.file;
+            viewName.textContent = p.title;
+            openTab.href = p.file;
+            sidebar.classList.remove("active");
+        }
+
+        pages.forEach((p, i) => {
+            const el = document.createElement("div");
+            el.className = "nav-item" + (i === 0 ? " active" : "");
+            el.dataset.key = p.key;
+            el.innerHTML = `
+    <div class="nav-icon">${p.icon}</div>
+    <div>
+      <h3>${p.title}</h3>
+      <p>${p.desc}</p>
+    </div>`;
+            el.onclick = () => activate(p.key);
+            nav.appendChild(el);
+        });
+
+        reloadBtn.onclick = () => viewer.contentWindow?.location?.reload?.();
+
+        menuToggle.onclick = () => {
+            if (window.innerWidth <= 900) {
+                // Mobile behavior: Toggle drawer
+                sidebar.classList.add("active");
+            } else {
+                // Desktop behavior: Toggle collapse
+                document.querySelector(".app").classList.toggle("sidebar-collapsed");
+            }
+        };
+
+        closeSidebar.onclick = () => sidebar.classList.remove("active");
+
+        // Estado inicial explícito
+        activate("matriz");
+    </script>
+
+</body>
+
+</html>
