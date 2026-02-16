@@ -253,18 +253,22 @@
 
         /* ===== HOME ===== */
         .ertc-home {
-            height: 100vh;
+            min-height: 100dvh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 20px;
+            padding: 40px 20px 80px;
+            /* Más padding abajo para el botón */
             background: radial-gradient(circle at top right, #1a3158 0%, #0a1628 60%);
+            overflow-y: auto;
         }
 
         .home-content {
             max-width: 600px;
             animation: fadeIn 0.5s ease-out;
             text-align: center;
+            /* Asegurar que el contenido no se corte en pantallas muy pequeñas */
+            margin: auto;
         }
 
         .home-content h2 {
