@@ -4,7 +4,7 @@
 
 Este repositorio integra un conjunto de matrices, mapas y modelos
 creados por [**Roberto Salas**](https://github.com/RSLNOCTILUCA/BOMBEROS_IA) en el contexto del trabajo de la Comisión de
-Digitalización de Bomberos de Chile en la Cámara Chilena de la IA (**CCHIA**).
+Digitalización de Bomberos de Chile en la Cámara Chilena de la IA ([**CCHIA**](https://www.cchia.cl)).
 
 Estos artefactos surgieron como un ejercicio de lectura y cruce de los
 aportes compartidos por los integrantes del grupo, con el objetivo de
