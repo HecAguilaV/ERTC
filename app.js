@@ -14,13 +14,28 @@ const mainHeader = document.querySelector(".main-header");
 let matrices = [];
 
 // Cargar datos del manifiesto
+// Cargar datos del manifiesto
 fetch('manifest.json')
     .then(response => response.json())
     .then(data => {
         matrices = data.matrices.sort((a, b) => a.order - b.order);
         renderMenu();
+        // Restaurar estado si existe hash
+        const initialHash = window.location.hash.substring(1);
+        if (initialHash) {
+            showView(initialHash);
+        }
     })
     .catch(error => console.error('Error cargando el manifiesto:', error));
+
+window.addEventListener('hashchange', () => {
+    const key = window.location.hash.substring(1);
+    if (key) {
+        showView(key);
+    } else {
+        showHome();
+    }
+});
 
 function renderMenu() {
     nav.innerHTML = '';
@@ -34,7 +49,14 @@ function renderMenu() {
       <h3>${m.title}</h3>
       <p>${m.subtitle}</p>
     </div>`;
-        el.onclick = () => activate(m.id);
+        // Navegación vía Hash activa el evento hashchange
+        el.onclick = () => {
+            window.location.hash = m.id;
+            // En móvil, cerrar sidebar al seleccionar
+            if (window.innerWidth <= 900) {
+                sidebar.classList.remove("active");
+            }
+        };
         nav.appendChild(el);
     });
 }
@@ -45,7 +67,7 @@ function explore() {
     }
 }
 
-function activate(key) {
+function showView(key) {
     // Hide Home, Show Viewer
     homeSection.style.display = "none";
     mainHeader.style.display = "flex";
@@ -59,40 +81,58 @@ function activate(key) {
 
     const matrix = matrices.find(m => m.id === key);
 
+    if (!matrix) return; // Hash inválido
+
     // Solo recargar si la URL es diferente
     if (viewer.src !== matrix.url) {
         viewer.src = matrix.url;
     }
 
     viewName.textContent = matrix.title;
+    // Sidebar se cierra en el onclick del menú o aquí por seguridad
     sidebar.classList.remove("active");
 }
 
-function closeViewer() {
+function showHome() {
     // Volver al Home
     viewer.style.display = "none";
-    mainHeader.style.display = "none"; // Ocultar header (y botón volver)
+    mainHeader.style.display = "none";
     homeSection.style.display = "flex";
 
-    // Limpiar selección del menú
     document.querySelectorAll(".nav-item").forEach(i => i.classList.remove("active"));
 
-    // Descargar iframe para ahorrar recursos
+    // Descargar iframe
     viewer.src = "";
     goBackBtn.style.display = "none";
+
+    // Limpiar hash sin recargar si llegamos aquí programáticamente
+    if (window.location.hash) {
+        history.pushState("", document.title, window.location.pathname + window.location.search);
+    }
+}
+
+function closeViewer() {
+    // Wrapper para el botón Volver
+    showHome();
 }
 
 reloadBtn.onclick = () => {
     // Forzamos recarga del iframe
-    viewer.src = viewer.src;
+    if (viewer.contentWindow && viewer.contentWindow.location) {
+        try {
+            viewer.contentWindow.location.reload();
+        } catch (e) {
+            viewer.src = viewer.src;
+        }
+    } else {
+        viewer.src = viewer.src;
+    }
 };
 
 menuToggle.onclick = () => {
     if (window.innerWidth <= 900) {
-        // Mobile behavior: Toggle drawer
         sidebar.classList.add("active");
     } else {
-        // Desktop behavior: Toggle collapse
         document.querySelector(".app").classList.toggle("sidebar-collapsed");
     }
 };

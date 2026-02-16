@@ -33,7 +33,7 @@
             font-family: 'DM Sans', sans-serif;
             background: var(--navy);
             color: var(--text-primary);
-            height: 100vh;
+            height: 100dvh;
             overflow: hidden;
         }
 
@@ -41,9 +41,11 @@
         .app {
             display: grid;
             grid-template-columns: 300px 1fr;
-            height: 100vh;
+            height: 100dvh;
             transition: grid-template-columns 0.4s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
+
+
 
         /* ===== SIDEBAR ===== */
         .sidebar {
@@ -245,7 +247,7 @@
 
         iframe {
             width: 100%;
-            height: calc(100vh - 54px);
+            height: calc(100dvh - 54px);
             border: 0;
         }
 
