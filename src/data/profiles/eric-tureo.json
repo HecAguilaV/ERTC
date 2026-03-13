@@ -1,0 +1,36 @@
+{
+  "id": "eric-tureo",
+  "icon": "⚖️",
+  "name": "Eric Tureo",
+  "role": "Coord. Investigación · Gobernanza IA",
+  "capabilities": [
+    {
+      "text": "<strong>4 dimensiones de gobernanza</strong>: alcance, propiedad, sostenibilidad, ética de IA",
+      "needsIds": [
+        6
+      ]
+    },
+    {
+      "text": "<strong>Expertise en adopción responsable</strong> de IA: ética, sesgos, cumplimiento, transparencia",
+      "needsIds": [
+        6
+      ]
+    },
+    {
+      "text": "<strong>Visión de sostenibilidad</strong>: piensa más allá del piloto",
+      "needsIds": [
+        7,
+        6
+      ]
+    },
+    {
+      "text": "<strong>Preguntas de propiedad y derechos</strong> que nadie más estaba haciendo",
+      "needsIds": [
+        7
+      ]
+    }
+  ],
+  "unique": "Eric asegura que lo que construyamos sea institucionalmente robusto. Sin gobernanza, los quick wins no sobreviven al piloto.",
+  "needsCount": 2,
+  "status_action": true
+}

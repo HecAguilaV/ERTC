@@ -1,0 +1,22 @@
+{
+  "id": 5,
+  "name": "Prototipos y evidencia tangible",
+  "color": "need5",
+  "desc": "JNCB y Bomberos necesitan ver algo funcionando. Sin evidencia concreta, las mejores propuestas se quedan en PowerPoint.",
+  "matches": [
+    {
+      "icon": "🚀",
+      "name": "Eduardo Escalante",
+      "capability": "Desarrollador ágil con apps ya operativas en quintacbo.cl. Curso \"Fundamentos del Fuego\" creado con IA en 1 día.",
+      "how": "Único miembro con productos funcionales en producción — la evidencia ya existe.",
+      "fit": 3
+    },
+    {
+      "icon": "⚙️",
+      "name": "Carlos González",
+      "capability": "Comprometió elegir un proyecto, construirlo y mostrar prefactibilidad.",
+      "how": "Suma capacidad de prototipado técnico con orientación a resultados.",
+      "fit": 2
+    }
+  ]
+}

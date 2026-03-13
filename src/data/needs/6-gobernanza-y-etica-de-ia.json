@@ -1,0 +1,22 @@
+{
+  "id": 6,
+  "name": "Gobernanza y ética de IA",
+  "color": "need6",
+  "desc": "Las soluciones deben ser éticamente sólidas, cumplir regulaciones, proteger datos y asegurar transparencia en el uso de IA.",
+  "matches": [
+    {
+      "icon": "⚖️",
+      "name": "Eric Tureo",
+      "capability": "Consultor en gobernanza, ética y adopción responsable de IA. Planteó 4 dimensiones críticas de gobernanza.",
+      "how": "Único miembro con expertise específico en gobernanza de IA y cumplimiento regulatorio.",
+      "fit": 3
+    },
+    {
+      "icon": "🌐",
+      "name": "Roberto Salas",
+      "capability": "Coordinador de Ética y Gobernanza. Investigación de modelos globales de PI. Marco de Facilitación de Iniciativas.",
+      "how": "Diseña respuestas sistémicas a las preguntas de gobernanza planteadas por Eric.",
+      "fit": 2
+    }
+  ]
+}

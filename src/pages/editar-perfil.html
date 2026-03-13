@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Editar Perfil | ERTC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132240;
+    --navy-mid: #1a3158;
+    --accent-gold: #d4a843;
+    --accent-teal: #2dd4bf;
+    --text-primary: #e8edf5;
+    --text-secondary: #94a3b8;
+    --error: #ef4444;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 24px 16px;
+  }
+
+  .container {
+    max-width: 600px;
+    margin: 0 auto;
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 24px;
+    color: var(--accent-gold);
+    margin-bottom: 8px;
+    text-align: center;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    margin-bottom: 24px;
+    line-height: 1.5;
+  }
+
+  .form-group {
+    margin-bottom: 20px;
+  }
+
+  label {
+    display: block;
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-teal);
+    margin-bottom: 8px;
+  }
+
+  input[type="text"], textarea {
+    width: 100%;
+    background: rgba(0,0,0,0.2);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px;
+    padding: 12px;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    transition: all 0.3s ease;
+  }
+
+  input[type="text"]:focus, textarea:focus {
+    outline: none;
+    border-color: var(--accent-teal);
+    background: rgba(0,0,0,0.4);
+  }
+
+  .char-count {
+    font-size: 11px;
+    color: var(--text-secondary);
+    text-align: right;
+    margin-top: 4px;
+  }
+
+  .char-count.error { color: var(--error); }
+
+  .needs-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .need-checkbox {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(255,255,255,0.03);
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid transparent;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .need-checkbox:hover { background: rgba(255,255,255,0.06); }
+  .need-checkbox.selected {
+    border-color: var(--accent-teal);
+    background: rgba(45, 212, 191, 0.1);
+  }
+
+  .need-checkbox input { display: none; }
+
+  .need-label {
+    font-size: 12px;
+    color: var(--text-primary);
+    line-height: 1.4;
+    user-select: none;
+  }
+
+  .header-icon {
+    font-size: 32px;
+    text-align: center;
+    margin-bottom: 12px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .btn-submit {
+    background: var(--accent-teal);
+    color: var(--navy);
+    margin-top: 12px;
+  }
+
+  .btn-submit:hover { background: #34d399; transform: translateY(-2px); }
+  .btn-submit:disabled { background: var(--text-secondary); cursor: not-allowed; transform: none; }
+
+  /* Success State */
+  .success-state {
+    display: none;
+    text-align: center;
+    animation: fadeIn 0.5s ease;
+  }
+  .success-state.active { display: block; }
+  .form-state.hidden { display: none; }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .btn-wa {
+    background: #25D366;
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    margin-top: 24px;
+  }
+  .btn-wa:hover { background: #128C7E; }
+
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- FORM STATE -->
+  <div class="form-state" id="formState">
+    <div class="header-icon">🔥</div>
+    <h1>Edita tu Perfil</h1>
+    <p class="subtitle">Actualiza tu información y expertis. Los cambios serán revisados por el curador antes de publicarse.</p>
+
+    <form id="profileForm">
+      <div class="form-group">
+        <label>Nombre Completo</label>
+        <input type="text" id="fName" required placeholder="Ej. Juan Pérez">
+      </div>
+      
+      <div class="form-group">
+        <label>Rol Principal / Especialidad</label>
+        <input type="text" id="fRole" required placeholder="Ej. Analista de Datos">
+      </div>
+
+      <div class="form-group">
+        <label>¿Qué ofreces al proyecto? (Max 250 car.)</label>
+        <textarea id="fOffer" rows="3" required placeholder="Descripción concisa de tus capacidades operativas o estratégicas..."></textarea>
+        <div class="char-count" id="offerCount">0 / 250</div>
+      </div>
+
+      <div class="form-group">
+        <label>Aspecto Único / Diferenciador (Max 150 car.)</label>
+        <textarea id="fUnique" rows="2" placeholder="Algo que solo tú aportas a la dinámica del equipo..."></textarea>
+        <div class="char-count" id="uniqueCount">0 / 150</div>
+      </div>
+
+      <div class="form-group">
+        <label>¿Qué necesidades institucionales cubres?</label>
+        <div class="needs-grid" id="needsGrid">
+          <div style="color:var(--text-secondary); font-size: 12px;">Cargando necesidades...</div>
+        </div>
+      </div>
+
+      <button type="submit" class="btn btn-submit" id="submitBtn">Enviar Propuesta de Cambio</button>
+    </form>
+  </div>
+
+  <!-- SUCCESS STATE -->
+  <div class="success-state" id="successState">
+    <div class="header-icon" style="font-size: 48px;">✅</div>
+    <h1 style="color: var(--accent-teal);">¡Propuesta Enviada!</h1>
+    <p class="subtitle" style="margin-top: 16px;">Tus actualizaciones han sido registradas de forma segura y están esperando validación. Tu perfil se actualizará una vez aprobado.</p>
+    
+    <div style="background: rgba(255,255,255,0.04); padding: 16px; border-radius: 8px; margin: 20px 0; font-size: 13px; color: var(--text-secondary);">
+      <strong>ID del Pull Request:</strong> <span id="prLink" style="color: var(--accent-gold);">#PR Generando...</span>
+    </div>
+
+    <p style="font-size: 13px; color: var(--text-primary);">Avisa a Roberto para que revise tu perfil:</p>
+    <a href="#" id="waLink" class="btn btn-wa" target="_blank">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"></path></svg>
+      Notificar por WhatsApp
+    </a>
+  </div>
+</div>
+
+<script>
+// Logic Constraints
+const MAX_OFFER = 250;
+const MAX_UNIQUE = 150;
+
+function setupTextareaCount(id, max, countId) {
+  const el = document.getElementById(id);
+  const counter = document.getElementById(countId);
+  el.addEventListener('input', () => {
+    const len = el.value.length;
+    counter.textContent = `${len} / ${max}`;
+    if (len > max) counter.classList.add('error');
+    else counter.classList.remove('error');
+    validateForm();
+  });
+}
+
+function validateForm() {
+  const oLen = document.getElementById('fOffer').value.length;
+  const uLen = document.getElementById('fUnique').value.length;
+  const btn = document.getElementById('submitBtn');
+  
+  if (oLen > MAX_OFFER || uLen > MAX_UNIQUE || oLen === 0) {
+    btn.disabled = true;
+  } else {
+    btn.disabled = false;
+  }
+}
+
+setupTextareaCount('fOffer', MAX_OFFER, 'offerCount');
+setupTextareaCount('fUnique', MAX_UNIQUE, 'uniqueCount');
+
+async function loadNeeds() {
+  try {
+    const idxRes = await fetch('../data/index.json');
+    const idx = await idxRes.json();
+    
+    // Fetch all needs details
+    const needsPromises = idx.needs.map(n => fetch(`../data/needs/${n}.json`).then(r => r.json()));
+    const needs = await Promise.all(needsPromises);
+    
+    const grid = document.getElementById('needsGrid');
+    grid.innerHTML = '';
+    
+    needs.forEach(n => {
+      const div = document.createElement('label');
+      div.className = 'need-checkbox';
+      div.innerHTML = `
+        <input type="checkbox" value="${n.id}">
+        <span class="need-label">${n.name}</span>
+      `;
+      div.querySelector('input').addEventListener('change', function() {
+        if(this.checked) div.classList.add('selected');
+        else div.classList.remove('selected');
+      });
+      grid.appendChild(div);
+    });
+  } catch(e) {
+    console.warn("Could not load needs dynamically. Running locally without server?", e);
+  }
+}
+
+document.getElementById('profileForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  
+  const btn = document.getElementById('submitBtn');
+  btn.textContent = "Procesando...";
+  btn.disabled = true;
+
+  const selectedNeeds = Array.from(document.querySelectorAll('.need-checkbox input:checked')).map(cb => parseInt(cb.value));
+
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get('id');
+
+  const payload = {
+    id: profileId,
+    name: document.getElementById('fName').value,
+    role: document.getElementById('fRole').value,
+    icon: window.currentIcon || '👤',
+    capabilities: [{ text: document.getElementById('fOffer').value, needsIds: selectedNeeds }],
+    unique: document.getElementById('fUnique').value
+  };
+
+  try {
+    // Call Serverless API
+    const res = await fetch('/api/submit-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) {
+      const err = await res.json();
+      throw new Error(err.error || 'Server error');
+    }
+
+    const data = await res.json();
+    const prUrl = data.pr_url || "#API-Mock";
+    let adminUrl = window.location.origin + "/src/pages/admin-dashboard.html";
+    
+    if(data.pr_number) {
+        adminUrl += "?pr=" + data.pr_number;
+    }
+
+    // Show Success State
+    document.getElementById('formState').classList.add('hidden');
+    document.getElementById('successState').classList.add('active');
+    document.getElementById('prLink').textContent = prUrl;
+
+    // Set WhatsApp Message
+    const textStr = encodeURIComponent("¡Hola Roberto! Acabo de proponer una actualización de perfil en el ERTC Marketplace. Revísala y acéptala aquí: " + adminUrl);
+    // Env var simulation: phone number would be injected or handled server side, but here's a hardcoded demo
+    document.getElementById('waLink').href = `https://wa.me/56929846067?text=${textStr}`;
+
+  } catch(err) {
+    console.error(err);
+    alert("Error de conexión. Intenta nuevamente.");
+    btn.textContent = "Enviar Propuesta de Cambio";
+    btn.disabled = false;
+  }
+});
+
+async function prefillProfile() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const profileId = urlParams.get('id');
+  const needId = urlParams.get('need');
+  
+  if (needId) {
+    const cb = document.querySelector(`.need-checkbox input[value="${needId}"]`);
+    if (cb) {
+      cb.checked = true;
+      cb.parentElement.classList.add('selected');
+    }
+  }
+  
+  if (profileId) {
+    try {
+      const res = await fetch(`../data/profiles/${profileId}.json`);
+      if (res.ok) {
+        const data = await res.json();
+        document.getElementById('fName').value = data.name || '';
+        document.getElementById('fRole').value = data.role || '';
+        document.getElementById('fUnique').value = data.unique || '';
+        
+        if (data.capabilities && data.capabilities.length > 0) {
+          const cap = data.capabilities[0];
+          const cleanText = cap.text ? cap.text.replace(/<[^>]+>/g, '') : '';
+          document.getElementById('fOffer').value = cleanText;
+          
+          cap.needsIds.forEach(nid => {
+            const cb = document.querySelector(`.need-checkbox input[value="${nid}"]`);
+            if (cb) {
+              cb.checked = true;
+              cb.parentElement.classList.add('selected');
+            }
+          });
+        }
+        
+        document.getElementById('fOffer').dispatchEvent(new Event('input'));
+        document.getElementById('fUnique').dispatchEvent(new Event('input'));
+      }
+    } catch (err) {
+      console.error("Error prefilling profile", err);
+    }
+  }
+}
+
+// Chain the async loads to guarantee the DOM checkboxes exist before trying to check them
+loadNeeds().then(prefillProfile);
+</script>
+</body>
+</html>

@@ -1,0 +1,29 @@
+{
+  "id": 8,
+  "name": "Articulación ecosistémica",
+  "color": "need8",
+  "desc": "El proyecto involucra Bomberos, JNCB, ANB, gobierno, academia y sector privado. Alguien debe diseñar cómo articular actores con incentivos diferentes.",
+  "matches": [
+    {
+      "icon": "🌐",
+      "name": "Roberto Salas",
+      "capability": "Antropólogo con background en informática. Facilitación ecosistémica. Diagnóstico en dos capas. Priorización por viabilidad institucional.",
+      "how": "Diseña la arquitectura de vinculación: quién habla con quién, qué incentivo tiene cada uno, en qué secuencia.",
+      "fit": 3
+    },
+    {
+      "icon": "🏛️",
+      "name": "Ricardo Ardiles",
+      "capability": "Acceso directo a JNCB, ANB y Presidente Nacional. Liderazgo facilitativo.",
+      "how": "Ejecuta la articulación institucional que Roberto diseña.",
+      "fit": 3
+    },
+    {
+      "icon": "⚙️",
+      "name": "Carlos González",
+      "capability": "Propuso vinculación con academia y sector privado como una de sus 9 líneas de trabajo.",
+      "how": "Identifica alianzas estratégicas específicas para pilotos y financiamiento.",
+      "fit": 2
+    }
+  ]
+}

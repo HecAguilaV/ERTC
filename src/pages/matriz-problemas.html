@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Matriz de Problemas | ERTC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132240;
+    --navy-mid: #1a3158;
+    --accent-gold: #d4a843;
+    --accent-teal: #2dd4bf;
+    --text-primary: #e8edf5;
+    --text-secondary: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    padding: 32px 16px;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(24px, 5vw, 36px);
+    color: var(--accent-gold);
+    margin-bottom: 12px;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .problems-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 24px;
+  }
+
+  .problem-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 16px;
+    padding: 24px;
+    transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    opacity: 0;
+    animation: organicFade 1.2s ease forwards;
+  }
+
+  @keyframes organicFade {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .problem-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(45, 212, 191, 0.3);
+    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
+  }
+
+  .p-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 16px;
+  }
+
+  .p-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .p-status {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 4px 10px;
+    border-radius: 12px;
+    background: rgba(45, 212, 191, 0.15);
+    color: var(--accent-teal);
+    flex-shrink: 0;
+    margin-left: 12px;
+  }
+
+  .p-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-bottom: 24px;
+    flex: 1;
+  }
+
+  .p-footer {
+    border-top: 1px solid rgba(255,255,255,0.06);
+    padding-top: 16px;
+  }
+
+  .p-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--accent-gold);
+    margin-bottom: 12px;
+    font-weight: 700;
+  }
+
+  .p-members {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .p-member {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 12px;
+    color: var(--text-primary);
+  }
+
+  .p-icon {
+    width: 28px;
+    height: 28px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+  }
+
+  .btn-join {
+    display: inline-block;
+    margin-top: 16px;
+    font-size: 12px;
+    color: var(--navy);
+    background: var(--accent-teal);
+    padding: 8px 16px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 700;
+    text-align: center;
+    transition: opacity 0.3s;
+  }
+  .btn-join:hover { opacity: 0.9; }
+
+  /* Loader */
+  #loader { text-align: center; color: var(--text-secondary); margin-top: 50px; }
+
+  /* Modal */
+  .modal-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(10, 22, 40, 0.85); backdrop-filter: blur(8px);
+    display: flex; justify-content: center; align-items: center;
+    z-index: 1000; opacity: 0; pointer-events: none; transition: opacity 0.3s;
+  }
+  .modal-overlay.active { opacity: 1; pointer-events: all; }
+
+  .modal-content {
+    background: var(--navy-light); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 16px; padding: 32px; width: 90%; max-width: 500px;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.5); transform: translateY(20px); transition: transform 0.3s;
+    position: relative; max-height: 80vh; overflow-y: auto;
+  }
+  .modal-overlay.active .modal-content { transform: translateY(0); }
+  
+  .modal-close { position: absolute; top: 16px; right: 16px; background: none; border: none; color: var(--text-secondary); font-size: 24px; cursor: pointer; }
+  .modal-content h2 { color: var(--text-primary); margin-bottom: 8px; font-family: 'Playfair Display', serif; }
+  .modal-content p { color: var(--text-secondary); font-size: 14px; margin-bottom: 24px; }
+  
+  .profiles-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .p-picker { background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.06); border-radius: 8px; padding: 12px; display: flex; align-items: center; gap: 12px; cursor: pointer; transition: all 0.2s; }
+  .p-picker:hover { background: rgba(45, 212, 191, 0.1); border-color: var(--accent-teal); }
+  .p-picker .icon { font-size: 20px; }
+  .p-picker .name { font-size: 13px; font-weight: 700; color: var(--text-primary); }
+
+  .wa-btn {
+    display: inline-flex; align-items: center; justify-content: center; gap: 8px; width: 100%;
+    background: #25D366; color: white; padding: 14px; border-radius: 8px; text-decoration: none; font-weight: 700; margin-top: 24px;
+  }
+  .hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <h1>Matriz de Problemas</h1>
+    <p class="subtitle">Explora los desafíos vitales del ecosistema y conecta tu expertis directamente con las necesidades institucionales para generar impacto real.</p>
+  </header>
+
+  <div id="loader">Cargando la matriz de problemas...</div>
+  <div class="problems-grid" id="problemsGrid"></div>
+</div>
+
+<!-- Quick Attach Modal -->
+<div class="modal-overlay" id="attachModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeModal()">×</button>
+    
+    <div id="modalStep1">
+      <h2>¿Quién eres?</h2>
+      <p>Selecciona tu perfil en la red para conectarlo automáticamente al problema: <br><strong id="activeProblemName" style="color:var(--accent-gold);"></strong></p>
+      <div class="profiles-grid" id="profilesGrid">Cargando perfiles...</div>
+    </div>
+    
+    <div id="modalStep2" class="hidden" style="text-align:center; padding: 20px 0;">
+      <h2 style="color: var(--accent-teal);">Procesando Conexión...</h2>
+      <p>Actualizando la matriz en GitHub, por favor espera.</p>
+    </div>
+
+    <div id="modalStep3" class="hidden" style="text-align:center;">
+      <h2 style="color: #25D366;">¡Solicitud Lista!</h2>
+      <p>El perfil se ha enlazado al problema. Para que sea visible en producción, Roberto debe aceptar el PR.</p>
+      <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; font-family: monospace; color: var(--accent-teal); margin-bottom: 20px;" id="prLinkOutput">...</div>
+      <a href="#" id="waLink" class="wa-btn" target="_blank">Notificar a Roberto por WhatsApp</a>
+    </div>
+
+  </div>
+</div>
+
+<script>
+let allProfiles = [];
+let currentNeedId = null;
+
+async function loadMatrix() {
+  try {
+    const idxRes = await fetch('../data/index.json');
+    const idx = await idxRes.json();
+    
+    // Fetch needs and profiles in parallel
+    const needsPromises = idx.needs.map(n => fetch(`../data/needs/${n}.json`).then(r => r.json()));
+    const profilesPromises = idx.profiles.map(p => fetch(`../data/profiles/${p}.json`).then(r => r.json()));
+    
+    const [needs, profiles] = await Promise.all([
+      Promise.all(needsPromises),
+      Promise.all(profilesPromises)
+    ]);
+    
+    allProfiles = profiles;
+    
+    document.getElementById('loader').style.display = 'none';
+    const grid = document.getElementById('problemsGrid');
+    
+    needs.forEach((n, index) => {
+      const card = document.createElement('div');
+      card.className = 'problem-card';
+      card.id = `problem-${n.id}`; // To anchorscroll
+      card.style.animationDelay = `${0.1 + (index * 0.15)}s`;
+      
+      let membersHtml = '';
+      if (n.matches && n.matches.length > 0) {
+        membersHtml = n.matches.map(m => {
+          // Find the actual id from profiles matching the name, or fallback to slugification
+          const matchingProfile = allProfiles.find(p => p.name === m.name);
+          const slugId = matchingProfile ? matchingProfile.id : m.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+          
+          return `
+          <div class="p-member" style="cursor:pointer;" onclick="window.parent.location.hash='marketplace?member=${slugId}'" title="Saltar al perfil detallado de ${m.name}">
+            <div class="p-icon">${m.icon}</div>
+            <div>
+              <strong>${m.name}</strong> <span style="background:var(--accent-teal); color:var(--navy); font-size:9px; padding:2px 6px; border-radius:10px; margin-left:4px; font-weight:800; letter-spacing:0.5px;">ACTIVO</span>
+              <div style="font-size:10px; color:var(--text-secondary)">Aportando a este problema</div>
+            </div>
+          </div>
+          `;
+        }).join('');
+      } else {
+        membersHtml = '<div style="font-size:12px;color:var(--text-secondary)">Buscando expertos...</div>';
+      }
+
+      card.innerHTML = `
+        <div class="p-header">
+          <div class="p-title">${n.name}</div>
+          <div class="p-status">Abierto</div>
+        </div>
+        <div class="p-desc">${n.desc}</div>
+        
+        <div class="p-footer">
+          <div class="p-label">Bomberos en Acción:</div>
+          <div class="p-members">${membersHtml}</div>
+          <button onclick="openModal('${n.id}', '${n.name.replace(/'/g, "\\'")}')" class="btn-join" style="width:100%; border:none; cursor:pointer;">⚡ Sumar mi Expertise a esto</button>
+        </div>
+      `;
+      grid.appendChild(card);
+    });
+
+    // Populate Modal Grid
+    const pGrid = document.getElementById('profilesGrid');
+    pGrid.innerHTML = allProfiles.map(p => `
+      <div class="p-picker" onclick="submitQuickAttach('${p.id}')">
+        <div class="icon">${p.icon}</div>
+        <div class="name">${p.name}</div>
+      </div>
+    `).join('');
+
+    // Check if deep link requires scrolling
+    const urlParams = new URLSearchParams(window.location.search);
+    const targetProb = urlParams.get('problem');
+    if(targetProb) {
+       setTimeout(() => {
+          const el = document.getElementById(`problem-${targetProb}`);
+          if(el) {
+             el.scrollIntoView({ behavior: 'smooth', block: 'center' });
+             el.style.borderColor = 'var(--accent-teal)';
+             el.style.boxShadow = '0 0 30px rgba(45,212,191,0.2)';
+          }
+       }, 500);
+    }
+
+  } catch(err) {
+    console.error(err);
+    document.getElementById('loader').innerHTML = '<span style="color:var(--error)">Error cargando. Abre usando un Servidor Web Local.</span>';
+  }
+}
+
+function openModal(needId, needName) {
+  currentNeedId = needId;
+  document.getElementById('activeProblemName').textContent = needName;
+  document.getElementById('modalStep1').classList.remove('hidden');
+  document.getElementById('modalStep2').classList.add('hidden');
+  document.getElementById('modalStep3').classList.add('hidden');
+  document.getElementById('attachModal').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('attachModal').classList.remove('active');
+}
+
+async function submitQuickAttach(profileId) {
+  const profile = allProfiles.find(p => p.id === profileId);
+  if(!profile) return;
+
+  document.getElementById('modalStep1').classList.add('hidden');
+  document.getElementById('modalStep2').classList.remove('hidden');
+
+  // Inject the needId into their capabilities array without losing existing ones
+  if(!profile.capabilities) profile.capabilities = [{ text: "Perfil activado rápidamente.", needsIds: [] }];
+  if(!profile.capabilities[0].needsIds) profile.capabilities[0].needsIds = [];
+  
+  if(!profile.capabilities[0].needsIds.includes(currentNeedId)) {
+     profile.capabilities[0].needsIds.push(currentNeedId);
+  } else {
+     alert("Tu perfil ya estaba conectado a este problema.");
+     return closeModal();
+  }
+
+  const payload = {
+    id: profile.id,
+    name: profile.name,
+    role: profile.role,
+    icon: profile.icon || "👤",
+    capabilities: profile.capabilities,
+    unique: profile.unique,
+    autoMerge: true // Bypass PR creation
+  };
+
+  try {
+    const res = await fetch('/api/submit-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    });
+
+    if (!res.ok) throw new Error("API Error");
+    const data = await res.json();
+    
+    document.getElementById('modalStep2').classList.add('hidden');
+    document.getElementById('modalStep3').classList.remove('hidden');
+    
+    document.getElementById('modalStep3').innerHTML = `
+      <h2 style="color: #25D366;">¡Alianza Creada!</h2>
+      <p>Tu perfil se ha unido a este problema directamente sin necesidad de aprobación. Ya eres parte de la solución en la base de datos.</p>
+      <div style="background: rgba(0,0,0,0.2); padding: 12px; border-radius: 8px; font-family: monospace; color: var(--accent-teal); margin-bottom: 20px; font-size: 11px; word-break: break-all;">
+        Registro oficial: ${data.commit_url || data.pr_url || 'Completado'}
+      </div>
+      <a href="https://wa.me/56929846067?text=${encodeURIComponent(`¡Hola Roberto! He registrado formalmente mi ayuda para el problema "${document.getElementById('activeProblemName').textContent}". ¡Vamos con todo!`)}" class="wa-btn" target="_blank">Avisar a Roberto por WhatsApp (Opcional)</a>
+      <button onclick="window.parent.location.reload()" style="background:none; border:none; color:var(--text-secondary); text-decoration:underline; cursor:pointer; margin-top:16px;">Cerrar y Actualizar Pantalla</button>
+    `;
+
+  } catch(err) {
+    alert("Hubo un error al crear la solicitud automática. Asegúrate de estar en un ambiente local conectado o intenta más tarde.");
+    closeModal();
+  }
+}
+
+loadMatrix();
+</script>
+</body>
+</html>

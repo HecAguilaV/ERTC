@@ -21,17 +21,19 @@ fetch('manifest.json')
         matrices = data.matrices.sort((a, b) => a.order - b.order);
         renderMenu();
         // Restaurar estado si existe hash
-        const initialHash = window.location.hash.substring(1);
-        if (initialHash) {
-            showView(initialHash);
+        const fullHash = window.location.hash.substring(1);
+        if (fullHash) {
+            const [key, ...queryParts] = fullHash.split('?');
+            showView(key, queryParts.join('?'));
         }
     })
     .catch(error => console.error('Error cargando el manifiesto:', error));
 
 window.addEventListener('hashchange', () => {
-    const key = window.location.hash.substring(1);
+    const fullHash = window.location.hash.substring(1);
+    const [key, ...queryParts] = fullHash.split('?');
     if (key) {
-        showView(key);
+        showView(key, queryParts.join('?'));
     } else {
         showHome();
     }
@@ -67,7 +69,7 @@ function explore() {
     }
 }
 
-function showView(key) {
+function showView(key, queryString) {
     // Hide Home, Show Viewer
     homeSection.style.display = "none";
     mainHeader.style.display = "flex";
@@ -83,9 +85,15 @@ function showView(key) {
 
     if (!matrix) return; // Hash inválido
 
-    // Solo recargar si la URL es diferente
-    if (viewer.src !== matrix.url) {
-        viewer.src = matrix.url;
+    let targetUrl = matrix.url;
+    if (queryString) {
+        targetUrl += '?' + queryString;
+    }
+
+    // Force update if different to process query string inside Iframe properly
+    const absoluteTargetUrl = new URL(targetUrl, window.location.href).href;
+    if (viewer.src !== absoluteTargetUrl) {
+        viewer.src = targetUrl;
     }
 
     viewName.textContent = matrix.title;

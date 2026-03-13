@@ -1,0 +1,22 @@
+{
+  "id": 2,
+  "name": "Diagnóstico de necesidades humanas",
+  "color": "need2",
+  "desc": "Antes de construir tecnología hay que entender qué sienten, qué temen y qué necesitan realmente los bomberos que la van a usar.",
+  "matches": [
+    {
+      "icon": "🧠",
+      "name": "Alexis Brantes",
+      "capability": "Master en Neurociencias Aplicadas, autor del AIM Framework, especialista en Computación Afectiva e Interacciones Inteligentes.",
+      "how": "Es el único miembro con metodología publicada para diagnóstico humano/emocional.",
+      "fit": 3
+    },
+    {
+      "icon": "📊",
+      "name": "Hans Edelsberg",
+      "capability": "Identificó que el cambio cultural debe incluir a voluntarios operativos, no solo directivos.",
+      "how": "Complementa la dimensión humana con la perspectiva organizacional.",
+      "fit": 2
+    }
+  ]
+}

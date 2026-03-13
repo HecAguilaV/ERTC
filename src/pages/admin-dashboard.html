@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TinyWeb Curador | ERTC</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --primary: #0f172a;
+    --accent: #2563eb;
+    --success: #10b981;
+    --danger: #ef4444;
+    --border: #e2e8f0;
+    --text: #334155;
+    --code-bg: #1e293b;
+    --code-text: #e2e8f0;
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    padding: 40px 20px;
+    margin: 0;
+  }
+
+  .dashboard { max-width: 800px; margin: 0 auto; }
+  h1 { color: var(--primary); margin-bottom: 24px; }
+  
+  .card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+  }
+
+  .card h2 {
+    font-size: 18px; margin-bottom: 16px; color: var(--primary);
+    border-bottom: 1px solid var(--border); padding-bottom: 12px;
+  }
+
+  label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+  input, textarea, select {
+    width: 100%; padding: 10px; margin-bottom: 16px; border: 1px solid var(--border);
+    border-radius: 6px; font-family: inherit; box-sizing: border-box;
+  }
+
+  button {
+    background: var(--accent); color: white; border: none; padding: 10px 20px;
+    border-radius: 6px; font-weight: 600; cursor: pointer;
+  }
+  button:hover { opacity: 0.9; }
+  .btn-success { background: var(--success); }
+  .btn-danger { background: var(--danger); }
+  
+  .diff-box {
+    background: var(--code-bg);
+    color: var(--code-text);
+    border-radius: 8px;
+    font-family: monospace;
+    font-size: 13px;
+    margin-bottom: 16px;
+    overflow: hidden;
+  }
+  .diff-line {
+    padding: 6px 12px;
+    white-space: pre-wrap;
+    word-break: break-word;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  .diff-add { background: rgba(16, 185, 129, 0.15); color: #34d399; }
+  .diff-del { background: rgba(239, 68, 68, 0.15); color: #f87171; }
+  .diff-header { background: rgba(255,255,255,0.05); color: #94a3b8; font-size: 11px; padding: 4px 12px; }
+
+  .hidden { display: none; }
+  
+  @media (max-width: 600px) {
+    body { padding: 20px 12px; }
+    .card { padding: 16px; }
+    button { width: 100%; margin-bottom: 8px; }
+    .diff-box { font-size: 11px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="dashboard">
+  <h1>🛡️ TinyWeb Curador</h1>
+  
+  <!-- Review PR View -->
+  <div id="prReviewSection" class="hidden">
+    <div class="card">
+      <h2 id="prTitle">Revisando Propuesta #...</h2>
+      <p id="prBody" style="font-size: 14px; margin-bottom: 16px;"></p>
+      
+      <div id="prDiffContainer">Cargando detalles...</div>
+      
+      <label style="margin-top: 24px;">Token de Curador (Secret)</label>
+      <input type="password" id="reviewToken" required placeholder="••••••••">
+      
+      <div style="display: flex; gap: 10px; margin-top: 16px;">
+        <button class="btn-success" id="btnAccept">✅ Aceptar (Merge)</button>
+        <button class="btn-danger" id="btnReject">❌ Rechazar (Close)</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Manual Inject View -->
+  <div id="manualInjectSection" class="card">
+    <h2>Inyectar Nuevo Perfil a la Matriz</h2>
+    <p style="font-size:13px; margin-bottom: 20px;">Los perfiles creados aquí se inyectan <b>directamente</b> mediante Serverless omitiendo el filtro PR.</p>
+    
+    <form id="adminForm">
+      <label>Token de Curador (Secret)</label>
+      <input type="password" id="adminToken" required placeholder="••••••••">
+
+      <label>Identificador Corto (slug)</label>
+      <input type="text" id="pId" required placeholder="ej: juan-perez">
+
+      <label>Nombre Público</label>
+      <input type="text" id="pName" required placeholder="Juan Pérez">
+
+      <label>Especialidad</label>
+      <input type="text" id="pRole" required>
+
+      <label>Icono (Emoji)</label>
+      <input type="text" id="pIcon" required placeholder="ej: 🚀">
+
+      <button type="submit">Forzar Inyección de Perfil</button>
+    </form>
+  </div>
+
+</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const prNumber = urlParams.get('pr');
+
+if (prNumber) {
+  document.getElementById('manualInjectSection').classList.add('hidden');
+  document.getElementById('prReviewSection').classList.remove('hidden');
+  loadPRDetails(prNumber);
+}
+
+async function loadPRDetails(pr) {
+  const container = document.getElementById('prDiffContainer');
+  document.getElementById('prTitle').textContent = `Revisando Propuesta #${pr}`;
+  
+  try {
+    const res = await fetch(`/api/get-pr?pr=${pr}`);
+    if(!res.ok) throw new Error("No se pudo cargar el PR");
+    const data = await res.json();
+    
+    document.getElementById('prTitle').textContent = data.title;
+    document.getElementById('prBody').textContent = data.body || "Sin descripción adicional.";
+    
+    let html = "";
+    if(data.files && data.files.length > 0) {
+      data.files.forEach(f => {
+        html += `<div style="font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">📄 Archivo modificado: ${f.filename.split('/').pop()}</div>`;
+        
+        if (f.patch) {
+            html += `<div class="diff-box">`;
+            const lines = f.patch.split('\n');
+            lines.forEach(line => {
+                if (line.startsWith('@@')) {
+                    html += `<div class="diff-header">${line}</div>`;
+                } else if (line.startsWith('+')) {
+                    html += `<div class="diff-line diff-add">${line}</div>`;
+                } else if (line.startsWith('-')) {
+                    html += `<div class="diff-line diff-del">${line}</div>`;
+                } else {
+                    html += `<div class="diff-line">${line}</div>`;
+                }
+            });
+            html += `</div>`;
+        } else {
+            html += `<div class="diff-box"><div class="diff-line" style="color:#94a3b8; text-align:center;">Archivo nuevo o binario - Sin diff disponible.</div></div>`;
+        }
+      });
+    } else {
+      html = "<p style='color:var(--text);'>No hay cambios de archivos detectables.</p>";
+    }
+    container.innerHTML = html;
+    
+  } catch(e) {
+    container.innerHTML = `<span style="color:var(--danger)">Error al cargar la propuesta: ${e.message}</span>`;
+  }
+}
+
+async function resolvePR(action) {
+  const token = document.getElementById('reviewToken').value;
+  if(!token) return alert("Debes ingresar el Token de Curador.");
+  
+  if(!confirm(`¿Estás seguro de ${action === 'approve' ? 'ACEPTAR' : 'RECHAZAR'} esta propuesta?`)) return;
+
+  const btnA = document.getElementById('btnAccept');
+  const btnR = document.getElementById('btnReject');
+  btnA.disabled = true; btnR.disabled = true;
+
+  try {
+    const res = await fetch('/api/resolve-pr', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` 
+      },
+      body: JSON.stringify({ pr_number: prNumber, action: action })
+    });
+    
+    if(res.ok) {
+      alert(`✅ Propuesta ${action === 'approve' ? 'Aceptada' : 'Rechazada'} exitosamente.`);
+      window.location.href = window.location.pathname; // recargar sin PR
+    } else {
+      const err = await res.json();
+      alert("❌ Error: " + (err.message || 'Token inválido o fallo en GitHub.'));
+    }
+  } catch(e) {
+    alert("❌ Error de comunicación con Serverless API.");
+  } finally {
+    btnA.disabled = false; btnR.disabled = false;
+  }
+}
+
+document.getElementById('btnAccept').addEventListener('click', () => resolvePR('approve'));
+document.getElementById('btnReject').addEventListener('click', () => resolvePR('reject'));
+
+document.getElementById('adminForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const token = document.getElementById('adminToken').value;
+  const profile = {
+    id: document.getElementById('pId').value,
+    name: document.getElementById('pName').value,
+    role: document.getElementById('pRole').value,
+    icon: document.getElementById('pIcon').value || "👤",
+    capabilities: [{ text: "Perfil en construcción...", needsIds: [] }],
+    needsCount: 0
+  };
+
+  try {
+    const res = await fetch('/api/submit-profile', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      body: JSON.stringify(profile)
+    });
+    if (res.ok) {
+      alert("✅ Perfil inyectado a Producción exitosamente.");
+      e.target.reset();
+    } else {
+      const err = await res.json();
+      alert("❌ Error: " + (err.message || 'Token inválido'));
+    }
+  } catch (err) {
+    alert("❌ Error de comunicación con Serverless API.");
+  }
+});
+</script>
+</body>
+</html>

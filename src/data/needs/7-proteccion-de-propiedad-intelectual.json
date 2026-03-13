@@ -1,0 +1,29 @@
+{
+  "id": 7,
+  "name": "Protección de propiedad intelectual",
+  "color": "need7",
+  "desc": "Los profesionales que aportan pro-bono necesitan claridad: quién es autor, quién tiene derechos, y cómo se separa el aporte voluntario de la participación comercial futura.",
+  "matches": [
+    {
+      "icon": "🌐",
+      "name": "Roberto Salas",
+      "capability": "Investigación de modelos globales de PI en cámaras de comercio, consorcios tecnológicos y organizaciones colaborativas. Análisis de Ley 17.336 chilena.",
+      "how": "Diseña modelo: autores retienen derechos + licencia de uso a CCHIA + separación pro-bono/comercial.",
+      "fit": 3
+    },
+    {
+      "icon": "🧠",
+      "name": "Alexis Brantes",
+      "capability": "Planteó 5 preocupaciones estructuradas sobre PI, reconocimiento y exclusión comercial. Transparentó separación pro-bono / producto propio.",
+      "how": "Define las preguntas precisas que el modelo de PI debe responder.",
+      "fit": 2
+    },
+    {
+      "icon": "⚖️",
+      "name": "Eric Tureo",
+      "capability": "Planteó responsabilidad, propiedad y derechos de autor como dimensión crítica.",
+      "how": "Marco ético que complementa el modelo legal/operativo de PI.",
+      "fit": 2
+    }
+  ]
+}
