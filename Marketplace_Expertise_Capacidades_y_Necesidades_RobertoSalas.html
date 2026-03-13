@@ -738,15 +738,22 @@ function selectNeed(id) {
 
   matchesEl.innerHTML = '';
   need.matches.forEach(m => {
+    // Resolve name and icon dynamically from profile if possible
+    const slugId = m.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+    const matchingProfile = memberOffers.find(p => p.id === slugId);
+    
+    const displayName = matchingProfile ? matchingProfile.name : m.name;
+    const displayIcon = matchingProfile ? matchingProfile.icon : m.icon;
+
     const fitDots = Array.from({length: 3}, (_, i) =>
       `<div class="fit-dot ${i < m.fit ? '' : 'off'}"></div>`
     ).join('');
 
     matchesEl.innerHTML += `
       <div class="match-card">
-        <div class="match-icon">${m.icon}</div>
+        <div class="match-icon">${displayIcon}</div>
         <div class="match-content">
-          <div class="match-name">${m.name}</div>
+          <div class="match-name">${displayName}</div>
           <div class="match-capability">${m.capability}</div>
           <div class="match-how">→ ${m.how}</div>
         </div>
