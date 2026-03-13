@@ -1,0 +1,15 @@
+{
+  "id": "hector-aguila",
+  "name": "Héctor Aguila",
+  "role": "Diseño, Arquitectura y Desarrollo de Software",
+  "icon": "apple",
+  "status_action": true,
+  "capabilities": [
+    {
+      "text": "Perfil en construcción...",
+      "needsIds": []
+    }
+  ],
+  "unique": "",
+  "needsCount": 0
+}
