@@ -2,31 +2,37 @@ name: Validar Schemas JSON
 
 on:
   pull_request:
+    branches:
+      - main
+      - Marketplace_Editable
     paths:
-      - 'src/data/profiles/**.json'
+      - 'src/data/**.json'
 
 jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
         
       - name: Setup Node.js
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: '20'
 
       - name: Install AJV CLI
         run: npm install -g ajv-cli
 
       - name: Validate Profiles against Schema
         run: |
+          # Perfiles
           for file in src/data/profiles/*.json; do
-            echo "Validating $file..."
-            ajv test -s src/data/schema.json -d "$file" --valid
-            if [ $? -ne 0 ]; then
-              echo "::error file=$file::Validation failed for $file"
-              exit 1
+            if [ -f "$file" ]; then
+              echo "Validating $file..."
+              ajv test -s src/data/schema.json -d "$file" --valid
+              if [ $? -ne 0 ]; then
+                echo "::error file=$file::Validation failed for $file"
+                exit 1
+              fi
             fi
           done

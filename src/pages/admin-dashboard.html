@@ -3,262 +3,407 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>TinyWeb Curador | ERTC</title>
+<title>ERTC Admin | Panel de Curaduría</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #f8fafc;
-    --surface: #ffffff;
-    --primary: #0f172a;
+    --bg: #0f172a;
+    --surface: #1e293b;
+    --primary: #38bdf8;
     --accent: #2563eb;
     --success: #10b981;
     --danger: #ef4444;
-    --border: #e2e8f0;
-    --text: #334155;
-    --code-bg: #1e293b;
-    --code-text: #e2e8f0;
+    --border: #334155;
+    --text: #f1f5f9;
+    --text-dim: #94a3b8;
   }
 
   body {
     font-family: 'DM Sans', sans-serif;
     background: var(--bg);
     color: var(--text);
-    padding: 40px 20px;
     margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
   }
 
-  .dashboard { max-width: 800px; margin: 0 auto; }
-  h1 { color: var(--primary); margin-bottom: 24px; }
-  
+  .dashboard {
+    width: 100%;
+    max-width: 900px;
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 20px;
+  }
+
+  .admin-badge {
+    background: rgba(56, 189, 248, 0.1);
+    color: var(--primary);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid rgba(56, 189, 248, 0.2);
+  }
+
+  /* Tabs System */
+  .tabs {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 24px;
+    background: rgba(0,0,0,0.2);
+    padding: 6px;
+    border-radius: 12px;
+  }
+
+  .tab-btn {
+    flex: 1;
+    padding: 10px;
+    border: none;
+    background: transparent;
+    color: var(--text-dim);
+    font-weight: 600;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s;
+    font-size: 14px;
+  }
+
+  .tab-btn.active {
+    background: var(--surface);
+    color: var(--primary);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  }
+
+  .tab-content { display: none; }
+  .tab-content.active { display: block; animation: slideIn 0.3s ease-out; }
+
+  @keyframes slideIn { from { opacity: 0; transform: translateX(5px); } to { opacity: 1; transform: translateX(0); } }
+
   .card {
     background: var(--surface);
     border: 1px solid var(--border);
-    border-radius: 12px;
+    border-radius: 16px;
     padding: 24px;
-    margin-bottom: 24px;
-    box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);
+    box-shadow: 0 10px 25px -5px rgba(0,0,0,0.3);
   }
 
-  .card h2 {
-    font-size: 18px; margin-bottom: 16px; color: var(--primary);
-    border-bottom: 1px solid var(--border); padding-bottom: 12px;
+  .section-title {
+    font-size: 20px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
   }
 
-  label { display: block; font-size: 13px; font-weight: 700; margin-bottom: 6px; color: var(--primary); }
+  /* Forms */
+  .form-group { margin-bottom: 20px; }
+  label { display: block; font-size: 13px; margin-bottom: 8px; color: var(--text-dim); font-weight: 500; }
   input, textarea, select {
-    width: 100%; padding: 10px; margin-bottom: 16px; border: 1px solid var(--border);
-    border-radius: 6px; font-family: inherit; box-sizing: border-box;
+    width: 100%; background: #0f172a; border: 1px solid var(--border);
+    border-radius: 8px; padding: 12px; color: white; font-family: inherit;
+    box-sizing: border-box; transition: border-color 0.3s;
   }
+  input:focus { border-color: var(--primary); outline: none; }
+
+  .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
   button {
-    background: var(--accent); color: white; border: none; padding: 10px 20px;
-    border-radius: 6px; font-weight: 600; cursor: pointer;
+    cursor: pointer; padding: 12px 24px; border-radius: 8px; font-weight: 700;
+    transition: all 0.3s; border: none; font-family: inherit;
   }
-  button:hover { opacity: 0.9; }
-  .btn-success { background: var(--success); }
-  .btn-danger { background: var(--danger); }
+  .btn-primary { background: var(--primary); color: #000; }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(56, 189, 248, 0.4); }
   
+  .btn-danger { background: rgba(239, 68, 68, 0.1); color: var(--danger); border: 1px solid rgba(239, 68, 68, 0.2); }
+  .btn-danger:hover { background: var(--danger); color: white; }
+
+  /* PR Review Specific */
   .diff-box {
-    background: var(--code-bg);
-    color: var(--code-text);
-    border-radius: 8px;
-    font-family: monospace;
-    font-size: 13px;
-    margin-bottom: 16px;
-    overflow: hidden;
+    background: #000; border-radius: 10px; padding: 15px; font-family: monospace;
+    font-size: 12px; margin-top: 15px; border: 1px solid var(--border);
+    max-height: 400px; overflow-y: auto;
   }
-  .diff-line {
-    padding: 6px 12px;
-    white-space: pre-wrap;
-    word-break: break-word;
-    border-bottom: 1px solid rgba(255,255,255,0.05);
+  .diff-add { color: #10b981; }
+  .diff-del { color: #ef4444; }
+
+  .auth-overlay {
+    position: fixed; inset: 0; background: var(--bg); display: flex;
+    align-items: center; justify-content: center; z-index: 1000;
   }
-  .diff-add { background: rgba(16, 185, 129, 0.15); color: #34d399; }
-  .diff-del { background: rgba(239, 68, 68, 0.15); color: #f87171; }
-  .diff-header { background: rgba(255,255,255,0.05); color: #94a3b8; font-size: 11px; padding: 4px 12px; }
 
   .hidden { display: none; }
-  
-  @media (max-width: 600px) {
-    body { padding: 20px 12px; }
-    .card { padding: 16px; }
-    button { width: 100%; margin-bottom: 8px; }
-    .diff-box { font-size: 11px; }
-  }
 </style>
 </head>
 <body>
 
+<div id="authGate" class="auth-overlay">
+  <div class="card" style="width: 350px; text-align: center;">
+    <h2 style="margin-top:0">🔐 Acceso Curador</h2>
+    <p style="color:var(--text-dim); font-size:14px; margin-bottom: 24px;">Ingresa la clave maestra para gestionar el ecosistema ERTC.</p>
+    <input type="password" id="masterSecret" placeholder="ADMIN_SECRET">
+    <button class="btn-primary" style="width:100%; margin-top:16px;" onclick="unlock()">Desbloquear Panel</button>
+  </div>
+</div>
+
 <div class="dashboard">
-  <h1>🛡️ TinyWeb Curador</h1>
-  
-  <!-- Review PR View -->
-  <div id="prReviewSection" class="hidden">
-    <div class="card">
-      <h2 id="prTitle">Revisando Propuesta #...</h2>
-      <p id="prBody" style="font-size: 14px; margin-bottom: 16px;"></p>
+  <header>
+    <div>
+      <h1 style="margin:0; font-size:24px;">🛡️ Dashboard Curador</h1>
+      <div style="font-size:12px; color:var(--text-dim); margin-top:4px;">Ecosystem Operating System v2.0</div>
+    </div>
+    <div class="admin-badge">ADMIN MODE</div>
+  </header>
+
+  <nav class="tabs">
+    <button class="tab-btn active" onclick="showTab('prs')">📥 Propuestas (PR)</button>
+    <button class="tab-btn" onclick="showTab('profiles')">👤 Perfiles</button>
+    <button class="tab-btn" onclick="showTab('synergies')">🔗 Sinergias</button>
+  </nav>
+
+  <!-- TAB: PRs -->
+  <div id="tab-prs" class="tab-content active">
+    <div class="card" id="prListEmpty">
+      <h2 class="section-title">📋 Propuestas Pendientes</h2>
+      <p id="prStatusText" style="text-align:center; padding: 40px; color:var(--text-dim);">No hay propuestas seleccionadas. Usa el link directo desde una propuesta o espera la carga...</p>
       
-      <div id="prDiffContainer">Cargando detalles...</div>
-      
-      <label style="margin-top: 24px;">Token de Curador (Secret)</label>
-      <input type="password" id="reviewToken" required placeholder="••••••••">
-      
-      <div style="display: flex; gap: 10px; margin-top: 16px;">
-        <button class="btn-success" id="btnAccept">✅ Aceptar (Merge)</button>
-        <button class="btn-danger" id="btnReject">❌ Rechazar (Close)</button>
+      <div id="prReviewArea" class="hidden">
+        <h3 id="prTargetTitle" style="color:var(--primary)">Cargando PR...</h3>
+        <p id="prDesc" style="font-size:14px; margin-bottom: 20px;"></p>
+        <div id="diffView" class="diff-box"></div>
+        
+        <div class="form-group" style="margin-top:20px;">
+          <label>Nota de Resolución (Opcional)</label>
+          <textarea id="resReason" placeholder="Comentario para el usuario..."></textarea>
+        </div>
+
+        <div style="display:flex; gap:12px;">
+          <button class="btn-primary" style="flex:2" onclick="resolvePR('approve')">Aprobar y Fusionar</button>
+          <button class="btn-danger" style="flex:1" onclick="resolvePR('reject')">Rechazar</button>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Manual Inject View -->
-  <div id="manualInjectSection" class="card">
-    <h2>Inyectar Nuevo Perfil a la Matriz</h2>
-    <p style="font-size:13px; margin-bottom: 20px;">Los perfiles creados aquí se inyectan <b>directamente</b> mediante Serverless omitiendo el filtro PR.</p>
-    
-    <form id="adminForm">
-      <label>Token de Curador (Secret)</label>
-      <input type="password" id="adminToken" required placeholder="••••••••">
-
-      <label>Identificador Corto (slug)</label>
-      <input type="text" id="pId" required placeholder="ej: juan-perez">
-
-      <label>Nombre Público</label>
-      <input type="text" id="pName" required placeholder="Juan Pérez">
-
-      <label>Especialidad</label>
-      <input type="text" id="pRole" required>
-
-      <label>Icono (Emoji)</label>
-      <input type="text" id="pIcon" required placeholder="ej: 🚀">
-
-      <button type="submit">Forzar Inyección de Perfil</button>
-    </form>
+  <!-- TAB: Profiles -->
+  <div id="tab-profiles" class="tab-content">
+    <div class="card">
+      <h2 class="section-title">✨ Inyectar Perfil (Silueta)</h2>
+      <p style="font-size:13px; color:var(--text-dim); margin-bottom: 24px;">Esta acción crea un perfil base directamente en la rama de desarrollo omitiendo revisión.</p>
+      <form id="profileForm">
+        <div class="grid">
+          <div class="form-group">
+            <label>Slug (ID único)</label>
+            <input type="text" id="pId" required placeholder="ej: roberto-salas">
+          </div>
+          <div class="form-group">
+            <label>Icono / Emoji</label>
+            <input type="text" id="pIcon" required placeholder="👤">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nombre Completo</label>
+          <input type="text" id="pName" required placeholder="Roberto Salas">
+        </div>
+        <div class="form-group">
+          <label>Rol / Especialidad</label>
+          <input type="text" id="pRole" required placeholder="Estratega de Emergencias">
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%">Crear e Inyectar Perfil</button>
+      </form>
+    </div>
   </div>
 
+  <!-- TAB: Synergies -->
+  <div id="tab-synergies" class="tab-content">
+    <div class="card">
+      <h2 class="section-title">🔗 Actualizar Matriz de Sinergia</h2>
+      <form id="synergyForm">
+        <div class="grid">
+          <div class="form-group">
+            <label>Perfil A (ID)</label>
+            <input type="text" id="synA" required placeholder="esteban-pavez">
+          </div>
+          <div class="form-group">
+            <label>Perfil B (ID)</label>
+            <input type="text" id="synB" required placeholder="roberto-salas">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Nivel de Sinergia (1-3)</label>
+          <select id="synLevel">
+            <option value="1">1 - Baja</option>
+            <option value="2">2 - Media</option>
+            <option value="3">3 - Alta / Crítica</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Descripción del Vínculo</label>
+          <textarea id="synText" rows="3" required></textarea>
+        </div>
+        <button type="submit" class="btn-primary" style="width:100%">Actualizar Matriz</button>
+      </form>
+    </div>
+  </div>
+
+  <div style="text-align:center; margin-top:30px; font-size:11px; color:var(--text-dim);">
+    Acceso restringido. Todas las operaciones se guardan en el historial de Git.
+  </div>
 </div>
 
 <script>
-const urlParams = new URLSearchParams(window.location.search);
-const prNumber = urlParams.get('pr');
+let adminSecret = localStorage.getItem('ertc_admin_secret');
+const params = new URLSearchParams(window.location.search);
+const prNum = params.get('pr');
 
-if (prNumber) {
-  document.getElementById('manualInjectSection').classList.add('hidden');
-  document.getElementById('prReviewSection').classList.remove('hidden');
-  loadPRDetails(prNumber);
+function unlock() {
+  const code = document.getElementById('masterSecret').value;
+  if(code) {
+    localStorage.setItem('ertc_admin_secret', code);
+    adminSecret = code;
+    document.getElementById('authGate').classList.add('hidden');
+    initDashboard();
+  }
 }
 
-async function loadPRDetails(pr) {
-  const container = document.getElementById('prDiffContainer');
-  document.getElementById('prTitle').textContent = `Revisando Propuesta #${pr}`;
+if(adminSecret) {
+  document.getElementById('authGate').classList.add('hidden');
+  initDashboard();
+}
+
+function initDashboard() {
+  if(prNum) {
+    showTab('prs');
+    loadPR(prNum);
+  }
+}
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  
+  document.getElementById('tab-' + tabId).classList.add('active');
+  const btn = Array.from(document.querySelectorAll('.tab-btn')).find(b => b.textContent.toLowerCase().includes(tabId));
+  if(btn) btn.classList.add('active');
+}
+
+async function loadPR(id) {
+  const area = document.getElementById('prReviewArea');
+  const status = document.getElementById('prStatusText');
+  status.textContent = "Obteniendo datos de GitHub...";
   
   try {
-    const res = await fetch(`/api/get-pr?pr=${pr}`);
-    if(!res.ok) throw new Error("No se pudo cargar el PR");
+    const res = await fetch(`/api/get-pr?pr=${id}`);
+    if(!res.ok) throw new Error("PR no encontrado o cerrado.");
     const data = await res.json();
     
-    document.getElementById('prTitle').textContent = data.title;
-    document.getElementById('prBody').textContent = data.body || "Sin descripción adicional.";
+    status.classList.add('hidden');
+    area.classList.remove('hidden');
     
-    let html = "";
-    if(data.files && data.files.length > 0) {
-      data.files.forEach(f => {
-        html += `<div style="font-size: 13px; font-weight: 700; color: var(--accent); margin-bottom: 8px;">📄 Archivo modificado: ${f.filename.split('/').pop()}</div>`;
-        
-        if (f.patch) {
-            html += `<div class="diff-box">`;
-            const lines = f.patch.split('\n');
-            lines.forEach(line => {
-                if (line.startsWith('@@')) {
-                    html += `<div class="diff-header">${line}</div>`;
-                } else if (line.startsWith('+')) {
-                    html += `<div class="diff-line diff-add">${line}</div>`;
-                } else if (line.startsWith('-')) {
-                    html += `<div class="diff-line diff-del">${line}</div>`;
-                } else {
-                    html += `<div class="diff-line">${line}</div>`;
-                }
-            });
-            html += `</div>`;
-        } else {
-            html += `<div class="diff-box"><div class="diff-line" style="color:#94a3b8; text-align:center;">Archivo nuevo o binario - Sin diff disponible.</div></div>`;
-        }
-      });
-    } else {
-      html = "<p style='color:var(--text);'>No hay cambios de archivos detectables.</p>";
-    }
-    container.innerHTML = html;
+    document.getElementById('prTargetTitle').textContent = data.title;
+    document.getElementById('prDesc').textContent = data.body || "Sin descripción.";
     
+    let diffHtml = "";
+    data.files.forEach(f => {
+      diffHtml += `<div style='color:var(--primary); margin-bottom:5px; font-weight:700;'>${f.filename}</div>`;
+      if(f.patch) {
+        f.patch.split('\n').forEach(line => {
+          const cls = line.startsWith('+') ? 'diff-add' : (line.startsWith('-') ? 'diff-del' : '');
+          diffHtml += `<div class="${cls}">${line}</div>`;
+        });
+      }
+    });
+    document.getElementById('diffView').innerHTML = diffHtml;
   } catch(e) {
-    container.innerHTML = `<span style="color:var(--danger)">Error al cargar la propuesta: ${e.message}</span>`;
+    status.textContent = "Error: " + e.message;
+    status.classList.remove('hidden');
   }
 }
 
 async function resolvePR(action) {
-  const token = document.getElementById('reviewToken').value;
-  if(!token) return alert("Debes ingresar el Token de Curador.");
+  if(!confirm(`¿Confirmas ${action === 'approve'?'APROBAR':'RECHAZAR'} esta propuesta?`)) return;
   
-  if(!confirm(`¿Estás seguro de ${action === 'approve' ? 'ACEPTAR' : 'RECHAZAR'} esta propuesta?`)) return;
-
-  const btnA = document.getElementById('btnAccept');
-  const btnR = document.getElementById('btnReject');
-  btnA.disabled = true; btnR.disabled = true;
-
+  const reason = document.getElementById('resReason').value;
   try {
     const res = await fetch('/api/resolve-pr', {
       method: 'POST',
-      headers: { 
-        'Content-Type': 'application/json',
-        'Authorization': `Bearer ${token}` 
-      },
-      body: JSON.stringify({ pr_number: prNumber, action: action })
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminSecret}` },
+      body: JSON.stringify({ pr_number: prNum, action, reason })
     });
-    
+    const data = await res.json();
     if(res.ok) {
-      alert(`✅ Propuesta ${action === 'approve' ? 'Aceptada' : 'Rechazada'} exitosamente.`);
-      window.location.href = window.location.pathname; // recargar sin PR
+      alert("✅ Operación exitosa: " + data.message);
+      // BUG FIX: Redirigir limpiando el PR para volver a la lista vacía de PRs pero permanecer en el Dashboard.
+      window.location.href = window.location.pathname; 
     } else {
-      const err = await res.json();
-      alert("❌ Error: " + (err.message || 'Token inválido o fallo en GitHub.'));
+      alert("❌ Error: " + data.error);
     }
   } catch(e) {
-    alert("❌ Error de comunicación con Serverless API.");
-  } finally {
-    btnA.disabled = false; btnR.disabled = false;
+    alert("❌ Error de red.");
   }
 }
 
-document.getElementById('btnAccept').addEventListener('click', () => resolvePR('approve'));
-document.getElementById('btnReject').addEventListener('click', () => resolvePR('reject'));
-
-document.getElementById('adminForm').addEventListener('submit', async (e) => {
+// Perfil Injection
+document.getElementById('profileForm').addEventListener('submit', async (e) => {
   e.preventDefault();
-  const token = document.getElementById('adminToken').value;
-  const profile = {
+  const formData = {
     id: document.getElementById('pId').value,
     name: document.getElementById('pName').value,
     role: document.getElementById('pRole').value,
-    icon: document.getElementById('pIcon').value || "👤",
-    capabilities: [{ text: "Perfil en construcción...", needsIds: [] }],
-    needsCount: 0
+    icon: document.getElementById('pIcon').value,
+    capabilities: [{ text: "Perfil en construcción...", needsIds: [] }]
   };
-
+  
   try {
     const res = await fetch('/api/submit-profile', {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
-      body: JSON.stringify(profile)
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminSecret}` },
+      body: JSON.stringify(formData)
     });
-    if (res.ok) {
-      alert("✅ Perfil inyectado a Producción exitosamente.");
-      e.target.reset();
+    if(res.ok) {
+        alert("✅ Perfil inyectado exitosamente.");
+        e.target.reset();
     } else {
-      const err = await res.json();
-      alert("❌ Error: " + (err.message || 'Token inválido'));
+        const err = await res.json();
+        alert("❌ Error: " + err.error);
     }
-  } catch (err) {
-    alert("❌ Error de comunicación con Serverless API.");
-  }
+  } catch(e) { alert("Error de red"); }
 });
+
+// Synergy Update
+document.getElementById('synergyForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const formData = {
+    type: 'synergy',
+    memberA: document.getElementById('synA').value,
+    memberB: document.getElementById('synB').value,
+    level: parseInt(document.getElementById('synLevel').value),
+    text: document.getElementById('synText').value,
+    result: "Sinergia establecida por Curador"
+  };
+  
+  try {
+    const res = await fetch('/api/update-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${adminSecret}` },
+      body: JSON.stringify(formData)
+    });
+    if(res.ok) {
+        alert("✅ Sinergia actualizada.");
+        e.target.reset();
+    } else { alert("❌ Error al actualizar."); }
+  } catch(e) { alert("Error de red"); }
+});
+
 </script>
 </body>
 </html>
