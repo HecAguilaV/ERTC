@@ -277,15 +277,19 @@ async function loadMatrix() {
       let membersHtml = '';
       if (n.matches && n.matches.length > 0) {
         membersHtml = n.matches.map(m => {
-          // Find the actual id from profiles matching the name, or fallback to slugification
-          const matchingProfile = allProfiles.find(p => p.name === m.name);
-          const slugId = matchingProfile ? matchingProfile.id : m.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+          // Resolve name and icon dynamically from profile if possible
+          const slugId = m.name.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)+/g, '');
+          const matchingProfile = allProfiles.find(p => p.id === slugId);
+          
+          const displayName = matchingProfile ? matchingProfile.name : m.name;
+          const displayIcon = matchingProfile ? matchingProfile.icon : m.icon;
+          const finalId = matchingProfile ? matchingProfile.id : slugId;
           
           return `
-          <div class="p-member" style="cursor:pointer;" onclick="window.parent.location.hash='marketplace?member=${slugId}'" title="Saltar al perfil detallado de ${m.name}">
-            <div class="p-icon">${m.icon}</div>
+          <div class="p-member" style="cursor:pointer;" onclick="window.parent.location.hash='marketplace?member=${finalId}'" title="Saltar al perfil detallado de ${displayName}">
+            <div class="p-icon">${displayIcon}</div>
             <div>
-              <strong>${m.name}</strong> <span style="background:var(--accent-teal); color:var(--navy); font-size:9px; padding:2px 6px; border-radius:10px; margin-left:4px; font-weight:800; letter-spacing:0.5px;">ACTIVO</span>
+              <strong>${displayName}</strong> <span style="background:var(--accent-teal); color:var(--navy); font-size:9px; padding:2px 6px; border-radius:10px; margin-left:4px; font-weight:800; letter-spacing:0.5px;">ACTIVO</span>
               <div style="font-size:10px; color:var(--text-secondary)">Aportando a este problema</div>
             </div>
           </div>
