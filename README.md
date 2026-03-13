@@ -22,9 +22,22 @@ Este módulo transforma las matrices estáticas en una herramienta de coordinaci
 - **Frontend:** Vanilla HTML5, CSS3 (Custom Variables) y JavaScript ES6.
 - **Backend (Bridge):** Vercel Serverless Functions (`api/`) para interactuar con la API de GitHub de forma segura.
 - **Persistencia:** Archivos JSON desacoplados en `src/data/` que actúan como base de datos distribuida.
-- **Workflow de Aprobación:** 
-  - Ediciones de Perfil: Generan un **Pull Request** para revisión del Curador.
-  - Conexión Rápida (Matriz): Genera un **Commit directo** a `main` para agilidad absoluta.
+- **Flujo de Trabajo (Capas):** 
+  - **Aislamiento de Producción:** La rama `main` se mantiene estática para estabilidad.
+  - **Desarrollo Marketplace:** La rama `Marketplace_Editable` actúa como la Capa 2.
+  - **Sistema Operativo (Capa 3):** Esta rama (`Sistema_Operativo_ERTC`) contiene el SO completo y el Dashboard de Curaduría.
+  - **Ediciones de Perfil:** Generan un **Pull Request** automático hacia `Sistema_Operativo_ERTC`.
+  - **Limpieza Automática:** El sistema borra las ramas temporales tras resolver propuestas.
+
+---
+
+## 🛠️ Sistema Operativo ERTC (Capa 3)
+
+Esta rama es el núcleo inteligente del ecosistema. Incluye:
+
+1. **Dashboard de Curaduría Pro:** Panel unificado con navegación por pestañas para gestionar PRs, inyectar perfiles y actualizar la matriz de sinergias.
+2. **Validación de Schemas:** Cada cambio en los archivos JSON es validado automáticamente por un flujo de **GitHub Actions** (Node 20) para evitar errores de corrupción de datos.
+3. **Aislamiento de APIs:** Las funciones en `api/` están configuradas para escribir y leer exclusivamente de esta rama, permitiendo iterar el SO sin afectar la estabilidad de las capas inferiores.
 
 ### 🌐 Despliegue: ¿Por qué Vercel y no GitHub Pages?
 Debido a que el proyecto utiliza **Funciones Serverless** para procesar las ediciones y proteger el `GITHUB_TOKEN`, es **obligatorio** utilizar **Vercel** para el despliegue de testing y producción. GitHub Pages solo admite contenido estático y no puede ejecutar el código de la carpeta `api/`.
