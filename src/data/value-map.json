@@ -1,0 +1,268 @@
+[
+  {
+    "id": "ricardo",
+    "name": "Ricardo Ardiles",
+    "icon": "🏛️",
+    "role": "Líder del Proyecto · Acceso institucional JNCB",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Posicionamiento como <strong>líder de la primera iniciativa formal de modernización digital de Bomberos en Chile</strong>. Reconocimiento ante JNCB y ANB como quien articuló esta comisión.",
+        "concrete": "Tu nombre en la propuesta que llegará al Presidente Nacional de Bomberos."
+      },
+      "campo": {
+        "has": true,
+        "desc": "Acceso a un <strong>equipo técnico multidisciplinario de primer nivel</strong> (data engineering, neurociencias, gobernanza IA, desarrollo ágil) que normalmente tendría costo de consultoría.",
+        "concrete": "Expertise profesional de 7 especialistas trabajando para tu proyecto."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría del plan de modernización digital y de cada documento que se produzca. <strong>Tu nombre como líder en todos los entregables formales</strong>.",
+        "concrete": "Documentación formal con tu autoría como líder del proyecto."
+      },
+      "red": {
+        "has": true,
+        "desc": "<strong>Red directa con expertos en IA, datos, gobernanza y CX</strong> que pueden seguir apoyando a Bomberos más allá de esta comisión.",
+        "concrete": "Contactos profesionales permanentes en el ecosistema IA chileno."
+      },
+      "caso": {
+        "has": true,
+        "desc": "Un caso demostrable ante JNCB de que <strong>la colaboración con el sector IA genera valor real</strong> para Bomberos sin costo institucional directo.",
+        "concrete": "Evidencia concreta para justificar modernización digital ante la institución."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de tu <strong>capacidad de liderar proyectos de innovación</strong> en una institución tradicional, conectando mundo de Bomberos con mundo de IA.",
+        "concrete": "Demostración de liderazgo transformador dentro de Bomberos."
+      }
+    }
+  },
+  {
+    "id": "carlos",
+    "name": "Carlos González",
+    "icon": "⚙️",
+    "role": "Coord. Técnica · Ex-CENIA · Informática y automatización",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Reconocimiento como el <strong>arquitecto técnico del proyecto de modernización</strong>. Tus 3 categorías con 9 propuestas se convierten en referencia para futuras iniciativas de IA en servicios públicos.",
+        "concrete": "Tu nombre como autor del análisis técnico en presentaciones ante JNCB y CCHIA."
+      },
+      "campo": {
+        "has": true,
+        "desc": "Oportunidad de <strong>implementar y probar soluciones IA en un entorno real</strong> con usuarios reales (bomberos), no en laboratorio. Acceso que normalmente requiere meses de negociación institucional.",
+        "concrete": "Campo de pruebas con 313 cuerpos de bomberos potenciales."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría documentada de las <strong>especificaciones técnicas, plan de integración de APIs e informes de pilotos</strong> que salgan de la Coordinación Técnica.",
+        "concrete": "Portfolio profesional con caso real de IA aplicada en sector público."
+      },
+      "red": {
+        "has": true,
+        "desc": "Conexión directa con <strong>expertos complementarios</strong>: data engineering (Hans), neurociencias (Alexis), gobernanza (Eric), vinculación institucional (Ricardo).",
+        "concrete": "Red de colaboradores para proyectos futuros más allá de esta comisión."
+      },
+      "caso": {
+        "has": true,
+        "desc": "Tu experiencia en CENIA se complementa con <strong>un caso de impacto social medible</strong>: modernización digital para 313 cuerpos de bomberos y sus voluntarios.",
+        "concrete": "Caso demostrable de IA para bien social en tu trayectoria profesional."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de tu capacidad de <strong>traducir análisis técnico en propuestas implementables</strong>. El compromiso que hiciste de \"elegir un proyecto y mostrarlo\" se convierte en evidencia concreta.",
+        "concrete": "Demostración de que tu expertise de CENIA se aplica en problemas reales."
+      }
+    }
+  },
+  {
+    "id": "eduardo",
+    "name": "Eduardo Escalante",
+    "icon": "🚀",
+    "role": "Coord. Técnica · Desarrollo ágil · Apps funcionales en quintacbo.cl",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Tus apps ya funcionan y eso te posiciona como <strong>el miembro que pasó de la idea a la acción más rápido</strong>. El respaldo institucional de CCHIA amplifica el alcance de lo que ya construiste.",
+        "concrete": "Tus apps visibilizadas ante JNCB, ANB y los 313 cuerpos de bomberos del país."
+      },
+      "campo": {
+        "has": true,
+        "desc": "<strong>Escalar de la Quinta Compañía a nivel nacional.</strong> La comisión te da acceso institucional (vía Ricardo) y diagnóstico de necesidades (vía Alexis) que individualmente tomaría años conseguir.",
+        "concrete": "De 1 compañía piloto a potencialmente 313 cuerpos de bomberos como usuarios."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría de las aplicaciones y del curso \"Fundamentos del Fuego y su Extinción\". <strong>Tu trabajo queda registrado formalmente</strong> como contribución al proyecto CCHIA.",
+        "concrete": "Reconocimiento formal de autoría sobre las herramientas que ya creaste."
+      },
+      "red": {
+        "has": true,
+        "desc": "Acceso a <strong>especialistas que complementan tu velocidad de ejecución</strong>: Hans para datos, Alexis para validación con usuarios, Eric para cumplimiento ético, Roberto para articulación institucional.",
+        "concrete": "Equipo multidisciplinario que potencia tus quick wins hacia escala."
+      },
+      "caso": {
+        "has": true,
+        "desc": "Tu enfoque de \"small wins strategy\" del MIT <strong>se documenta como caso de estudio real</strong> de transformación digital en institution tradicional latinoamericana.",
+        "concrete": "Caso publicable de innovación ágil en servicios de emergencia."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de que tu <strong>metodología de desarrollo rápido con IA funciona en contexto real</strong>: apps en producción, curso creado en 1 día, pruebas con usuarios reales.",
+        "concrete": "Evidencia medible de que tu enfoque produce resultados concretos."
+      }
+    }
+  },
+  {
+    "id": "hans",
+    "name": "Hans Edelsberg",
+    "icon": "📊",
+    "role": "Coord. Técnica · Data engineering · Arquitectura de datos",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Posicionamiento como <strong>el experto que puso el realismo técnico</strong> al proyecto. Tu argumento \"sin datos no hay IA\" se convierte en principio fundacional de la iniciativa.",
+        "concrete": "Reconocimiento como quien ancló el proyecto en realidad técnica."
+      },
+      "campo": {
+        "has": true,
+        "desc": "Acceso a un <strong>desafío real de data engineering a escala nacional</strong>: estandarizar datos de 313 cuerpos de bomberos con sistemas heterogéneos. Caso que pocas organizaciones pueden ofrecer.",
+        "concrete": "Proyecto de arquitectura de datos con complejidad e impacto reales."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría del <strong>plan de integración de APIs y estándares de interoperabilidad</strong> para JNCB. Tu nombre en la propuesta técnica de apertura de datos.",
+        "concrete": "Documento de autoría sobre arquitectura de datos para Bomberos de Chile."
+      },
+      "red": {
+        "has": true,
+        "desc": "Conexión con <strong>Ricardo (acceso a JNCB para negociar apertura de APIs)</strong> y con Carlos (arquitectura técnica complementaria). Red que convierte tu visión de datos en acción.",
+        "concrete": "Acceso directo a tomadores de decisión que pueden abrir los datos que necesitas."
+      },
+      "caso": {
+        "has": true,
+        "desc": "Caso de <strong>transformación de datos en institución jerárquica y tradicional</strong>. Documentación de cómo se pasa de \"no hay datos\" a \"hay arquitectura de datos nacional\".",
+        "concrete": "Caso de estudio de digitalización en sector público para tu portfolio."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de tu <strong>independencia de criterio</strong>: fuiste el primero en cuestionar el Acuerdo y en advertir sobre datos. Eso construye reputación de rigor profesional.",
+        "concrete": "Credibilidad como profesional que prioriza calidad sobre consenso fácil."
+      }
+    }
+  },
+  {
+    "id": "alexis",
+    "name": "Alexis Brantes",
+    "icon": "🧠",
+    "role": "Coord. Investigación · AIM Framework · Neurociencias aplicadas",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Tu AIM Framework se aplica en un <strong>proyecto de alcance nacional con visibilidad institucional</strong>. De framework académico a herramienta probada en campo.",
+        "concrete": "AIM Framework referenciado en documentos oficiales de CCHIA y presentaciones a JNCB."
+      },
+      "campo": {
+        "has": true,
+        "desc": "<strong>CB Santiago como campo de pruebas real</strong> para tu metodología de diagnóstico humano/emocional. Acceso facilitado por tu contacto previo + respaldo institucional de CCHIA.",
+        "concrete": "Entrevistas y mapeo con bomberos reales validando tu framework."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría del <strong>informe de diagnóstico humano/emocional</strong> de la comisión. Tu AIM Framework documentado con atribución clara como autor original.",
+        "concrete": "Publicación formal con tu nombre como creador del marco de diagnóstico."
+      },
+      "red": {
+        "has": true,
+        "desc": "Conexión directa con <strong>expertos complementarios a tu perfil</strong>: data engineering (Hans), desarrollo ágil (Eduardo), gobernanza (Eric), acceso institucional (Ricardo).",
+        "concrete": "Red de colaboradores que potencian tu trabajo sin competir con él."
+      },
+      "caso": {
+        "has": true,
+        "desc": "<strong>Caso real de aplicación de neurociencias en servicios de emergencia</strong>. Potencial para publicación académica o profesional con datos reales.",
+        "concrete": "Tu libro y framework validados empíricamente en contexto de alta complejidad."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de que tu separación transparente entre <strong>aporte pro-bono y producto comercial es un modelo a seguir</strong>. Tu profesionalismo queda documentado como referencia.",
+        "concrete": "Demostración de integridad profesional ante pares y ante la institución."
+      }
+    }
+  },
+  {
+    "id": "eric",
+    "name": "Eric Tureo",
+    "icon": "⚖️",
+    "role": "Coord. Investigación · Gobernanza y ética de IA",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Posicionamiento como <strong>consultor de gobernanza de IA que no solo teoriza sino que implementa</strong>. Tus 4 dimensiones se convierten en marco real de un proyecto nacional.",
+        "concrete": "Tu marco de gobernanza aplicado en caso real ante JNCB y sector público."
+      },
+      "campo": {
+        "has": true,
+        "desc": "Oportunidad única de <strong>diseñar gobernanza de IA desde cero para una institución nacional</strong>. Bomberos no tiene marco previo — lo que diseñes será el estándar fundacional.",
+        "concrete": "Diseño de gobernanza de IA para 313 cuerpos de bomberos como caso greenfield."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría del <strong>marco ético, políticas de gobernanza y evaluaciones de impacto</strong>. Tu nombre en los lineamientos que guiarán la adopción de IA en Bomberos.",
+        "concrete": "Documentos de gobernanza con tu firma como co-diseñador."
+      },
+      "red": {
+        "has": true,
+        "desc": "Conexión con <strong>profesionales que necesitan tu expertise</strong>: Eduardo necesita guardarraíles éticos, Hans necesita marco de gobernanza de datos, Carlos necesita estándares para adquisiciones.",
+        "concrete": "Demanda real de tu expertise por parte de otros miembros del equipo."
+      },
+      "caso": {
+        "has": true,
+        "desc": "<strong>Caso de adopción responsable de IA en institution de voluntarios</strong> con dimensiones únicas: datos sensibles, operaciones de emergencia, jerarquía tradicional.",
+        "concrete": "Caso de estudio de gobernanza IA con complejidad institucional real."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación de que <strong>la gobernanza no frena la innovación sino que la hace sostenible</strong>. Las 4 dimensiones que planteaste se implementan junto con los quick wins, no después.",
+        "concrete": "Evidencia de que ética y velocidad coexisten en proyectos de IA."
+      }
+    }
+  },
+  {
+    "id": "roberto",
+    "name": "Roberto Salas",
+    "icon": "🌐",
+    "role": "Coord. Ética y Gobernanza · Facilitación ecosistémica",
+    "benefits": {
+      "visibilidad": {
+        "has": true,
+        "desc": "Posicionamiento como <strong>facilitador ecosistémico que conecta actores diversos</strong> en un proyecto concreto de impacto nacional. De framework teórico a práctica demostrable.",
+        "concrete": "Visibilidad como articulador ante JNCB y socios CCHIA."
+      },
+      "campo": {
+        "has": true,
+        "desc": "Proyecto Bomberos como <strong>campo de pruebas real para el Sistema Operativo Ecosistémico</strong>. Primera aplicación empírica de tu framework en caso concreto multisectorial.",
+        "concrete": "313 cuerpos de bomberos + JNCB + academia + sector privado como ecosistema real."
+      },
+      "autoria": {
+        "has": true,
+        "desc": "Co-autoría del <strong>marco ético, políticas de gobernanza, arquitectura de vinculación y modelo de PI</strong>. Tu nombre en los documentos institucionales de la comisión.",
+        "concrete": "Documentación formal con autoría clara de tus frameworks y contribuciones."
+      },
+      "red": {
+        "has": true,
+        "desc": "Coalición con <strong>profesionales de alto nivel</strong> que validan tu enfoque ecosistémico: Ricardo (acceso), Carlos (técnico), Eduardo (ejecución), Hans (datos), Alexis (humano), Eric (gobernanza).",
+        "concrete": "Red de aliados que demuestran que la facilitación ecosistémica funciona."
+      },
+      "caso": {
+        "has": true,
+        "desc": "<strong>Caso fundacional de CCHIA como articuladora ecosistémica</strong>. Demostración medible de que el modelo de facilitación genera valor que la imposición no logra.",
+        "concrete": "Caso de democstración documentado para futuras iniciativas CCHIA."
+      },
+      "validacion": {
+        "has": true,
+        "desc": "Validación empírica de que <strong>la facilitación ecosistémica produce resultados reales</strong>: coaliciones construidas, propuestas integradas, conflictos resueltos, marcos diseñados.",
+        "concrete": "Evidencia concreta de que articular actores diversos genera más valor que imponer soluciones desde un centro."
+      }
+    }
+  }
+]

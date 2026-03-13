@@ -1,0 +1,114 @@
+[
+  {
+    "num": 1,
+    "emoji": "🏛️",
+    "name": "Acceso Institucional",
+    "owner": "Ricardo Ardiles — Líder del Proyecto",
+    "input": {
+      "label": "Punto de partida",
+      "text": "La misión de CCHIA de articular el ecosistema IA chileno + la necesidad real de modernización de Bomberos + la relación directa de Ricardo con JNCB y su Presidente Nacional."
+    },
+    "process": {
+      "label": "Qué hace Ricardo",
+      "text": "<strong>Abre las puertas institucionales</strong> que ningún otro miembro podría abrir individualmente. Legitima la comisión ante Bomberos. Convoca al equipo. Presenta el plan de trabajo de 6 meses ante JNCB. Facilita acceso a voluntarios, datos y tomadores de decisión."
+    },
+    "output": "Acceso formal a la institution Bomberos de Chile: voluntarios para entrevistas, datos para análisis, directivos para validación, y legitimidad para todo lo que sigue.",
+    "why": "Sin acceso institucional, las mejores propuestas técnicas se quedan en el papel. Ricardo es la llave que abre la puerta al ecosistema real."
+  },
+  {
+    "num": 2,
+    "emoji": "🧠",
+    "name": "Diagnóstico Humano",
+    "owner": "Alexis Brantes — Coord. Investigación",
+    "input": {
+      "label": "Recibe del eslabón anterior",
+      "text": "Acceso a voluntarios y operativos de Bomberos (facilitado por Ricardo) + contacto directo con CB Santiago (propio de Alexis). Sin este acceso, el diagnóstico humano sería imposible."
+    },
+    "process": {
+      "label": "Qué hace Alexis",
+      "text": "Aplica su <strong>AIM Framework</strong> (Affective Interactions Model) para mapear las interacciones afectivas y cognitivas de los voluntarios. Identifica pain points emocionales, resistencias culturales y necesidades reales desde la perspectiva de quienes usarán la tecnología."
+    },
+    "output": "Mapa de necesidades humanas reales: qué sienten, qué temen, qué necesitan los bomberos. Resistencias culturales identificadas. Criterios de adopción validados por usuarios reales.",
+    "why": "Sin diagnóstico humano, la tecnología resuelve problemas que nadie tiene. Alexis asegura que lo que construyamos responda a dolor real, no a supuestos técnicos."
+  },
+  {
+    "num": 3,
+    "emoji": "📊",
+    "name": "Diagnóstico de Datos e Infraestructura",
+    "owner": "Hans Edelsberg — Coord. Técnica",
+    "input": {
+      "label": "Recibe de eslabones anteriores",
+      "text": "Acceso a sistemas y datos de JNCB (vía Ricardo) + comprensión de qué datos son relevantes según necesidades reales de voluntarios (vía Alexis). El diagnóstico humano orienta qué datos buscar."
+    },
+    "process": {
+      "label": "Qué hace Hans",
+      "text": "<strong>Evalúa el estado real de los datos</strong> en Bomberos: ¿existen datos estructurados? ¿están limpios? ¿son accesibles? Identifica la brecha entre \"lo que tenemos\" y \"lo que necesitamos para aplicar IA\". Propone arquitectura de APIs abiertas de JNCB para estandarización."
+    },
+    "output": "Diagnóstico de madurez de datos: qué hay, qué falta, qué se necesita digitalizar primero. Propuesta de APIs abiertas. Mapa de infraestructura técnica existente vs requerida.",
+    "why": "Sin datos limpios no hay IA que aplicar — hay solo digitalización de procesos. Hans determina si podemos hacer IA real o si primero necesitamos construir los cimientos."
+  },
+  {
+    "num": 4,
+    "emoji": "⚙️",
+    "name": "Arquitectura de Propuestas Técnicas",
+    "owner": "Carlos González — Coord. Técnica",
+    "input": {
+      "label": "Recibe de eslabones anteriores",
+      "text": "Necesidades humanas validadas (Alexis) + estado real de datos e infraestructura (Hans) + acceso institucional confirmado (Ricardo). Ahora sabe qué quieren los bomberos Y qué es técnicamente posible hoy."
+    },
+    "process": {
+      "label": "Qué hace Carlos",
+      "text": "<strong>Organiza el territorio técnico</strong> en 3 categorías y 9 propuestas específicas: gestión de emergencias (apps, despacho IA, visión artificial), mejoras internas (logística, EdTech, gobernanza de datos), y modernización económica (brechas, estándares, vinculación). Prioriza por viabilidad cruzando información de los eslabones anteriores."
+    },
+    "output": "Menú de 9 propuestas técnicas priorizadas por viabilidad, con especificaciones de qué se necesita para cada una. Roadmap técnico que distingue quick wins de proyectos de largo plazo.",
+    "why": "Sin arquitectura técnica, las ideas quedan dispersas. Carlos transforma diagnósticos en un mapa de acción con opciones concretas y criterios de decisión."
+  },
+  {
+    "num": 5,
+    "emoji": "🚀",
+    "name": "Prototipado y Quick Wins",
+    "owner": "Eduardo Escalante — Coord. Técnica",
+    "input": {
+      "label": "Recibe de eslabones anteriores",
+      "text": "Propuestas técnicas priorizadas (Carlos) + necesidades humanas validadas (Alexis) + estado de datos (Hans) + acceso a campo de pruebas (Ricardo). Sabe qué construir, para quién, con qué datos y dónde probarlo."
+    },
+    "process": {
+      "label": "Qué hace Eduardo",
+      "text": "<strong>Construye y prueba rápidamente.</strong> Desarrollo ágil de aplicaciones funcionales y herramientas de capacitación. Ya tiene 2 apps operativas en quintacbo.cl y un curso creado con IA en 1 día. Aplica \"small wins strategy\" del MIT: demostrar valor rápido para generar confianza y momentum."
+    },
+    "output": "Prototipos funcionales probados con usuarios reales. Evidencia tangible de que la modernización digital es posible y deseable. Feedback de usuarios para iteración. Credibilidad del proyecto ante JNCB.",
+    "why": "Sin prototipos, todo es teoría. Eduardo demuestra que se puede pasar de la idea a la acción en días — y eso genera la confianza institucional que el proyecto necesita para escalar."
+  },
+  {
+    "num": 6,
+    "emoji": "⚖️",
+    "name": "Gobernanza y Marco Ético",
+    "owner": "Eric Tureo + Roberto Salas — Coord. Investigación + Coord. Ética y Gobernanza",
+    "input": {
+      "label": "Recibe de eslabones anteriores",
+      "text": "Prototipos funcionando (Eduardo) + arquitectura técnica definida (Carlos) + diagnóstico de datos (Hans) + necesidades humanas (Alexis) + relación institucional (Ricardo). Ahora hay algo concreto que gobernar."
+    },
+    "process": {
+      "label": "Qué hacen Eric y Roberto",
+      "text": "Eric aporta las <strong>4 dimensiones de gobernanza</strong> (alcance, propiedad, sostenibilidad, ética de IA). Roberto diseña el <strong>marco de protección de PI, modelo de participación voluntaria, y separación pro-bono/comercial</strong>. Juntos: las preguntas correctas + las respuestas sistémicas. Evaluación de impacto ético de las soluciones desarrolladas."
+    },
+    "output": "Marco ético operativo. Políticas de gobernanza de datos y de IA. Modelo de PI (autores retienen, CCHIA recibe licencia). Proceso transparente para participación comercial futura. Criterios de sostenibilidad.",
+    "why": "Sin gobernanza, los quick wins no escalan y los conflictos de PI destruyen la colaboración. Este eslabón asegura que lo que funciona en piloto pueda crecer sin fracturar al equipo ni a la institución."
+  },
+  {
+    "num": 7,
+    "emoji": "🌐",
+    "name": "Articulación y Escalamiento",
+    "owner": "Roberto Salas + Ricardo Ardiles — Coord. Ética y Gobernanza + Líder del Proyecto",
+    "input": {
+      "label": "Recibe de todos los eslabones anteriores",
+      "text": "Prototipos validados + marco de gobernanza + arquitectura técnica + diagnósticos humano y de datos + acceso institucional. El proyecto completo, listo para ir más allá del piloto."
+    },
+    "process": {
+      "label": "Qué hacen Roberto y Ricardo",
+      "text": "Roberto diseña la <strong>arquitectura de vinculación institucional</strong>: cómo articular JNCB, ANB, cuerpos locales, gobierno, academia y sector privado para escalar lo que funciona. Ricardo activa sus contactos institucionales para ejecutar esa articulación. Mapeo de incentivos por actor, interfaces de colaboración, y hoja de ruta de vinculación."
+    },
+    "output": "Propuesta integral para escalar de 1 compañía piloto a los 313 cuerpos de bomberos de Chile. Modelo replicable para futuras iniciativas de CCHIA. Caso de democstración documentado.",
+    "why": "Sin articulación ecosistémica, un piloto exitoso se queda en piloto. Este eslabón transforma una experiencia local en una transformación nacional — que es la razón de ser de CCHIA."
+  }
+]

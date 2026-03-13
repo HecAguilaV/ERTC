@@ -1,0 +1,601 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mapa de Valor — Beneficios por Participante | Roberto Salas Letelier</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132240;
+    --navy-mid: #1a3158;
+    --accent-gold: #d4a843;
+    --accent-teal: #2dd4bf;
+    --accent-amber: #f59e0b;
+    --accent-rose: #fb7185;
+    --accent-violet: #a78bfa;
+    --accent-sky: #38bdf8;
+    --accent-emerald: #34d399;
+    --text-primary: #e8edf5;
+    --text-secondary: #94a3b8;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-pattern {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 15% 30%, rgba(212, 168, 67, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 70%, rgba(45, 212, 191, 0.04) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(167, 139, 250, 0.02) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeInDown 0.8s ease;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--text-primary) 0%, var(--accent-amber) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin: 0 auto 12px;
+    line-height: 1.6;
+  }
+
+  .author {
+    font-size: 12px;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .key-message {
+    background: linear-gradient(135deg, rgba(212, 168, 67, 0.08) 0%, rgba(245, 158, 11, 0.05) 100%);
+    border: 1px solid rgba(212, 168, 67, 0.2);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 28px;
+    text-align: center;
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--accent-gold);
+    line-height: 1.6;
+    animation: fadeIn 1s ease 0.3s both;
+  }
+
+  .key-message em {
+    font-style: normal;
+    color: var(--text-primary);
+  }
+
+  .instructions {
+    background: var(--navy-light);
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    animation: fadeIn 1s ease 0.5s both;
+  }
+  .instructions span { color: var(--accent-teal); font-weight: 500; }
+
+  /* Benefit categories legend */
+  .benefits-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 24px;
+    animation: fadeIn 1s ease 0.6s both;
+  }
+
+  .benefit-tag {
+    font-size: 10px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+  }
+
+  .benefit-tag:hover, .benefit-tag.active {
+    transform: scale(1.05);
+  }
+
+  .benefit-tag[data-cat="visibilidad"] { background: rgba(251, 113, 133, 0.15); color: var(--accent-rose); border-color: rgba(251, 113, 133, 0.2); }
+  .benefit-tag[data-cat="campo"] { background: rgba(45, 212, 191, 0.15); color: var(--accent-teal); border-color: rgba(45, 212, 191, 0.2); }
+  .benefit-tag[data-cat="autoria"] { background: rgba(212, 168, 67, 0.15); color: var(--accent-gold); border-color: rgba(212, 168, 67, 0.2); }
+  .benefit-tag[data-cat="red"] { background: rgba(167, 139, 250, 0.15); color: var(--accent-violet); border-color: rgba(167, 139, 250, 0.2); }
+  .benefit-tag[data-cat="caso"] { background: rgba(56, 189, 248, 0.15); color: var(--accent-sky); border-color: rgba(56, 189, 248, 0.2); }
+  .benefit-tag[data-cat="validacion"] { background: rgba(52, 211, 153, 0.15); color: var(--accent-emerald); border-color: rgba(52, 211, 153, 0.2); }
+
+  /* Member cards */
+  .members-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+
+  .member-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    animation: slideUp 0.5s ease both;
+    transition: all 0.3s ease;
+  }
+
+  .member-card:nth-child(1) { animation-delay: 0.1s; }
+  .member-card:nth-child(2) { animation-delay: 0.15s; }
+  .member-card:nth-child(3) { animation-delay: 0.2s; }
+  .member-card:nth-child(4) { animation-delay: 0.25s; }
+  .member-card:nth-child(5) { animation-delay: 0.3s; }
+  .member-card:nth-child(6) { animation-delay: 0.35s; }
+  .member-card:nth-child(7) { animation-delay: 0.4s; }
+
+  .member-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 18px;
+    cursor: pointer;
+    gap: 12px;
+    transition: background 0.2s ease;
+  }
+
+  .member-header:hover {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .member-icon {
+    font-size: 22px;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .member-info { flex: 1; min-width: 0; }
+
+  .member-name {
+    font-weight: 700;
+    font-size: 15px;
+    color: var(--text-primary);
+    line-height: 1.3;
+  }
+
+  .member-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .member-benefit-dots {
+    display: flex;
+    gap: 4px;
+    flex-shrink: 0;
+  }
+
+  .mini-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    transition: transform 0.2s ease;
+  }
+
+  .mini-dot.filled { opacity: 1; }
+  .mini-dot.empty { opacity: 0.2; }
+
+  .mini-dot[data-cat="visibilidad"] { background: var(--accent-rose); }
+  .mini-dot[data-cat="campo"] { background: var(--accent-teal); }
+  .mini-dot[data-cat="autoria"] { background: var(--accent-gold); }
+  .mini-dot[data-cat="red"] { background: var(--accent-violet); }
+  .mini-dot[data-cat="caso"] { background: var(--accent-sky); }
+  .mini-dot[data-cat="validacion"] { background: var(--accent-emerald); }
+
+  .expand-icon {
+    color: var(--text-secondary);
+    font-size: 14px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+    width: 20px;
+    text-align: center;
+  }
+
+  .member-card.expanded .expand-icon {
+    transform: rotate(180deg);
+  }
+
+  .member-benefits {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.3s ease;
+  }
+
+  .member-card.expanded .member-benefits {
+    max-height: 1200px;
+    padding: 0 18px 18px;
+  }
+
+  .benefit-item {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0;
+    border-top: 1px solid rgba(255,255,255,0.04);
+    align-items: flex-start;
+  }
+
+  .benefit-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .benefit-indicator[data-cat="visibilidad"] { background: var(--accent-rose); }
+  .benefit-indicator[data-cat="campo"] { background: var(--accent-teal); }
+  .benefit-indicator[data-cat="autoria"] { background: var(--accent-gold); }
+  .benefit-indicator[data-cat="red"] { background: var(--accent-violet); }
+  .benefit-indicator[data-cat="caso"] { background: var(--accent-sky); }
+  .benefit-indicator[data-cat="validacion"] { background: var(--accent-emerald); }
+
+  .benefit-content { flex: 1; }
+
+  .benefit-label {
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .benefit-label[data-cat="visibilidad"] { color: var(--accent-rose); }
+  .benefit-label[data-cat="campo"] { color: var(--accent-teal); }
+  .benefit-label[data-cat="autoria"] { color: var(--accent-gold); }
+  .benefit-label[data-cat="red"] { color: var(--accent-violet); }
+  .benefit-label[data-cat="caso"] { color: var(--accent-sky); }
+  .benefit-label[data-cat="validacion"] { color: var(--accent-emerald); }
+
+  .benefit-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+  }
+
+  .benefit-desc strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .benefit-concrete {
+    margin-top: 6px;
+    font-size: 12px;
+    color: var(--accent-teal);
+    font-weight: 500;
+    padding-left: 10px;
+    border-left: 2px solid rgba(45, 212, 191, 0.3);
+  }
+
+  /* Summary bar */
+  .summary-bar {
+    background: var(--navy-light);
+    border: 1px solid rgba(212, 168, 67, 0.15);
+    border-radius: 14px;
+    padding: 18px 22px;
+    margin-bottom: 24px;
+    animation: fadeIn 1s ease 0.8s both;
+  }
+
+  .summary-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--accent-gold);
+    margin-bottom: 14px;
+  }
+
+  .summary-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+    gap: 12px;
+  }
+
+  .stat-item {
+    text-align: center;
+    padding: 10px 8px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+  }
+
+  .stat-number {
+    font-size: 28px;
+    font-weight: 700;
+    font-family: 'Playfair Display', serif;
+  }
+
+  .stat-number.rose { color: var(--accent-rose); }
+  .stat-number.teal { color: var(--accent-teal); }
+  .stat-number.gold { color: var(--accent-gold); }
+  .stat-number.violet { color: var(--accent-violet); }
+  .stat-number.sky { color: var(--accent-sky); }
+  .stat-number.emerald { color: var(--accent-emerald); }
+
+  .stat-label {
+    font-size: 10px;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-top: 4px;
+  }
+
+  .note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-author {
+    font-size: 13px;
+    color: var(--accent-gold);
+    font-weight: 500;
+    letter-spacing: 0.5px;
+  }
+
+  .footer-org {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 4px;
+  }
+
+  .footer-date {
+    font-size: 10px;
+    color: rgba(255,255,255,0.2);
+    margin-top: 8px;
+  }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<div class="container">
+
+  <header>
+    <div class="badge">Comisión Bomberos-IA</div>
+    <h1>Mapa de Valor</h1>
+    <p class="subtitle">Qué gana cada miembro al participar en este proyecto. Esto no es solo voluntariado — es inversión profesional con retorno concreto.</p>
+    <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
+  </header>
+
+  <div class="key-message">
+    Participar en esta comisión genera <em>6 tipos de valor profesional</em> que van más allá del aporte voluntario. Cada miembro recibe tanto como entrega.
+  </div>
+
+  <div class="instructions">
+    <span>Toca cada nombre</span> para ver los beneficios concretos que obtiene de este proyecto
+  </div>
+
+  <div class="benefits-legend" id="benefitsLegend">
+    <div class="benefit-tag" data-cat="visibilidad">🎯 Visibilidad profesional</div>
+    <div class="benefit-tag" data-cat="campo">🔬 Campo de pruebas</div>
+    <div class="benefit-tag" data-cat="autoria">📝 Co-autoría documentada</div>
+    <div class="benefit-tag" data-cat="red">🤝 Red especializada</div>
+    <div class="benefit-tag" data-cat="caso">📊 Caso de estudio</div>
+    <div class="benefit-tag" data-cat="validacion">✅ Validación de expertise</div>
+  </div>
+
+  <div class="members-grid" id="membersGrid"></div>
+
+  <div class="summary-bar">
+    <div class="summary-title">Valor colectivo del equipo</div>
+    <div class="summary-stats">
+      <div class="stat-item">
+        <div class="stat-number rose">7</div>
+        <div class="stat-label">Profesionales</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number gold">36</div>
+        <div class="stat-label">Beneficios cruzados</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number teal">313</div>
+        <div class="stat-label">CB potenciales</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number emerald">6</div>
+        <div class="stat-label">Tipos de retorno</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Nota:</strong> Este mapa incluye a los 7 miembros del núcleo productivo que han realizado aportes sustantivos documentados, con el objetivo de facilitar la lectura y comprensión del valor mutuo. Las contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
+  </div>
+
+  <footer>
+    <div class="footer-author">Roberto Salas Letelier</div>
+    <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
+    <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
+  </footer>
+
+</div>
+
+<script>
+let memberData = [];
+
+async function loadData() {
+  try {
+    const res = await fetch('../data/value-map.json');
+    memberData = await res.json();
+    buildCards();
+  } catch(e) {
+    console.warn("Could not load value-map from JSON", e);
+    buildCards();
+  }
+}
+
+const categories = ['visibilidad', 'campo', 'autoria', 'red', 'caso', 'validacion'];
+
+function buildCards() {
+  const grid = document.getElementById('membersGrid');
+
+  memberData.forEach(member => {
+    const card = document.createElement('div');
+    card.className = 'member-card';
+    card.id = `card-${member.id}`;
+
+    // Build mini dots
+    let dotsHTML = '';
+    categories.forEach(cat => {
+      const has = member.benefits[cat] && member.benefits[cat].has;
+      dotsHTML += `<div class="mini-dot ${has ? 'filled' : 'empty'}" data-cat="${cat}"></div>`;
+    });
+
+    // Build benefits
+    let benefitsHTML = '';
+    categories.forEach(cat => {
+      const b = member.benefits[cat];
+      if (b && b.has) {
+        benefitsHTML += `
+          <div class="benefit-item">
+            <div class="benefit-indicator" data-cat="${cat}"></div>
+            <div class="benefit-content">
+              <div class="benefit-label" data-cat="${cat}">${getCatLabel(cat)}</div>
+              <div class="benefit-desc">${b.desc}</div>
+              <div class="benefit-concrete">→ ${b.concrete}</div>
+            </div>
+          </div>`;
+      }
+    });
+
+    card.innerHTML = `
+      <div class="member-header" onclick="toggleCard('${member.id}')">
+        <div class="member-icon">${member.icon}</div>
+        <div class="member-info">
+          <div class="member-name">${member.name}</div>
+          <div class="member-role">${member.role}</div>
+        </div>
+        <div class="member-benefit-dots">${dotsHTML}</div>
+        <div class="expand-icon">▼</div>
+      </div>
+      <div class="member-benefits">${benefitsHTML}</div>
+    `;
+
+    grid.appendChild(card);
+  });
+}
+
+function getCatLabel(cat) {
+  const labels = {
+    visibilidad: '🎯 Visibilidad profesional',
+    campo: '🔬 Campo de pruebas',
+    autoria: '📝 Co-autoría documentada',
+    red: '🤝 Red especializada',
+    caso: '📊 Caso de estudio',
+    validacion: '✅ Validación de expertise'
+  };
+  return labels[cat] || cat;
+}
+
+function toggleCard(id) {
+  const card = document.getElementById(`card-${id}`);
+  const wasExpanded = card.classList.contains('expanded');
+
+  // Close all
+  document.querySelectorAll('.member-card.expanded').forEach(c => c.classList.remove('expanded'));
+
+  // Toggle clicked
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+    setTimeout(() => {
+      card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }, 100);
+  }
+}
+
+loadData();
+</script>
+
+</body>
+</html>
