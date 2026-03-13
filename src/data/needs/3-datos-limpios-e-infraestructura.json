@@ -1,0 +1,22 @@
+{
+  "id": 3,
+  "name": "Datos limpios e infraestructura",
+  "color": "need3",
+  "desc": "Sin datos estructurados no hay IA real. El proyecto necesita saber qué datos existen, en qué estado están, y cómo hacerlos accesibles.",
+  "matches": [
+    {
+      "icon": "📊",
+      "name": "Hans Edelsberg",
+      "capability": "Expertise profundo en data engineering y arquitectura de datos. Planteó la necesidad de APIs abiertas de JNCB.",
+      "how": "Único miembro con capacidad de evaluar madurez de datos a nivel institucional.",
+      "fit": 3
+    },
+    {
+      "icon": "⚙️",
+      "name": "Carlos González",
+      "capability": "Informática, aseguramiento de calidad, experiencia en CENIA.",
+      "how": "Aporta visión técnica complementaria sobre calidad y estándares de datos.",
+      "fit": 2
+    }
+  ]
+}

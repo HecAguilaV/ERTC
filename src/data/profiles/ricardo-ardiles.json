@@ -1,0 +1,37 @@
+{
+  "id": "ricardo-ardiles",
+  "icon": "🏛️",
+  "name": "Ricardo Ardiles",
+  "role": "Líder del Proyecto",
+  "capabilities": [
+    {
+      "text": "<strong>Acceso directo a JNCB</strong> y Presidente Nacional de Bomberos de Chile",
+      "needsIds": [
+        1,
+        8
+      ]
+    },
+    {
+      "text": "<strong>Legitimidad institucional</strong> ante 313 cuerpos de bomberos",
+      "needsIds": [
+        1,
+        5
+      ]
+    },
+    {
+      "text": "<strong>Liderazgo facilitativo</strong>: invita a participar sin imponer",
+      "needsIds": [
+        8
+      ]
+    },
+    {
+      "text": "<strong>Plan de trabajo aprobado</strong> de 6 meses (diagnóstico → marco → pilotos)",
+      "needsIds": [
+        4
+      ]
+    }
+  ],
+  "unique": "Sin Ricardo, el proyecto no tiene acceso institucional. Es la llave que conecta al equipo técnico con Bomberos de Chile.",
+  "needsCount": 4,
+  "status_action": true
+}

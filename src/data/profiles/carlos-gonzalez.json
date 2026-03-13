@@ -1,0 +1,36 @@
+{
+  "id": "carlos-gonzalez",
+  "icon": "⚙️",
+  "name": "Carlos González",
+  "role": "Coord. Técnica · Ex-CENIA",
+  "capabilities": [
+    {
+      "text": "<strong>9 propuestas técnicas</strong> en 3 categorías organizadas sistemáticamente",
+      "needsIds": [
+        4
+      ]
+    },
+    {
+      "text": "<strong>Experiencia en CENIA</strong> (Centro Nacional de IA): credibilidad técnica verificable",
+      "needsIds": [
+        4,
+        3
+      ]
+    },
+    {
+      "text": "<strong>Capacidad de prototipado</strong> y compromiso de mostrar prefactibilidad",
+      "needsIds": [
+        5
+      ]
+    },
+    {
+      "text": "<strong>Visión de vinculación</strong> con academia y sector privado para pilotos",
+      "needsIds": [
+        8
+      ]
+    }
+  ],
+  "unique": "Carlos es el mapa técnico del proyecto. Sus 9 propuestas son el menú de posibilidades que el equipo prioriza.",
+  "needsCount": 4,
+  "status_action": true
+}

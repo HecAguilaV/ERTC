@@ -1,0 +1,38 @@
+{
+  "id": "eduardo-escalante",
+  "icon": "🚀",
+  "name": "Eduardo Escalante",
+  "role": "Coord. Técnica · Desarrollo ágil",
+  "capabilities": [
+    {
+      "text": "<strong>2 apps funcionales</strong> en producción en quintacbo.cl, 1 en desarrollo",
+      "needsIds": [
+        5,
+        4
+      ]
+    },
+    {
+      "text": "<strong>Curso con IA</strong> \"Fundamentos del Fuego\" creado en 1 día",
+      "needsIds": [
+        5
+      ]
+    },
+    {
+      "text": "<strong>Metodología \"small wins\"</strong> del MIT aplicada en contexto real",
+      "needsIds": [
+        4,
+        5
+      ]
+    },
+    {
+      "text": "<strong>Pruebas con usuarios reales</strong> programadas para próxima semana",
+      "needsIds": [
+        5,
+        2
+      ]
+    }
+  ],
+  "unique": "Eduardo es el único con resultados tangibles ya operando. Mientras otros planifican, él demuestra que se puede.",
+  "needsCount": 3,
+  "status_action": true
+}

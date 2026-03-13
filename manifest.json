@@ -1,7 +1,7 @@
 {
   "title": "ERTC — Estructura Relacional del Trabajo Colectivo",
   "description": "Visualización relacional del trabajo colectivo en el contexto de la Comisión de Digitalización de Bomberos (CCHIA)",
-  "last_updated": "2026-02-14",
+  "last_updated": "2026-03-12",
   "matrices": [
     {
       "id": "sinergias",
@@ -9,7 +9,7 @@
       "title": "Matriz de Sinergias",
       "subtitle": "Quién potencia a quién. Lectura relacional.",
       "author": "Roberto Salas",
-      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html",
+      "url": "Matriz_Sinergias_Quien_Potencia_a_Quien_RobertoSalas.html",
       "order": 1
     },
     {
@@ -18,7 +18,7 @@
       "title": "Mapa de Valor",
       "subtitle": "Beneficios legítimos por participante.",
       "author": "Roberto Salas",
-      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Mapa_de_Valor_Beneficios_por_Participante_RobertoSalas.html",
+      "url": "Mapa_de_Valor_Beneficios_por_Participante_RobertoSalas.html",
       "order": 2
     },
     {
@@ -27,7 +27,7 @@
       "title": "Cadena de Valor",
       "subtitle": "Flujo completo del proyecto.",
       "author": "Roberto Salas",
-      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Cadena_de_Valor_Proyecto_Bomberos_RobertoSalas.html",
+      "url": "Cadena_de_Valor_Proyecto_Bomberos_RobertoSalas.html",
       "order": 3
     },
     {
@@ -36,17 +36,26 @@
       "title": "Quick Wins Cruzados",
       "subtitle": "Victorias compartidas en corto plazo.",
       "author": "Roberto Salas",
-      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Quick_Wins_Cruzados_Victorias_Compartidas_RobertoSalas.html",
+      "url": "Quick_Wins_Cruzados_Victorias_Compartidas_RobertoSalas.html",
       "order": 4
     },
     {
       "id": "marketplace",
       "icon": "🧠",
       "title": "Marketplace de Expertise",
-      "subtitle": "Capacidades vs necesidades.",
+      "subtitle": "Visualización original del Marketplace.",
       "author": "Roberto Salas",
-      "url": "https://rslnoctiluca.github.io/BOMBEROS_IA/Marketplace_Expertise_Capacidades_y_Necesidades_RobertoSalas.html",
+      "url": "Marketplace_Expertise_Capacidades_y_Necesidades_RobertoSalas.html",
       "order": 5
+    },
+    {
+      "id": "matriz-problemas",
+      "icon": "🎯",
+      "title": "Matriz de Problemas",
+      "subtitle": "Desafíos e impacto institucional. (Capa 2)",
+      "author": "Héctor Águila",
+      "url": "src/pages/matriz-problemas.html",
+      "order": 6
     }
   ]
 }

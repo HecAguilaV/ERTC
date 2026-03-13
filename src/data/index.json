@@ -1,0 +1,21 @@
+{
+  "profiles": [
+    "alexis-brantes",
+    "carlos-gonzalez",
+    "eduardo-escalante",
+    "eric-tureo",
+    "hans-edelsberg",
+    "ricardo-ardiles",
+    "roberto-salas"
+  ],
+  "needs": [
+    "1-acceso-institucional-a-bomberos",
+    "2-diagnostico-de-necesidades-humanas",
+    "3-datos-limpios-e-infraestructura",
+    "4-propuestas-tecnicas-viables",
+    "5-prototipos-y-evidencia-tangible",
+    "6-gobernanza-y-etica-de-ia",
+    "7-proteccion-de-propiedad-intelectual",
+    "8-articulacion-ecosistemica"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "id": 1,
+  "name": "Acceso institucional a Bomberos",
+  "color": "need1",
+  "desc": "El proyecto necesita puertas abiertas: acceso a voluntarios, datos, directivos y legitimidad ante JNCB para que todo lo demás sea posible.",
+  "matches": [
+    {
+      "icon": "🏛️",
+      "name": "Ricardo Ardiles",
+      "capability": "Bombero activo con acceso directo al Presidente Nacional de Bomberos y JNCB.",
+      "how": "Abre las puertas que ningún otro miembro puede abrir individualmente.",
+      "fit": 3
+    },
+    {
+      "icon": "🧠",
+      "name": "Alexis Brantes",
+      "capability": "Contacto previo con Cuerpo de Bomberos de Santiago (trabajo en web/intranet).",
+      "how": "Acceso complementario por canal independiente — valida desde otro ángulo.",
+      "fit": 2
+    }
+  ]
+}

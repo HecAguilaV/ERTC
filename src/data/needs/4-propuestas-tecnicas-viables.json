@@ -1,0 +1,29 @@
+{
+  "id": 4,
+  "name": "Propuestas técnicas viables",
+  "color": "need4",
+  "desc": "El proyecto necesita un mapa de qué soluciones técnicas son posibles, priorizadas por viabilidad y organizadas en un roadmap.",
+  "matches": [
+    {
+      "icon": "⚙️",
+      "name": "Carlos González",
+      "capability": "9 propuestas en 3 categorías (emergencias, logística, modernización). Ex-CENIA, docencia, automatización, voluntariado STEM.",
+      "how": "El análisis técnico más completo del equipo — es el mapa de posibilidades.",
+      "fit": 3
+    },
+    {
+      "icon": "🚀",
+      "name": "Eduardo Escalante",
+      "capability": "2 apps funcionales, 1 en desarrollo, curso creado con IA. Enfoque \"dos velocidades\" con referencia a MIT.",
+      "how": "Transforma propuestas en prototipos funcionales a velocidad real.",
+      "fit": 3
+    },
+    {
+      "icon": "📊",
+      "name": "Hans Edelsberg",
+      "capability": "Criterio de realismo técnico: distingue lo factible de lo aspiracional basado en estado de datos.",
+      "how": "Filtra propuestas por viabilidad real, no teórica.",
+      "fit": 2
+    }
+  ]
+}

@@ -1,0 +1,5 @@
+docs/.local-learning/
+.env
+node_modules/
+
+.vercel

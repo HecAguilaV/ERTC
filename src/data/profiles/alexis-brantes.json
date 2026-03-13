@@ -1,0 +1,37 @@
+{
+  "id": "alexis-brantes",
+  "icon": "🧠",
+  "name": "Alexis Brantes",
+  "role": "Coord. Investigación · Neurociencias",
+  "capabilities": [
+    {
+      "text": "<strong>AIM Framework</strong> publicado: diagnóstico de interacciones afectivas y cognitivas",
+      "needsIds": [
+        2
+      ]
+    },
+    {
+      "text": "<strong>Contacto directo con CB Santiago</strong> para entrevistas con voluntarios",
+      "needsIds": [
+        1,
+        2
+      ]
+    },
+    {
+      "text": "<strong>5 preocupaciones estructuradas</strong> sobre PI, reconocimiento y exclusión comercial",
+      "needsIds": [
+        7
+      ]
+    },
+    {
+      "text": "<strong>Modelo de transparencia</strong>: separación explícita entre pro-bono y producto comercial",
+      "needsIds": [
+        7,
+        6
+      ]
+    }
+  ],
+  "unique": "Alexis es el único con metodología publicada para entender qué sienten y necesitan los usuarios. Sin eso, la tecnología se construye a ciegas.",
+  "needsCount": 4,
+  "status_action": true
+}

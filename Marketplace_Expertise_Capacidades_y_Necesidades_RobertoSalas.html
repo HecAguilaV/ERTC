@@ -1,0 +1,846 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Marketplace de Expertise — Capacidades y Necesidades | Roberto Salas Letelier</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy: #0a1628;
+    --navy-light: #132240;
+    --navy-mid: #1a3158;
+    --accent-gold: #d4a843;
+    --accent-teal: #2dd4bf;
+    --text-primary: #e8edf5;
+    --text-secondary: #94a3b8;
+    --need1: #f87171;
+    --need2: #fb923c;
+    --need3: #fbbf24;
+    --need4: #34d399;
+    --need5: #2dd4bf;
+    --need6: #38bdf8;
+    --need7: #a78bfa;
+    --need8: #f472b6;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--navy);
+    color: var(--text-primary);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .bg-pattern {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+      radial-gradient(ellipse at 30% 20%, rgba(167, 139, 250, 0.04) 0%, transparent 40%),
+      radial-gradient(ellipse at 70% 60%, rgba(45, 212, 191, 0.04) 0%, transparent 40%),
+      radial-gradient(ellipse at 20% 80%, rgba(244, 114, 182, 0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 24px 16px 40px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 28px;
+    animation: fadeInDown 0.8s ease;
+  }
+
+  @keyframes fadeInDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+  @keyframes slideUp {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .badge {
+    display: inline-block;
+    font-size: 10px;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--accent-gold);
+    border: 1px solid rgba(212, 168, 67, 0.3);
+    padding: 5px 14px;
+    border-radius: 20px;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(22px, 5vw, 34px);
+    font-weight: 700;
+    line-height: 1.2;
+    margin-bottom: 8px;
+    background: linear-gradient(135deg, var(--need7) 0%, var(--accent-teal) 50%, var(--accent-gold) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: var(--text-secondary);
+    max-width: 540px;
+    margin: 0 auto 12px;
+    line-height: 1.6;
+  }
+
+  .author {
+    font-size: 12px;
+    color: var(--accent-gold);
+    letter-spacing: 1px;
+    margin-top: 8px;
+  }
+
+  .key-message {
+    background: linear-gradient(135deg, rgba(167, 139, 250, 0.07) 0%, rgba(45, 212, 191, 0.05) 100%);
+    border: 1px solid rgba(167, 139, 250, 0.18);
+    border-radius: 14px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    text-align: center;
+    font-size: 14px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    animation: fadeIn 1s ease 0.3s both;
+  }
+  .key-message strong { color: var(--accent-teal); font-weight: 600; }
+
+  /* Mode switcher */
+  .mode-switch {
+    display: flex;
+    background: var(--navy-light);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 24px;
+    border: 1px solid rgba(255,255,255,0.06);
+    animation: fadeIn 1s ease 0.5s both;
+  }
+
+  .mode-btn {
+    flex: 1;
+    padding: 10px 12px;
+    text-align: center;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--text-secondary);
+    cursor: pointer;
+    border-radius: 9px;
+    transition: all 0.3s ease;
+    letter-spacing: 0.3px;
+  }
+
+  .mode-btn.active {
+    background: var(--navy-mid);
+    color: var(--accent-teal);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  }
+
+  .mode-btn:hover:not(.active) {
+    color: var(--text-primary);
+  }
+
+  /* Instructions */
+  .instructions {
+    background: var(--navy-light);
+    border: 1px solid rgba(45, 212, 191, 0.15);
+    border-radius: 12px;
+    padding: 12px 18px;
+    margin-bottom: 24px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+  .instructions span { color: var(--accent-teal); font-weight: 500; }
+
+  /* ===== MODE 1: BY NEED ===== */
+  .view-needs, .view-members {
+    display: none;
+  }
+  .view-needs.active, .view-members.active {
+    display: block;
+  }
+
+  /* Need tags */
+  .needs-cloud {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+
+  .need-tag {
+    font-size: 11px;
+    font-weight: 600;
+    padding: 7px 14px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border: 1px solid transparent;
+    letter-spacing: 0.3px;
+  }
+
+  .need-tag:hover { transform: scale(1.05); }
+
+  .need-tag.active {
+    transform: scale(1.08);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.3);
+  }
+
+  .need-tag[data-n="1"] { background: rgba(248,113,113,0.12); color: var(--need1); border-color: rgba(248,113,113,0.2); }
+  .need-tag[data-n="2"] { background: rgba(251,146,60,0.12); color: var(--need2); border-color: rgba(251,146,60,0.2); }
+  .need-tag[data-n="3"] { background: rgba(251,191,36,0.12); color: var(--need3); border-color: rgba(251,191,36,0.2); }
+  .need-tag[data-n="4"] { background: rgba(52,211,153,0.12); color: var(--need4); border-color: rgba(52,211,153,0.2); }
+  .need-tag[data-n="5"] { background: rgba(45,212,191,0.12); color: var(--need5); border-color: rgba(45,212,191,0.2); }
+  .need-tag[data-n="6"] { background: rgba(56,189,248,0.12); color: var(--need6); border-color: rgba(56,189,248,0.2); }
+  .need-tag[data-n="7"] { background: rgba(167,139,250,0.12); color: var(--need7); border-color: rgba(167,139,250,0.2); }
+  .need-tag[data-n="8"] { background: rgba(244,114,182,0.12); color: var(--need8); border-color: rgba(244,114,182,0.2); }
+
+  .need-tag.active[data-n="1"] { background: rgba(248,113,113,0.25); border-color: var(--need1); }
+  .need-tag.active[data-n="2"] { background: rgba(251,146,60,0.25); border-color: var(--need2); }
+  .need-tag.active[data-n="3"] { background: rgba(251,191,36,0.25); border-color: var(--need3); }
+  .need-tag.active[data-n="4"] { background: rgba(52,211,153,0.25); border-color: var(--need4); }
+  .need-tag.active[data-n="5"] { background: rgba(45,212,191,0.25); border-color: var(--need5); }
+  .need-tag.active[data-n="6"] { background: rgba(56,189,248,0.25); border-color: var(--need6); }
+  .need-tag.active[data-n="7"] { background: rgba(167,139,250,0.25); border-color: var(--need7); }
+  .need-tag.active[data-n="8"] { background: rgba(244,114,182,0.25); border-color: var(--need8); }
+
+  /* Need result panel */
+  .need-result {
+    display: none;
+    animation: slideUp 0.4s ease;
+  }
+  .need-result.visible { display: block; }
+
+  .need-result-header {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--text-primary);
+    margin-bottom: 6px;
+  }
+
+  .need-result-desc {
+    font-size: 13px;
+    color: var(--text-secondary);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  .match-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 12px;
+    padding: 14px 16px;
+    margin-bottom: 10px;
+    display: flex;
+    gap: 12px;
+    align-items: flex-start;
+    transition: all 0.3s ease;
+  }
+
+  .match-card:hover {
+    border-color: rgba(45,212,191,0.2);
+  }
+
+  .match-icon {
+    font-size: 20px;
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .match-content { flex: 1; }
+
+  .match-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-primary);
+    margin-bottom: 3px;
+  }
+
+  .match-capability {
+    font-size: 12px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+    margin-bottom: 6px;
+  }
+
+  .match-how {
+    font-size: 12px;
+    color: var(--accent-teal);
+    font-weight: 500;
+    padding-left: 8px;
+    border-left: 2px solid rgba(45,212,191,0.3);
+    line-height: 1.4;
+  }
+
+  .match-fit {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    flex-shrink: 0;
+    margin-top: 4px;
+  }
+
+  .fit-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--accent-teal);
+  }
+
+  .fit-dot.off { opacity: 0.15; }
+
+  /* ===== MODE 2: BY MEMBER ===== */
+  .member-offer-card {
+    background: var(--navy-light);
+    border: 1px solid rgba(255,255,255,0.06);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 12px;
+    animation: slideUp 0.5s ease both;
+    transition: all 0.3s ease;
+  }
+
+  .member-offer-card:nth-child(1) { animation-delay: 0.08s; }
+  .member-offer-card:nth-child(2) { animation-delay: 0.13s; }
+  .member-offer-card:nth-child(3) { animation-delay: 0.18s; }
+  .member-offer-card:nth-child(4) { animation-delay: 0.23s; }
+  .member-offer-card:nth-child(5) { animation-delay: 0.28s; }
+  .member-offer-card:nth-child(6) { animation-delay: 0.33s; }
+  .member-offer-card:nth-child(7) { animation-delay: 0.38s; }
+
+  .mo-header {
+    display: flex;
+    align-items: center;
+    padding: 14px 16px;
+    cursor: pointer;
+    gap: 12px;
+  }
+
+  .mo-header:hover {
+    background: rgba(255,255,255,0.02);
+  }
+
+  .mo-icon {
+    font-size: 20px;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(255,255,255,0.04);
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .mo-info { flex: 1; min-width: 0; }
+
+  .mo-name {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-primary);
+  }
+
+  .mo-role {
+    font-size: 11px;
+    color: var(--text-secondary);
+    margin-top: 2px;
+  }
+
+  .mo-count {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-teal);
+    background: rgba(45,212,191,0.1);
+    padding: 3px 10px;
+    border-radius: 10px;
+    flex-shrink: 0;
+  }
+
+  .mo-expand {
+    color: var(--text-secondary);
+    font-size: 12px;
+    transition: transform 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .member-offer-card.expanded .mo-expand {
+    transform: rotate(180deg);
+  }
+
+  .mo-body {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease;
+  }
+
+  .member-offer-card.expanded .mo-body {
+    max-height: 1200px;
+  }
+
+  .mo-body-inner {
+    padding: 0 16px 18px;
+  }
+
+  .mo-section-label {
+    font-size: 10px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+    margin-top: 4px;
+  }
+
+  .mo-section-label.offer { color: var(--accent-gold); }
+  .mo-section-label.fills { color: var(--accent-teal); }
+
+  .mo-capability {
+    display: flex;
+    gap: 10px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.03);
+    align-items: flex-start;
+  }
+
+  .mo-cap-bullet {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent-gold);
+    margin-top: 5px;
+    flex-shrink: 0;
+  }
+
+  .mo-cap-text {
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.5;
+  }
+
+  .mo-cap-text strong {
+    color: var(--text-primary);
+    font-weight: 500;
+  }
+
+  .mo-needs-filled {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-top: 4px;
+  }
+
+  .mo-need-tag {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 4px 10px;
+    border-radius: 12px;
+    letter-spacing: 0.3px;
+  }
+
+  .mo-need-tag[data-n="1"] { background: rgba(248,113,113,0.12); color: var(--need1); }
+  .mo-need-tag[data-n="2"] { background: rgba(251,146,60,0.12); color: var(--need2); }
+  .mo-need-tag[data-n="3"] { background: rgba(251,191,36,0.12); color: var(--need3); }
+  .mo-need-tag[data-n="4"] { background: rgba(52,211,153,0.12); color: var(--need4); }
+  .mo-need-tag[data-n="5"] { background: rgba(45,212,191,0.12); color: var(--need5); }
+  .mo-need-tag[data-n="6"] { background: rgba(56,189,248,0.12); color: var(--need6); }
+  .mo-need-tag[data-n="7"] { background: rgba(167,139,250,0.12); color: var(--need7); }
+  .mo-need-tag[data-n="8"] { background: rgba(244,114,182,0.12); color: var(--need8); }
+
+  .mo-unique {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: rgba(212, 168, 67, 0.06);
+    border-left: 3px solid var(--accent-gold);
+    border-radius: 0 8px 8px 0;
+    font-size: 12px;
+    color: var(--accent-gold);
+    font-weight: 500;
+    line-height: 1.5;
+  }
+
+  /* Coverage summary */
+  .coverage-section {
+    background: var(--navy-light);
+    border: 1px solid rgba(167,139,250,0.15);
+    border-radius: 14px;
+    padding: 20px 22px;
+    margin-top: 28px;
+    margin-bottom: 24px;
+    animation: fadeIn 1s ease 0.8s both;
+  }
+
+  .coverage-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--accent-gold);
+    margin-bottom: 14px;
+  }
+
+  .coverage-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 14px;
+  }
+
+  .coverage-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .coverage-need-name {
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 140px;
+    flex-shrink: 0;
+  }
+
+  .coverage-bar {
+    flex: 1;
+    height: 8px;
+    background: rgba(255,255,255,0.04);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .coverage-fill {
+    height: 100%;
+    border-radius: 4px;
+    transition: width 1s ease;
+  }
+
+  .coverage-count {
+    font-size: 11px;
+    color: var(--text-secondary);
+    width: 30px;
+    text-align: right;
+    flex-shrink: 0;
+  }
+
+  .coverage-message {
+    font-size: 13px;
+    color: var(--text-secondary);
+    text-align: center;
+    line-height: 1.6;
+    margin-top: 10px;
+  }
+
+  .coverage-message em {
+    font-style: normal;
+    color: var(--accent-teal);
+    font-weight: 500;
+  }
+
+  .note {
+    text-align: center;
+    font-size: 11px;
+    color: var(--text-secondary);
+    line-height: 1.6;
+    margin-top: 24px;
+    padding: 14px 18px;
+    background: rgba(255,255,255,0.02);
+    border-radius: 10px;
+    border: 1px solid rgba(255,255,255,0.04);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 32px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .footer-author { font-size: 13px; color: var(--accent-gold); font-weight: 500; letter-spacing: 0.5px; }
+  .footer-org { font-size: 11px; color: var(--text-secondary); margin-top: 4px; }
+  .footer-date { font-size: 10px; color: rgba(255,255,255,0.2); margin-top: 8px; }
+</style>
+</head>
+<body>
+
+<div class="bg-pattern"></div>
+
+<div class="container">
+
+  <header>
+    <div class="badge">Comisión Bomberos-IA</div>
+    <h1>Marketplace de Expertise</h1>
+    <p class="subtitle">Qué capacidades tiene este equipo y qué necesita el proyecto. Cuando la oferta calza con la demanda, las cosas pasan.</p>
+    <div class="author">Roberto Salas Letelier — Coord. Ética y Gobernanza, CCHIA</div>
+  </header>
+
+  <div class="key-message">
+    Este equipo no se armó al azar. <strong>Cada necesidad crítica del proyecto tiene al menos un miembro con la capacidad exacta para cubrirla.</strong> Este mapa lo hace visible.
+  </div>
+
+  <div class="mode-switch">
+    <div class="mode-btn active" id="btnNeeds" onclick="switchMode('needs')">🔍 ¿Qué necesita el proyecto?</div>
+    <div class="mode-btn" id="btnMembers" onclick="switchMode('members')">👤 ¿Qué ofrece cada uno?</div>
+  </div>
+
+  <div class="instructions" id="instructionText">
+    <span>Toca una necesidad</span> para ver quién del equipo puede cubrirla
+  </div>
+
+  <!-- Global Link to Matrix -->
+  <div style="text-align: center; margin-bottom: 24px;">
+    <button onclick="window.parent.location.hash='matriz-problemas'" style="background: rgba(45, 212, 191, 0.15); color: var(--accent-teal); padding: 10px 20px; font-family: 'DM Sans', sans-serif; font-weight: 700; border-radius: 8px; border:1px solid rgba(45,212,191,0.3); cursor:pointer; font-size:13px; transition:all 0.3s; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">🎯 Ir a la Matriz de Problemas</button>
+  </div>
+
+  <!-- MODE 1: BY NEED -->
+  <div class="view-needs active" id="viewNeeds">
+    <div class="needs-cloud" id="needsCloud"></div>
+    <div class="need-result" id="needResult">
+      <div class="need-result-header" id="needResultHeader"></div>
+      <div class="need-result-desc" id="needResultDesc"></div>
+      <div id="needMatches"></div>
+    </div>
+  </div>
+
+  <!-- MODE 2: BY MEMBER -->
+  <div class="view-members" id="viewMembers"></div>
+
+  <!-- Coverage summary -->
+  <div class="coverage-section">
+    <div class="coverage-title">Cobertura del equipo</div>
+    <div class="coverage-grid" id="coverageGrid"></div>
+    <div class="coverage-message">
+      <em>8 necesidades críticas, 7 profesionales, 0 brechas sin cubrir.</em> Este equipo tiene todo lo que el proyecto necesita para avanzar.
+    </div>
+  </div>
+
+  <div class="note">
+    <strong>Nota:</strong> Este marketplace incluye a los 7 miembros del núcleo productivo que han realizado aportes sustantivos documentados, con el objetivo de facilitar la lectura y comprensión de las capacidades y necesidades. Las contribuciones de todos los miembros de la comisión son valoradas y bienvenidas.
+  </div>
+
+  <footer>
+    <div class="footer-author">Roberto Salas Letelier</div>
+    <div class="footer-org">Coordinación de Ética y Gobernanza — Comisión Bomberos-IA, CCHIA</div>
+    <div class="footer-date">Febrero 2026 · <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener" style="color:inherit;text-decoration:underline;text-underline-offset:2px;">CC BY 4.0</a></div>
+  </footer>
+
+</div>
+
+<script>
+let needs = [];
+let memberOffers = [];
+
+async function loadData() {
+  try {
+    const indexRes = await fetch('./src/data/index.json');
+    if (!indexRes.ok) throw new Error('Error loading index');
+    const index = await indexRes.json();
+
+    const needsPromises = index.needs.map(n => fetch(`./src/data/needs/${n}.json`).then(r => r.json()));
+    const profilesPromises = index.profiles.map(p => fetch(`./src/data/profiles/${p}.json`).then(r => r.json()));
+
+    needs = await Promise.all(needsPromises);
+    memberOffers = await Promise.all(profilesPromises);
+
+    buildNeedsView();
+    buildMembersView();
+    buildCoverage();
+    
+    // Check deep linking
+    const urlParams = new URLSearchParams(window.location.search);
+    const memberId = urlParams.get('member');
+    if (memberId) {
+       switchMode('members');
+       const idx = memberOffers.findIndex(m => m.id === memberId);
+       if(idx !== -1) {
+          // Wait briefly for DOM render to ensure smooth scroll
+          setTimeout(() => toggleMO(idx), 400); 
+       }
+    }
+    
+  } catch (err) {
+    console.error('Error fetching data:', err);
+    document.getElementById('needsCloud').innerHTML = '<div style="color:red; text-align:center; width:100%">Error cargando datos.<br><br>Si ves esto localmente necesitas un servidor de desarrollo porque los navegadores bloquean "file://" (CORS). Usa "npx serve".</div>';
+  }
+}
+
+const needColors = {
+  1: 'var(--need1)', 2: 'var(--need2)', 3: 'var(--need3)', 4: 'var(--need4)',
+  5: 'var(--need5)', 6: 'var(--need6)', 7: 'var(--need7)', 8: 'var(--need8)'
+};
+
+function switchMode(mode) {
+  document.getElementById('btnNeeds').classList.toggle('active', mode === 'needs');
+  document.getElementById('btnMembers').classList.toggle('active', mode === 'members');
+  document.getElementById('viewNeeds').classList.toggle('active', mode === 'needs');
+  document.getElementById('viewMembers').classList.toggle('active', mode === 'members');
+
+  const inst = document.getElementById('instructionText');
+  if (mode === 'needs') {
+    inst.innerHTML = '<span>Toca una necesidad</span> para ver quién del equipo puede cubrirla';
+  } else {
+    inst.innerHTML = '<span>Toca un nombre</span> para ver qué ofrece y qué necesidades cubre';
+  }
+}
+
+function buildNeedsView() {
+  const cloud = document.getElementById('needsCloud');
+  needs.forEach(n => {
+    const tag = document.createElement('div');
+    tag.className = 'need-tag';
+    tag.dataset.n = n.id;
+    tag.textContent = n.name;
+    tag.onclick = () => selectNeed(n.id);
+    cloud.appendChild(tag);
+  });
+}
+
+function selectNeed(id) {
+  // Toggle tags
+  document.querySelectorAll('.need-tag').forEach(t => t.classList.remove('active'));
+  const tag = document.querySelector(`.need-tag[data-n="${id}"]`);
+  if (tag) tag.classList.add('active');
+
+  const need = needs.find(n => n.id === id);
+  const panel = document.getElementById('needResult');
+  const header = document.getElementById('needResultHeader');
+  const desc = document.getElementById('needResultDesc');
+  const matchesEl = document.getElementById('needMatches');
+
+  header.textContent = need.name;
+  desc.innerHTML = need.desc + `<br><br><button onclick="window.parent.location.hash='matriz-problemas'" style="background: rgba(45, 212, 191, 0.15); color: var(--accent-teal); padding: 8px 16px; font-weight: 700; border-radius: 6px; border:1px solid rgba(45,212,191,0.3); cursor:pointer; font-size:12px; transition:all 0.2s;">🎯 Ver en Matriz de Problemas</button>`;
+
+  matchesEl.innerHTML = '';
+  need.matches.forEach(m => {
+    const fitDots = Array.from({length: 3}, (_, i) =>
+      `<div class="fit-dot ${i < m.fit ? '' : 'off'}"></div>`
+    ).join('');
+
+    matchesEl.innerHTML += `
+      <div class="match-card">
+        <div class="match-icon">${m.icon}</div>
+        <div class="match-content">
+          <div class="match-name">${m.name}</div>
+          <div class="match-capability">${m.capability}</div>
+          <div class="match-how">→ ${m.how}</div>
+        </div>
+        <div class="match-fit">${fitDots}</div>
+      </div>`;
+  });
+
+  panel.classList.remove('visible');
+  void panel.offsetWidth;
+  panel.classList.add('visible');
+  panel.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
+
+function buildMembersView() {
+  const container = document.getElementById('viewMembers');
+
+  memberOffers.forEach((m, idx) => {
+    const card = document.createElement('div');
+    card.className = 'member-offer-card';
+    card.id = `mo-${idx}`;
+
+    // Capabilities HTML
+    const capsHTML = m.capabilities.map(c => {
+      const tagsHTML = c.needsIds.map(nid => {
+        const n = needs.find(x => x.id === nid);
+        return `<span class="mo-need-tag" data-n="${nid}" onclick="window.parent.location.hash='matriz-problemas?problem=${nid}'" style="cursor:pointer; transition:all 0.2s;" onmouseover="this.style.transform='scale(1.05)';this.style.boxShadow='0 2px 8px rgba(45,212,191,0.3)'" onmouseout="this.style.transform='scale(1)';this.style.boxShadow='none'" title="Ver este desafío en la Matriz de Problemas">${n.name}</span>`;
+      }).join('');
+
+      return `
+        <div class="mo-capability">
+          <div class="mo-cap-bullet"></div>
+          <div>
+            <div class="mo-cap-text">${c.text}</div>
+            <div class="mo-needs-filled" style="margin-top:6px">${tagsHTML}</div>
+          </div>
+        </div>`;
+    }).join('');
+
+    card.innerHTML = `
+      <div class="mo-header" onclick="toggleMO(${idx})">
+        <div class="mo-icon">${m.icon}</div>
+        <div class="mo-info">
+          <div class="mo-name">${m.name} ${m.needsCount > 0 ? `<span style="background:var(--accent-teal); color:var(--navy); font-size:9px; padding:2px 6px; border-radius:10px; margin-left:6px; font-weight:800; letter-spacing:0.5px; vertical-align:middle;">ACTIVO</span>` : ''}</div>
+          <div class="mo-role">${m.role}</div>
+        </div>
+        <div class="mo-count">${m.needsCount} necesidades</div>
+        <div class="mo-expand">▼</div>
+      </div>
+      <div class="mo-body">
+        <div class="mo-body-inner">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; margin-top: 8px;">
+            <div class="mo-section-label offer" style="margin:0;">🎯 Qué ofrece al proyecto</div>
+            <a href="src/pages/editar-perfil.html?id=${m.id}" style="background: var(--accent-teal); color: var(--navy); font-size: 10px; font-weight: 700; text-decoration: none; padding: 4px 10px; border-radius: 6px; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 4px rgba(0,0,0,0.2);">
+              <span>✍️</span> Editar Perfil
+            </a>
+          </div>
+          ${capsHTML}
+          <div class="mo-unique">💡 ${m.unique}</div>
+        </div>
+      </div>
+    `;
+
+    container.appendChild(card);
+  });
+}
+
+function toggleMO(idx) {
+  const card = document.getElementById(`mo-${idx}`);
+  const wasExpanded = card.classList.contains('expanded');
+  document.querySelectorAll('.member-offer-card.expanded').forEach(c => c.classList.remove('expanded'));
+  if (!wasExpanded) {
+    card.classList.add('expanded');
+    setTimeout(() => card.scrollIntoView({ behavior: 'smooth', block: 'nearest' }), 100);
+  }
+}
+
+function buildCoverage() {
+  const grid = document.getElementById('coverageGrid');
+  needs.forEach(n => {
+    const count = n.matches.length;
+    const pct = Math.min(count / 3 * 100, 100);
+    grid.innerHTML += `
+      <div class="coverage-row">
+        <div class="coverage-need-name">${n.name}</div>
+        <div class="coverage-bar">
+          <div class="coverage-fill" style="width:${pct}%; background:${needColors[n.id]}"></div>
+        </div>
+        <div class="coverage-count">${count}</div>
+      </div>`;
+  });
+}
+
+loadData();
+</script>
+
+</body>
+</html>
