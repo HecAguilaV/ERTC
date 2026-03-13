@@ -1,17 +1,38 @@
 {
   "id": "roberto-salas",
-  "name": "Roberto Salas Letelier",
+  "name": "Roberto Salas",
   "role": "Coord. Ética y Gobernanza",
-  "icon": "👤",
+  "icon": "🌐",
   "status_action": true,
   "capabilities": [
     {
-      "text": "Facilitación ecosistémica: articulación de actores con incentivos diferentes",
+      "text": "<strong>Facilitación ecosistémica</strong>: articulación de actores con incentivos diferentes",
       "needsIds": [
-        8
+        8,
+        "3"
+      ]
+    },
+    {
+      "text": "<strong>Diagnóstico en dos capas</strong> (humana + institucional) integrado",
+      "needsIds": [
+        8,
+        2
+      ]
+    },
+    {
+      "text": "<strong>Investigación de modelos globales de PI</strong> en organizaciones colaborativas",
+      "needsIds": [
+        7
+      ]
+    },
+    {
+      "text": "<strong>Priorización por viabilidad</strong>: qué actores se necesitan, en qué secuencia",
+      "needsIds": [
+        8,
+        4
       ]
     }
   ],
   "unique": "Roberto conecta lo técnico con lo institucional. Sin articulación ecosistémica, un piloto exitoso se queda en piloto.",
-  "needsCount": 1
+  "needsCount": 2
 }
