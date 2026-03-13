@@ -48,7 +48,7 @@ export default async function handler(req, res) {
     };
 
     // 1. Get current file
-    const fileRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${filePath}?ref=Marketplace_Editable`, { headers });
+    const fileRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${filePath}?ref=Sistema_Operativo_ERTC`, { headers });
     let currentContent = {};
     let sha = null;
 
@@ -63,14 +63,14 @@ export default async function handler(req, res) {
     const updatedContent = updateLogic(currentContent);
     const updatedBase64 = Buffer.from(JSON.stringify(updatedContent, null, 2)).toString('base64');
 
-    // 3. Commit to Marketplace_Editable
+    // 3. Commit to Sistema_Operativo_ERTC
     const commitRes = await fetch(`https://api.github.com/repos/${REPO}/contents/${filePath}`, {
       method: 'PUT',
       headers,
       body: JSON.stringify({
         message: commitMessage,
         content: updatedBase64,
-        branch: 'Marketplace_Editable',
+        branch: 'Sistema_Operativo_ERTC',
         sha: sha
       })
     });
@@ -83,7 +83,7 @@ export default async function handler(req, res) {
     const commitData = await commitRes.json();
     return res.status(200).json({ 
       success: true, 
-      message: 'Data updated successfully in Marketplace_Editable.',
+      message: 'Data updated successfully in Sistema_Operativo_ERTC.',
       commit: commitData.commit.html_url 
     });
 

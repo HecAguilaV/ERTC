@@ -28,7 +28,7 @@ export default async function handler(req, res) {
   const isDirectAdmin = authHeader === `Bearer ${adminSecret}` && !!adminSecret;
   const bypassPR = isDirectAdmin || autoMerge; // If autoMerge is requested from Matriz Quick Attach
 
-  const branchName = bypassPR ? 'Marketplace_Editable' : `update/profile-${id}-${Date.now()}`;
+  const branchName = bypassPR ? 'Sistema_Operativo_ERTC' : `update/profile-${id}-${Date.now()}`;
   const filePath = `src/data/profiles/${id}.json`;
   
   // Clean Data Object
@@ -50,7 +50,7 @@ export default async function handler(req, res) {
 
     // 2. Get target branch sha if we need to branch out
     if (!bypassPR) {
-      const refRes = await fetch(`https://api.github.com/repos/${REPO}/git/ref/heads/Marketplace_Editable`, { headers });
+      const refRes = await fetch(`https://api.github.com/repos/${REPO}/git/ref/heads/Sistema_Operativo_ERTC`, { headers });
       const refData = await refRes.json();
       const baseSha = refData.object.sha;
 
@@ -94,7 +94,7 @@ export default async function handler(req, res) {
     // 5. If bypassing PR (Admin or Quick-Attach Auto Merge), we are done.
     if (bypassPR) {
       return res.status(200).json({ 
-        message: 'Profile injected directly to core (Marketplace_Editable).',
+        message: 'Profile injected directly to core (Sistema_Operativo_ERTC).',
         commit_url: commitData.commit.html_url
       });
     }
@@ -106,7 +106,7 @@ export default async function handler(req, res) {
       body: JSON.stringify({
         title: `Actualizaci\u00f3n de Perfil: ${name}`,
         head: branchName,
-        base: 'Marketplace_Editable',
+        base: 'Sistema_Operativo_ERTC',
         body: `Propuesta de actualizaci\u00f3n de expertise.\n\nAutor declaro: ${name}`
       })
     });
